@@ -146,15 +146,7 @@
 -(PlayerVC*)getPlayerVC
 {
     AppDelegate *gate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    
-    PlayerVC *vc = gate.playerVC;
-    if(!vc)
-    {
-        vc = [self.storyboard instantiateViewControllerWithIdentifier:@"player"];
-        gate.playerVC = vc;
-    }
-    return vc;
-	
+    return gate.playerVC;
 }
 
 #pragma mark actions
