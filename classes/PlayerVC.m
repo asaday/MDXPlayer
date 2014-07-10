@@ -74,6 +74,7 @@
     table.dataSource = self;
     table.backgroundColor = [UIColor blackColor];
     table.separatorColor = [UIColor darkGrayColor];
+	table.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     [self.view addSubview:table];
     [self.view sendSubviewToBack:table];
     
@@ -302,7 +303,10 @@
 		cell.detailTextLabel.textColor = [UIColor colorWithRed:159/255.0 green:160/255.0 blue:238/255.0 alpha:.8];
         
 		cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
-        
+		cell.separatorInset = UIEdgeInsetsZero;
+		
+		cell.selectedBackgroundView = [[UIView alloc] init];
+		cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.20 green:0.25 blue:0.65 alpha:1];
     }
     
     NSString *path = [player.files objectAtIndex:indexPath.row];
