@@ -64,10 +64,10 @@ static void MAudioQueueOutputCallback(void *inUserData, AudioQueueRef inAQ, Audi
 
 -(void)initAudio
 {
-    AudioSessionInitialize(NULL, NULL, NULL, NULL);
-	UInt32 sc = kAudioSessionCategory_MediaPlayback;
-	AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sc), &sc);
-	AudioSessionSetActive(true);
+//    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+//	UInt32 sc = kAudioSessionCategory_MediaPlayback;
+//	AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sc), &sc);
+//	AudioSessionSetActive(true);
     
 	AVAudioSession *session = [AVAudioSession sharedInstance];
 	[session setActive:YES error:nil];

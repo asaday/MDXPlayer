@@ -11,9 +11,9 @@
 
 #include "keys.h"
 /*
-keys.h 
-	#define DROPBOX_KEY	@"..."
-	#define DROPBOX_SECRET @"..."
+keys.h
+ #define DROPBOX_KEY	@"..."
+ #define DROPBOX_SECRET @"..."
  
  */
 
@@ -43,7 +43,6 @@ NSString *cfmNotifyReload = @"CFM_RELOADREQ";
 
 @implementation CFileMnager
 {
-    NSMutableDictionary *reloadobs;
     dispatch_queue_t cfque;
 }
 
@@ -66,8 +65,6 @@ NSString *cfmNotifyReload = @"CFM_RELOADREQ";
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     _documentsPath = [paths objectAtIndex:0];
 
-    reloadobs = [NSMutableArray array];
-    
     DBAccountManager *dbmanager = [[DBAccountManager alloc] initWithAppKey:DROPBOX_KEY secret:DROPBOX_SECRET];
     [DBAccountManager setSharedManager:dbmanager];
 

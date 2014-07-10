@@ -42,10 +42,10 @@
 	
 	UIBarButtonItem *bb = [[UIBarButtonItem alloc] init];
 	bb.tintColor = [UIColor colorWithWhite:0.9 alpha:1];// colorWithWhite:0.8 alpha:1];
-	[bb setTitleTextAttributes:@{UITextAttributeTextColor:[UIColor darkGrayColor],UITextAttributeTextShadowColor:[UIColor clearColor]} forState:UIControlStateNormal];
+//	[bb setTitleTextAttributes:@{UITextAttributeTextColor:[UIColor darkGrayColor]} forState:UIControlStateNormal];
 	self.navigationItem.backBarButtonItem = bb;
 	
-	[self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[UIFont boldSystemFontOfSize:17]} forState:UIControlStateNormal];
+//	[self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[UIFont boldSystemFontOfSize:17]} forState:UIControlStateNormal];
 
     rbb = self.navigationItem.rightBarButtonItem;
 	
@@ -81,8 +81,8 @@
     else
         sbb = [[UIBarButtonItem alloc] initWithTitle:@"login" style:UIBarButtonItemStyleBordered target:self action:@selector(dropbox_login)];
 
-    sbb.tintColor = [UIColor colorWithWhite:0.9 alpha:1];
-    [sbb setTitleTextAttributes:@{UITextAttributeTextColor:[UIColor darkGrayColor],UITextAttributeTextShadowColor:[UIColor clearColor]} forState:UIControlStateNormal];
+//    sbb.tintColor = [UIColor colorWithWhite:0.9 alpha:1];
+//    [sbb setTitleTextAttributes:@{UITextAttributeTextColor:[UIColor darkGrayColor],UITextAttributeTextShadowColor:[UIColor clearColor]} forState:UIControlStateNormal];
 
     self.navigationItem.rightBarButtonItems = @[rbb,sbb];
 }
@@ -211,10 +211,11 @@
 		cell.textLabel.backgroundColor = [UIColor clearColor];
 		cell.detailTextLabel.backgroundColor = [UIColor clearColor];
 		cell.textLabel.textColor = [UIColor colorWithWhite:0.25 alpha:1];
-		cell.textLabel.shadowColor = [UIColor colorWithWhite:1 alpha:1];
-		cell.textLabel.shadowOffset = CGSizeMake(.5, .5);
+//		cell.textLabel.shadowColor = [UIColor colorWithWhite:1 alpha:1];
+//		cell.textLabel.shadowOffset = CGSizeMake(.5, .5);
 		
 		cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+		cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.4 alpha:1];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
     }
 

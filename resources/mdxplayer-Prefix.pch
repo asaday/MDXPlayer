@@ -17,3 +17,5 @@
 #define FileManager [NSFileManager defaultManager]
 #define NCenter [NSNotificationCenter defaultCenter]
 #define UserDefaults [NSUserDefaults standardUserDefaults]
+
+#pragma clang diagnostic ignored "-Wunsequenced"

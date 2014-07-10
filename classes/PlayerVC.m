@@ -77,7 +77,7 @@
     [self.view addSubview:table];
     [self.view sendSubviewToBack:table];
     
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[UIFont boldSystemFontOfSize:17]} forState:UIControlStateNormal];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17]} forState:UIControlStateNormal];
 
 	
 	// mmdspみたく色々表示したいが、、MXDRVのGあたりを拾えばきっと、

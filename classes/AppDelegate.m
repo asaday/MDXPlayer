@@ -35,11 +35,11 @@ NSString *kNotifyNetOff = @"__NETOFF";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar1"] forBarMetrics:UIBarMetricsDefault];
-	[[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor colorWithWhite:0.3 alpha:1],
-						 UITextAttributeTextShadowColor : [UIColor clearColor]}];
+//	[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar1"] forBarMetrics:UIBarMetricsDefault];
+//	[[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName  : [UIColor colorWithWhite:0.3 alpha:1],
+//						 NSShadowAttributeName : [UIColor clearColor]}];
 
-	[[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+//	[[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
 	
     [NCenter addObserver:self selector:@selector(startNetActive) name:kNotifyNetOn object:nil];
     [NCenter addObserver:self selector:@selector(endNetActive) name:kNotifyNetOff object:nil];

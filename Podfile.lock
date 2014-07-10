@@ -1,0 +1,10 @@
+PODS:
+  - Dropbox-Sync-API-SDK (2.1.2)
+
+DEPENDENCIES:
+  - Dropbox-Sync-API-SDK (~> 2.1.0)
+
+SPEC CHECKSUMS:
+  Dropbox-Sync-API-SDK: af3eb48dc092d4cac9f4962f1e9994bdad610fca
+
+COCOAPODS: 0.33.1
