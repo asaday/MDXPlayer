@@ -47,3 +47,5 @@ please see [https://www.dropbox.com/developers/](https://www.dropbox.com/develop
 
 
 ### attention
+
+This code is for 32bit only.
