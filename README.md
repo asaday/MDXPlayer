@@ -30,7 +30,7 @@ AppStore
 
 1. install [cocoapods](http://cocoapods.org/)
 
-install and cocoapods, and
+install cocoapods, and
 
 	$ pod install
 
