@@ -20,6 +20,30 @@ DropboxSDK部はDropboxのLicenseを参照して下さい。
 
 その他のコードはBSD Licenseとします。
 
-AppStore
-https://itunes.apple.com/us/app/mdx-player/id639136241?l=ja&ls=1&mt=8
+AppStore  
+[https://itunes.apple.com/us/app/mdx-player/id639136241?l=ja&ls=1&mt=8
+](https://itunes.apple.com/us/app/mdx-player/id639136241?l=ja&ls=1&mt=8)
 
+---
+
+### how to make
+
+1. install [cocoapods](http://cocoapods.org/)
+
+install and cocoapods, and
+
+	$ pod install
+
+2. add keys.h
+
+keys.h is for Dropbox client key  
+xcode say keys.h not found.  
+make keys.h
+
+	#define DROPBOX_KEY	@"dropbox client key"
+ 	#define DROPBOX_SECRET @"dropbox client secret key"
+
+please see [https://www.dropbox.com/developers/](https://www.dropbox.com/developers/)
+
+
+### attention

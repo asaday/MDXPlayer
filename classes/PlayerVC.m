@@ -75,6 +75,7 @@
     table.backgroundColor = [UIColor blackColor];
     table.separatorColor = [UIColor darkGrayColor];
 	table.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    table.separatorInset = UIEdgeInsetsZero;
     [self.view addSubview:table];
     [self.view sendSubviewToBack:table];
     
@@ -292,7 +293,7 @@
         cell.textLabel.minimumScaleFactor = 0.6;
         cell.textLabel.numberOfLines = 2;
 		
-		cell.backgroundView = [[UIImageView alloc] init];
+		cell.backgroundView = [[UIView alloc] init];
         cell.backgroundView.backgroundColor	 = [UIColor blackColor];
 		cell.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 		
@@ -307,6 +308,12 @@
 		
 		cell.selectedBackgroundView = [[UIView alloc] init];
 		cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.20 green:0.25 blue:0.65 alpha:1];
+        
+        if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1)
+        {
+            cell.layoutMargins = UIEdgeInsetsZero;
+            cell.preservesSuperviewLayoutMargins = NO;
+        }
     }
     
     NSString *path = [player.files objectAtIndex:indexPath.row];
