@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "CFileManager.h"
 #import <Dropbox/Dropbox.h>
 
 NSString *kNotifyNetOn = @"__NETON";
@@ -33,6 +33,33 @@ NSString *kNotifyNetOff = @"__NETOFF";
     if(!netcnt) [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
+-(PlayerVC*) playerVC {
+    if (!_playerVC)
+        _playerVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"player"];
+    return _playerVC;
+}
+
+-(NSString*) cFileManagerStyledPathForPath:(NSString*)path {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentsPath = [paths objectAtIndex:0];
+    
+    // Deal with /private/var paths
+    if ([path hasPrefix:@"/private/var"] && [documentsPath hasPrefix:@"/var"])
+        documentsPath = [@"/private" stringByAppendingString:documentsPath];
+    
+    return [path stringByReplacingOccurrencesOfString:documentsPath withString:cfmFolderDocuments];
+}
+
+-(BOOL) processFileURL:(NSURL*)url {
+    if (url && [url isFileURL]) {
+        NSString* filePath = [self cFileManagerStyledPathForPath:[url path]];
+        NSString* parentPath = [filePath stringByDeletingLastPathComponent];
+        [self.playerVC playFile:filePath path:parentPath];
+        return YES;
+    }
+    return NO;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //	[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar1"] forBarMetrics:UIBarMetricsDefault];
@@ -50,6 +77,8 @@ NSString *kNotifyNetOff = @"__NETOFF";
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([self processFileURL:url])
+        return YES;
     
 	DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
 	if (account)
