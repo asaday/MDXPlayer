@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2153E32DADF04240B2F695FB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5832AAF6556E4F89BF7622DD /* libPods.a */; };
 		C32DD930170C610900D11883 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32DD92F170C610900D11883 /* UIKit.framework */; };
 		C32DD932170C610900D11883 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32DD931170C610900D11883 /* Foundation.framework */; };
 		C32DD934170C610900D11883 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32DD933170C610900D11883 /* CoreGraphics.framework */; };
@@ -51,8 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3A4394D02C53842EFBDF3EC4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		5832AAF6556E4F89BF7622DD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FEB0F14952EEF286961D09F /* libPods-mdxplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mdxplayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C7453DBC0459ED17CA4BB53 /* Pods-mdxplayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mdxplayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mdxplayer/Pods-mdxplayer.debug.xcconfig"; sourceTree = "<group>"; };
 		C32DD92C170C610900D11883 /* mdxplayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mdxplayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32DD92F170C610900D11883 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C32DD931170C610900D11883 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -119,7 +118,7 @@
 		C3B457E01711457A00741DCA /* tblbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tblbar@2x.png"; sourceTree = "<group>"; };
 		C3C1E1A21720210500D1DD9D /* InfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoVC.h; sourceTree = "<group>"; };
 		C3C1E1A31720210500D1DD9D /* InfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoVC.m; sourceTree = "<group>"; };
-		E44CC8E77064846E4B41D4CD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F0633E8A337BE7F7E048A522 /* Pods-mdxplayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mdxplayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-mdxplayer/Pods-mdxplayer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,18 +137,17 @@
 				C32DD930170C610900D11883 /* UIKit.framework in Frameworks */,
 				C32DD932170C610900D11883 /* Foundation.framework in Frameworks */,
 				C32DD934170C610900D11883 /* CoreGraphics.framework in Frameworks */,
-				2153E32DADF04240B2F695FB /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3E85CA73F76775B760A9A6EE /* Pods */ = {
+		BD935862157769666E1A9107 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E44CC8E77064846E4B41D4CD /* Pods.debug.xcconfig */,
-				3A4394D02C53842EFBDF3EC4 /* Pods.release.xcconfig */,
+				7C7453DBC0459ED17CA4BB53 /* Pods-mdxplayer.debug.xcconfig */,
+				F0633E8A337BE7F7E048A522 /* Pods-mdxplayer.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -165,7 +163,7 @@
 				C37AB36D17113AEC004780D3 /* images */,
 				C32DD92D170C610900D11883 /* Products */,
 				C37AB37517113AEC004780D3 /* resources */,
-				3E85CA73F76775B760A9A6EE /* Pods */,
+				BD935862157769666E1A9107 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -191,7 +189,7 @@
 				C32DD92F170C610900D11883 /* UIKit.framework */,
 				C32DD931170C610900D11883 /* Foundation.framework */,
 				C32DD933170C610900D11883 /* CoreGraphics.framework */,
-				5832AAF6556E4F89BF7622DD /* libPods.a */,
+				5FEB0F14952EEF286961D09F /* libPods-mdxplayer.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -323,11 +321,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C32DD94F170C610900D11883 /* Build configuration list for PBXNativeTarget "mdxplayer" */;
 			buildPhases = (
-				A0269F1665CF42838F9DABD9 /* Check Pods Manifest.lock */,
+				5EE140CE401CCAD7C2A64FBB /* [CP] Check Pods Manifest.lock */,
 				C32DD928170C610900D11883 /* Sources */,
 				C32DD929170C610900D11883 /* Frameworks */,
 				C32DD92A170C610900D11883 /* Resources */,
-				E4616155383F4768B0751C2C /* Copy Pods Resources */,
+				DC39E6297E5849066A8FDAF2 /* [CP] Embed Pods Frameworks */,
+				AA803669E2A757282A81C5E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -395,14 +394,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A0269F1665CF42838F9DABD9 /* Check Pods Manifest.lock */ = {
+		5EE140CE401CCAD7C2A64FBB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,19 +409,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		E4616155383F4768B0751C2C /* Copy Pods Resources */ = {
+		AA803669E2A757282A81C5E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-mdxplayer/Pods-mdxplayer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC39E6297E5849066A8FDAF2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-mdxplayer/Pods-mdxplayer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -495,8 +509,7 @@
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				SDKROOT = iphoneos7.1;
-				VALID_ARCHS = "armv7 armv7s";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -520,15 +533,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0B8868FD-265B-4FC4-9729-15EB11E965AF";
-				SDKROOT = iphoneos7.1;
+				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
 		C32DD950170C610900D11883 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E44CC8E77064846E4B41D4CD /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 7C7453DBC0459ED17CA4BB53 /* Pods-mdxplayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -538,7 +550,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "resources/mdxplayer-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/resources/mdxplayer-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -548,7 +560,7 @@
 		};
 		C32DD951170C610900D11883 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A4394D02C53842EFBDF3EC4 /* Pods.release.xcconfig */;
+			baseConfigurationReference = F0633E8A337BE7F7E048A522 /* Pods-mdxplayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -558,7 +570,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "resources/mdxplayer-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/resources/mdxplayer-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A2D93E4-6796-4E3C-A69B-A269E7F31FA1";

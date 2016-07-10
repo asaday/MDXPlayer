@@ -4,14 +4,17 @@
 #ifndef __MXDRVG_DEPEND_H__
 #define __MXDRVG_DEPEND_H__
 
-typedef unsigned char UBYTE;
-typedef unsigned short UWORD;
-typedef unsigned long ULONG;
-typedef signed char SBYTE;
-typedef signed short SWORD;
-typedef signed long SLONG;
+typedef uint8_t UBYTE;
+typedef uint16_t UWORD;
+typedef uint32_t ULONG;
+typedef int8_t SBYTE;
+typedef int16_t SWORD;
+typedef int32_t SLONG;
 
-typedef long long LONGLONG;
+typedef int64_t LONGLONG;
+typedef unsigned long UPTRLONG;
+// long that matches the size of pointer
+
 #define TEXT(a) (a)
 typedef char TCHAR;
 
@@ -26,14 +29,14 @@ typedef MXDRVG_SAMPLETYPE Sample;
 #define TRUE 1
 
 typedef struct __X68REG {
-    ULONG d0;
-    ULONG d1;
-    ULONG d2;
-    ULONG d3;
-    ULONG d4;
-    ULONG d5;
-    ULONG d6;
-    ULONG d7;
+    UPTRLONG d0;
+    UPTRLONG d1;
+    UPTRLONG d2;
+    UPTRLONG d3;
+    UPTRLONG d4;
+    UPTRLONG d5;
+    UPTRLONG d6;
+    UPTRLONG d7;
     UBYTE *a0;
     UBYTE *a1;
     UBYTE *a2;

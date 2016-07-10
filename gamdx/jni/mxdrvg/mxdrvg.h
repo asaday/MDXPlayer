@@ -79,13 +79,13 @@ typedef struct tagMXDRVG_WORK_GLOBAL {
 	UBYTE volatile *L001e28;
 	UBYTE volatile *L001e2c;
 	UBYTE volatile *L001e30;
-	UBYTE volatile *L001e34;
-	UBYTE volatile *L001e38;
+	UBYTE volatile *MDXBUF;
+	UBYTE volatile *PDXBUF;
 	ULONG L00220c;
 	UBYTE volatile *L002218;
 	UBYTE volatile *L00221c;
-	ULONG L002220; // L_MDXSIZE
-	ULONG L002224; // L_PDXSIZE
+  ULONG MDXSIZE;
+  ULONG PDXSIZE;
 	UBYTE volatile *L002228;	// voice data
 	UBYTE volatile *L00222c;
 	UBYTE L002230;
@@ -96,7 +96,7 @@ typedef struct tagMXDRVG_WORK_GLOBAL {
 	UBYTE L002245;
 	UWORD L002246; // loop count
 	ULONG FATALERROR;
-	ULONG FATALERRORADR;
+	UPTRLONG FATALERRORADR;
 	ULONG PLAYTIME; // 演奏時間((PLAYTIME*1024/4000)msec == (PLAYTIME*256)μsec)
 	UBYTE MUSICTIMER;  // 演奏時間タイマー定数
 	UBYTE STOPMUSICTIMER;  // 演奏時間タイマー停止
