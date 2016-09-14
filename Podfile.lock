@@ -1,12 +1,15 @@
 PODS:
-  - Dropbox-Sync-API-SDK (2.1.2)
+  - Alamofire (3.3.1)
+  - SwiftyDropbox (3.2.0):
+    - Alamofire (~> 3.3.1)
 
 DEPENDENCIES:
-  - Dropbox-Sync-API-SDK (~> 2.1.0)
+  - SwiftyDropbox
 
 SPEC CHECKSUMS:
-  Dropbox-Sync-API-SDK: a8bd06b9399c45052e37a4a8fc0f678569f64142
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  SwiftyDropbox: fba9da0b1b72ae51edfeb1ee2a13aaef852ea6d7
 
-PODFILE CHECKSUM: d944a9953d3ccbe2774a1ca588b73d792c2f0bac
+PODFILE CHECKSUM: 26f8213e29ff809a92c5b9e41b31c2551fa3684d
 
 COCOAPODS: 1.0.1

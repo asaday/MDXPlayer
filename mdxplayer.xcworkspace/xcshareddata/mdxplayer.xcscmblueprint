@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4311FE30D0A13613ECF99BC19A4CC151195B1201",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3E9053246E38A2B2D3469C35CE2AC45FA8413528" : 0,
+    "4311FE30D0A13613ECF99BC19A4CC151195B1201" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C831A591-097C-48FD-996B-85DAF5B3C9FA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3E9053246E38A2B2D3469C35CE2AC45FA8413528" : "auxios\/",
+    "4311FE30D0A13613ECF99BC19A4CC151195B1201" : "MDXPlayer\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "mdxplayer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "mdxplayer.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/nagisaworks\/auxios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3E9053246E38A2B2D3469C35CE2AC45FA8413528"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/asaday\/MDXPlayer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4311FE30D0A13613ECF99BC19A4CC151195B1201"
+    }
+  ]
+}

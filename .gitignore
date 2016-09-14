@@ -17,3 +17,4 @@ DerivedData
 *.xcuserstate
 keys.h
 Pods/
+/screenshots

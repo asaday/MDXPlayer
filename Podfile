@@ -1,6 +1,8 @@
 platform :ios, '8.0'
+use_frameworks!
+
 target "mdxplayer" do
-    pod 'Dropbox-Sync-API-SDK', '~> 2.1.0'
+    pod 'SwiftyDropbox'
 end
 
 
