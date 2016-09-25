@@ -327,13 +327,13 @@ static pthread_mutex_t mxdrv_mutex;
     int sptime = 1;
     if(_speedup) sptime = 10;
     
-    if(pthread_mutex_trylock(&mxdrv_mutex)==0){
+    if(!playend && pthread_mutex_trylock(&mxdrv_mutex)==0){
         for(int spcnt = 0; spcnt < sptime; spcnt++)	// ホントはこのループはいらないの、スピードアップ用
         {
             SWORD *ptr = (SWORD*)inBuffer->mAudioData;
             for(int i = 0 ; i < cnt ; i++)
             {
-                if(!playend && !MXDRVG_GetTerminated()){
+                if(!MXDRVG_GetTerminated()){
                     MXDRVG_GetPCM(intermediateBuffer , INBLKSIZE); //GetPCMがオーバーランすることがあるので中間バッファを使う
                     memcpy(ptr, intermediateBuffer, INBLKSIZE*2*2);//オーバーランした分はどうなるんでしょう？その分のデータは今は捨てていることになる?
                 }else{
@@ -537,17 +537,22 @@ static pthread_mutex_t mxdrv_mutex;
     
 }
 
+-(void)cleanUpAudioQueue
+{
+    AudioQueueReset(audioQueue);
+    first = YES;
+}
 
 -(BOOL)playOneFile:(NSString*)file
 {
     if(first) AudioQueueStop(audioQueue, YES);
     
     while(pthread_mutex_trylock(&mxdrv_mutex)!=0){
-        NSLog(@"mutex lock failed in playOneFile");
+//        NSLog(@"mutex lock failed in playOneFile");
         [NSThread sleepForTimeInterval:0.001];
     }
     _paused = NO;
-    playend = NO;
+    playend = YES;
     playduration = 0;
     oldsec = -1;
     
@@ -617,12 +622,14 @@ static pthread_mutex_t mxdrv_mutex;
 -(BOOL)playFile:(NSString*)file
 {
     files = nil;
+    [self cleanUpAudioQueue];
     return  [self playOneFile:file];
 }
 
 -(BOOL)playFiles:(NSArray *)ifiles index:(NSInteger)index
 {
     if(ifiles.count == 0) { return false; }
+    [self cleanUpAudioQueue];
     BOOL r = [self playOneFile:[ifiles objectAtIndex:index]];
     if(!r) return r;
     
@@ -635,6 +642,7 @@ static pthread_mutex_t mxdrv_mutex;
 {
     if (files.count == 0) return;
     fileIndex = (fileIndex + 1) % files.count;
+    [self cleanUpAudioQueue];
     [self playOneFile:files[fileIndex]];
 }
 
@@ -642,6 +650,7 @@ static pthread_mutex_t mxdrv_mutex;
 {
     if (files.count == 0) return;
     fileIndex = (fileIndex + files.count - 1) % files.count;
+    [self cleanUpAudioQueue];
     [self playOneFile:files[fileIndex]];
 }
 
