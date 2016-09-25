@@ -3,16 +3,16 @@ import UIKit
 
 public extension NSObject {
 	func removeNotifications() {
-		NSObject.cancelPreviousPerformRequestsWithTarget(self)
-		NSNotificationCenter.defaultCenter().removeObserver(self)
+		NSObject.cancelPreviousPerformRequests(withTarget: self)
+		NotificationCenter.default.removeObserver(self)
 	}
 
-	func addNotification(aSelector: Selector, name aName: String) {
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: aSelector, name: aName, object: nil)
+	func addNotification(_ aSelector: Selector, name aName: String) {
+		NotificationCenter.default.addObserver(self, selector: aSelector, name: NSNotification.Name(rawValue: aName), object: nil)
 	}
 
-	func postNotification(name: String, object anObject: AnyObject?) {
-		NSNotificationCenter.defaultCenter().postNotificationName(name, object: anObject)
+	func postNotification(_ name: String, object anObject: AnyObject?) {
+		NotificationCenter.default.post(name: Notification.Name(rawValue: name), object: anObject)
 	}
 
 }
@@ -21,30 +21,30 @@ public extension String {
 	func to_ns() -> NSString { return (self as NSString) }
 	var lastPathComponent: String { return to_ns().lastPathComponent }
 
-	func appendPath(path: String) -> String {
-		let result = to_ns().stringByAppendingPathComponent(path)
+	func appendPath(_ path: String) -> String {
+		let result = to_ns().appendingPathComponent(path)
 
 		if !self.hasString("://") { return result }
-		guard let c = NSURLComponents(string: self) else { return result }
+		guard var c = URLComponents(string: self) else { return result }
 
 		if c.path == nil { c.path = "/" }
-		c.path = c.path?.to_ns().stringByAppendingPathComponent(path)
+		c.path = c.path.to_ns().appendingPathComponent(path)
 		return c.string ?? result
 	}
 
-	func hasString(str: String) -> Bool {
-		if let _ = rangeOfString(str) { return true }
+	func hasString(_ str: String) -> Bool {
+		if let _ = range(of: str) { return true }
 		return false
 	}
 
-	func trim(chars: String? = nil) -> String {
-		var cs = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-		if let c = chars { cs = NSCharacterSet(charactersInString: c) }
-		return to_ns().stringByTrimmingCharactersInSet(cs)
+	func trim(_ chars: String? = nil) -> String {
+		var cs = CharacterSet.whitespacesAndNewlines
+		if let c = chars { cs = CharacterSet(charactersIn: c) }
+		return to_ns().trimmingCharacters(in: cs)
 	}
 
-	func replace(search: String, _ replace: String) -> String {
-		return to_ns().stringByReplacingOccurrencesOfString(search, withString: replace)
+	func replace(_ search: String, _ replace: String) -> String {
+		return to_ns().replacingOccurrences(of: search, with: replace)
 	}
 
 }

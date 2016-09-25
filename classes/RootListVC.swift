@@ -13,7 +13,7 @@ class RootListVC: ListVC {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "MDX"
-		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "info"), style: .Plain, target: self, action: #selector(tapInfo))
+		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "info"), style: .plain, target: self, action: #selector(tapInfo))
 	}
 
 	func tapInfo() {
@@ -30,13 +30,13 @@ class RootListVC: ListVC {
 		]
 	}
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 66
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
-		let item = list[indexPath.row]
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		let item = list[(indexPath as NSIndexPath).row]
 
 		if item.file == "_random_" {
 			doRandomPlay([ListVC.path2local("_documents_"), ListVC.path2local("_dropbox_")])
@@ -53,25 +53,25 @@ class RootListVC: ListVC {
 		navigationController?.pushViewController(vc, animated: true)
 	}
 
-	func listupmdx(path: String) -> [String] {
+	func listupmdx(_ path: String) -> [String] {
 		var lists: [String] = []
 		let ar = Path.files(path)
 		for p in ar {
 			let s = path.appendPath(p)
-			if Path.isDir(s) { lists.appendContentsOf(listupmdx(s)) }
-			if !p.lowercaseString.hasSuffix(".mdx") { continue }
+			if Path.isDir(s) { lists.append(contentsOf: listupmdx(s)) }
+			if !p.lowercased().hasSuffix(".mdx") { continue }
 			lists.append(s)
 		}
 		return lists
 	}
 
-	func doRandomPlay(paths: [String]) {
+	func doRandomPlay(_ paths: [String]) {
 		var lists: [String] = []
 		for path in paths {
-			lists.appendContentsOf(listupmdx(path))
+			lists.append(contentsOf: listupmdx(path))
 		}
 
-		lists.sortInPlace { _, _ in arc4random() % 2 == 0 }
+		lists.sort { _, _ in arc4random() % 2 == 0 }
 		while lists.count > 512 { lists.removeLast() }
 
 		Player.sharedInstance().playFiles(lists, index: 0)

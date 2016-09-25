@@ -9,87 +9,87 @@ import Foundation
 
 #endif
 
-func LOG(object: Any = "", method: String = #function) {
+func LOG(_ object: Any = "", method: String = #function) {
 	print("\(method) | \(object)")
 }
 
 
 public struct Dispatch {
 
-	public static func main(block: dispatch_block_t) {
-		return dispatch_async(dispatch_get_main_queue(), block)
+	public static func main(_ block: @escaping ()->()) {
+		return DispatchQueue.main.async(execute: block)
 	}
 
-	public static func background(block: dispatch_block_t) {
-		return dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), block)
+	public static func background(_ block: @escaping ()->()) {
+		return DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: block)
 	}
 
 }
 
 public struct Path {
-	public static var documents: String { return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] }
-	public static var caches: String { return NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] }
-	public static var library: String { return NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true)[0] }
-	public static var support: String { return NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)[0] }
+	public static var documents: String { return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] }
+	public static var caches: String { return NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] }
+	public static var library: String { return NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] }
+	public static var support: String { return NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)[0] }
 	public static var temp: String { return NSTemporaryDirectory() }
-	public static var resource: String { return NSBundle.mainBundle().resourcePath ?? "" }
+	public static var resource: String { return Bundle.main.resourcePath ?? "" }
 
-	public static func documtnts(path: String) -> String { return Path.documents.appendPath(path) }
-	public static func caches(path: String) -> String { return Path.caches.appendPath(path) }
-	public static func library(path: String) -> String { return Path.library.appendPath(path) }
-	public static func support(path: String) -> String { return Path.support.appendPath(path) }
-	public static func resource(path: String) -> String { return Path.resource.appendPath(path) }
+	public static func documtnts(_ path: String) -> String { return Path.documents.appendPath(path) }
+	public static func caches(_ path: String) -> String { return Path.caches.appendPath(path) }
+	public static func library(_ path: String) -> String { return Path.library.appendPath(path) }
+	public static func support(_ path: String) -> String { return Path.support.appendPath(path) }
+	public static func resource(_ path: String) -> String { return Path.resource.appendPath(path) }
 
-	public static func remove(path: String) -> Bool {
+	public static func remove(_ path: String) -> Bool {
 		do {
-			try NSFileManager.defaultManager().removeItemAtPath(path)
+			try FileManager.default.removeItem(atPath: path)
 		} catch { return false }
 		return true
 	}
 
-	public static func move(src: String, dst: String) -> Bool {
+	public static func move(_ src: String, dst: String) -> Bool {
 		do {
-			try NSFileManager.defaultManager().moveItemAtPath(src, toPath: dst)
+			try FileManager.default.moveItem(atPath: src, toPath: dst)
 		} catch { return false }
 		return true
 	}
 
-	public static func copy(src: String, dst: String) -> Bool {
+	public static func copy(_ src: String, dst: String) -> Bool {
 		do {
-			try NSFileManager.defaultManager().copyItemAtPath(src, toPath: dst)
+			try FileManager.default.copyItem(atPath: src, toPath: dst)
 		} catch { return false }
 		return true
 	}
 
-	public static func mkdir(path: String) -> Bool {
+	public static func mkdir(_ path: String) -> Bool {
 		do {
-			try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+			try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
 		} catch { return false }
 		return true
 	}
 
-	public static func files(path: String) -> [String] {
-		return (try? NSFileManager.defaultManager().contentsOfDirectoryAtPath(path)) ?? []
+	public static func files(_ path: String) -> [String] {
+		return (try? FileManager.default.contentsOfDirectory(atPath: path)) ?? []
 	}
 
-	public static func exists(path: String) -> Bool {
-		return NSFileManager.defaultManager().fileExistsAtPath(path)
+	public static func exists(_ path: String) -> Bool {
+		return FileManager.default.fileExists(atPath: path)
 	}
 
-	public static func isFile(path: String) -> Bool {
+	public static func isFile(_ path: String) -> Bool {
 		var isdir: ObjCBool = false
-		let exist = NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isdir)
-		return exist && !isdir
+		let exist = FileManager.default.fileExists(atPath: path, isDirectory: &isdir)
+		return exist && !isdir.boolValue
 	}
 
-	public static func isDir(path: String) -> Bool {
+	public static func isDir(_ path: String) -> Bool {
 		var isdir: ObjCBool = false
-		let exist = NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isdir)
-		return exist && isdir
+		let exist = FileManager.default.fileExists(atPath: path, isDirectory: &isdir)
+		return exist && isdir.boolValue
 	}
 
-	public static func attributes(path: String) -> [String: AnyObject] {
-		return (try? NSFileManager.defaultManager().attributesOfItemAtPath(path)) ?? [:]
+	public static func attributes(_ path: String) -> [FileAttributeKey: Any] {
+		return (try? FileManager.default.attributesOfItem(atPath: path) ) ?? [:]
 	}
 }
 
