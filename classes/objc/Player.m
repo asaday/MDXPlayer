@@ -305,7 +305,7 @@ static pthread_mutex_t mxdrv_mutex;
         case UIEventSubtypeRemoteControlPause:
         case UIEventSubtypeRemoteControlStop:
         case UIEventSubtypeRemoteControlTogglePlayPause:
-            [self pause:!_paused];break;
+            [self togglePause]; break;
             
         case UIEventSubtypeRemoteControlNextTrack:
             [self goNext]; break;
@@ -604,6 +604,7 @@ static pthread_mutex_t mxdrv_mutex;
     AudioQueueStart(audioQueue, NULL);
     playend = NO; // sinn246:再生直前にplayendをNOにしないと、この前に再生が入ってエラーになる
     [_delegate didStart];
+    [_delegate didChangePauseTo:NO];
     return YES;
 }
 
@@ -665,13 +666,28 @@ static pthread_mutex_t mxdrv_mutex;
 
 
 #pragma mark action interface
-
--(void)pause:(BOOL)p
+-(void) pause:(BOOL) p
 {
-    if(p) AudioQueuePause(audioQueue);
-    else AudioQueueStart(audioQueue, NULL);
-    
-    _paused = p;
+    if(p){
+        AudioQueuePause(audioQueue);
+        _paused = YES;
+    }else{
+        AudioQueueStart(audioQueue, NULL);
+        _paused = NO;
+    }
+    [_delegate didChangePauseTo:_paused];
+}
+
+-(void)togglePause
+{
+    if(!_paused){
+        AudioQueuePause(audioQueue);
+        _paused = YES;
+    }else{
+        AudioQueueStart(audioQueue, NULL);
+        _paused = NO;
+    }
+    [_delegate didChangePauseTo:_paused];
 }
 
 

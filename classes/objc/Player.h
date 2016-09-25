@@ -13,6 +13,7 @@
 -(void)didEnd;
 -(void)didChangeSecond;
 -(void)didChangeStatus;
+-(void)didChangePauseTo:(BOOL) pause;
 @end
 
 @interface Player : NSObject
@@ -36,7 +37,7 @@
 -(void)goNext;
 -(void)goPrev;
 
--(void)pause:(BOOL)p;
+-(void)togglePause;
 
 +(nullable NSString*)titleForMDXFile:(nonnull NSString*)file;
 +(void)prepareMask:(nonnull CALayer*)maskLayer;
