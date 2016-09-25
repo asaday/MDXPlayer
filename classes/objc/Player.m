@@ -469,7 +469,8 @@ SWORD intermediateBuffer[INBLKSIZE*2*2];//バッファオーバーラン対策�
             if(![f.lowercaseString hasSuffix:@".pdx"]) f = [f stringByAppendingString:@".pdx"];
             pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f]];
             if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.lowercaseString]];
-            if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.uppercaseString]];
+			if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.uppercaseString]];
+			if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:[f stringByReplacingOccurrencesOfString:@".pdx" withString:@".PDX"]]];
         }
     }
 	

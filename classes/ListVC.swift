@@ -14,15 +14,15 @@ class ListCell: UITableViewCell {
 		fatalError() }
 
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-		super.init(style: .Subtitle, reuseIdentifier: reuseIdentifier)
+		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 		backgroundColor = UIColor(white: 23 / 255, alpha: 1)
 
 		textLabel?.font = UIFont(name: "KH-Dot-Kodenmachou-16-Ki", size: 16) // UIFont.systemFontOfSize(16)
-		textLabel?.font = UIFont.systemFontOfSize(16)
-		textLabel?.textColor = UIColor.whiteColor()
+		textLabel?.font = .systemFont(ofSize: 16)
+		textLabel?.textColor = .white
 		textLabel?.numberOfLines = 2
 		detailTextLabel?.textColor = UIColor(red: 174 / 255.0, green: 189 / 255.0, blue: 203 / 255.0, alpha: 1)
-		detailTextLabel?.font = UIFont.systemFontOfSize(12)
+		detailTextLabel?.font = .systemFont(ofSize: 12)
 
 		let sv = UIView()
 		sv.backgroundColor = UIColor(white: 1, alpha: 0.2)
@@ -37,9 +37,9 @@ struct Item {
 
 	var json: NSObject {
 		var r: [String: AnyObject] = [:]
-		r["file"] = file
-		r["isDir"] = isDir
-		r["title"] = title
+		r["file"] = file as AnyObject
+		r["isDir"] = isDir as AnyObject
+		r["title"] = title as AnyObject
 		return r as NSObject
 	}
 
@@ -73,7 +73,7 @@ class ListVC: UITableViewController {
 
 	var localPath = ""
 
-	static func path2local(p: String) -> String {
+	static func path2local(_ p: String) -> String {
 
 		let reps: [String: String] = [
 			"_documents_": Path.documents,
@@ -95,7 +95,7 @@ class ListVC: UITableViewController {
 		tableView.rowHeight = 66
 		tableView.separatorColor = UIColor(white: 61 / 255, alpha: 1)
 		tableView.backgroundColor = UIColor(white: 13 / 255, alpha: 1)
-		tableView.registerClass(ListCell.self, forCellReuseIdentifier: "cell")
+		tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
 		tableView.contentInset.bottom = 66
 		reload()
 	}
@@ -106,7 +106,7 @@ class ListVC: UITableViewController {
 		for s in ar {
 			if s.hasPrefix(".") { continue }
 			let isdir = Path.isDir(localPath.appendPath(s))
-			if !isdir && !s.lowercaseString.hasSuffix(".mdx") { continue }
+			if !isdir && !s.lowercased().hasSuffix(".mdx") { continue }
 			list.append(Item(file: s, isDir: isdir))
 		}
 		sortedReload()
@@ -118,28 +118,28 @@ class ListVC: UITableViewController {
 	}
 
 	func sortedReload() {
-		list.sortInPlace { (a, b) -> Bool in
+		list.sort { (a, b) -> Bool in
 			if a.isDir != b.isDir { return a.isDir }
 			return a.file < b.file
 		}
 		tableView.reloadData()
 	}
 
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return list.count
 	}
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		let item = list[indexPath.row]
 		return item.isDir ? 44 : 66
 	}
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
 		if indexPath.row >= list.count { return cell }
 
@@ -148,12 +148,12 @@ class ListVC: UITableViewController {
 		if item.isDir {
 			cell.textLabel?.text = item.title
 			cell.detailTextLabel?.text = ""
-			cell.accessoryType = .DisclosureIndicator
+			cell.accessoryType = .disclosureIndicator
 			return cell
 		}
 
 		cell.textLabel?.text = item.file
-		cell.accessoryType = .None
+		cell.accessoryType = .none
 
 		cell.detailTextLabel?.text = item.file
 
@@ -163,10 +163,10 @@ class ListVC: UITableViewController {
 		}
 
 		Dispatch.background {
-			let n = Player.titleForMDXFile(self.localPath.appendPath(item.file))
+			let n = Player.title(forMDXFile: self.localPath.appendPath(item.file))
 			self.list[indexPath.row].title = n
 			Dispatch.main {
-				guard let mc = tableView.cellForRowAtIndexPath(indexPath) else { return }
+				guard let mc = tableView.cellForRow(at: indexPath) else { return }
 				mc.textLabel?.text = n
 			}
 
@@ -175,8 +175,8 @@ class ListVC: UITableViewController {
 		return cell
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 
 		let item = list[indexPath.row]
 
@@ -191,7 +191,7 @@ class ListVC: UITableViewController {
 		doPlay(indexPath.row)
 	}
 
-	func doPlay(row: Int) {
+	func doPlay(_ row: Int) {
 		let item = list[row]
 		var playlist: [String] = []
 		var selected: Int = 0

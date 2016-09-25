@@ -12,12 +12,12 @@ class HistoryListVC: ListVC {
 
 	static let listpath = Path.support("history.json")
 
-	static func addHistory(path: String, title: String) {
+	static func addHistory(_ path: String, title: String) {
 		var histories: [[String: String]] = []
 		if path == "_resources_" { return }
 
-		if let dat = NSData(contentsOfFile: HistoryListVC.listpath),
-			let json = try? NSJSONSerialization.JSONObjectWithData(dat, options: []),
+		if let dat = try? Data(contentsOf: URL(fileURLWithPath: HistoryListVC.listpath)),
+			let json = try? JSONSerialization.jsonObject(with: dat, options: []),
 			let ar = json as? [[String: String]] {
 				histories = ar
 		}
@@ -25,21 +25,21 @@ class HistoryListVC: ListVC {
 		histories = histories.filter {
 			$0["path"] != path }
 
-		histories.insert(["path": path, "title": title], atIndex: 0)
+		histories.insert(["path": path, "title": title], at: 0)
 		if histories.count > 64 { histories.removeLast() }
 
-		if let dat = try? NSJSONSerialization.dataWithJSONObject(histories, options: []) {
+		if let dat = try? JSONSerialization.data(withJSONObject: histories, options: []) {
 			Path.mkdir(Path.support)
-			dat.writeToFile(HistoryListVC.listpath, atomically: true)
+			try? dat.write(to: URL(fileURLWithPath: HistoryListVC.listpath), options: [.atomic])
 		}
 	}
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 66
 	}
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
 		if indexPath.row >= list.count { return cell }
 
@@ -47,7 +47,7 @@ class HistoryListVC: ListVC {
 
 		cell.textLabel?.text = item.title
 		cell.detailTextLabel?.text = item.file
-		cell.accessoryType = .DisclosureIndicator
+		cell.accessoryType = .disclosureIndicator
 
 		return cell
 	}
@@ -55,8 +55,8 @@ class HistoryListVC: ListVC {
 	override func reload() {
 		list = []
 
-		guard let dat = NSData(contentsOfFile: HistoryListVC.listpath),
-			let json = try? NSJSONSerialization.JSONObjectWithData(dat, options: []),
+		guard let dat = try? Data(contentsOf: URL(fileURLWithPath: HistoryListVC.listpath)),
+			let json = try? JSONSerialization.jsonObject(with: dat, options: []),
 			let ar = json as? [[String: String]] else { return }
 
 		for a in ar {
@@ -64,8 +64,8 @@ class HistoryListVC: ListVC {
 		}
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 		let item = list[indexPath.row]
 		let vc: ListVC = item.file.hasPrefix("_dropbox_") ? DropboxListVC() : ListVC()
 		vc.path = item.file

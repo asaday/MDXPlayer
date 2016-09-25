@@ -48,10 +48,10 @@ class PlayView: UIView, PlayerDelegate {
 		tintColor = UIColor.mdxColor
 
 		let iv = UIImageView(image: UIImage(named: "wallpaper"))
-		iv.contentMode = .ScaleAspectFill
+		iv.contentMode = .scaleAspectFill
 		iv.clipsToBounds = true
 		iv.frame = bounds
-		iv.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+		iv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		addSubview(iv)
 
 		Player.sharedInstance().delegate = self
@@ -77,50 +77,50 @@ class PlayView: UIView, PlayerDelegate {
 
 		smpBtn.addSubview(smpLabel)
 		smpLabel.frame = smpBtn.bounds
-		smpLabel.textAlignment = .Center
-		smpLabel.font = UIFont.systemFontOfSize(9)
+		smpLabel.textAlignment = .center
+		smpLabel.font = .systemFont(ofSize: 9)
 		smpLabel.text = "44.1k"
-		smpLabel.textColor = UIColor.blackColor()
+		smpLabel.textColor = UIColor.black
 
 		loopBtn.addSubview(loopLabel)
 		loopLabel.frame = loopBtn.bounds
-		loopLabel.textAlignment = .Center
-		loopLabel.font = UIFont.systemFontOfSize(10)
+		loopLabel.textAlignment = .center
+		loopLabel.font = .systemFont(ofSize: 10)
 		loopLabel.text = "1"
 		loopLabel.textColor = UIColor.mdxColor
 
-		titleLabel.textAlignment = .Center
+		titleLabel.textAlignment = .center
 		titleLabel.font = UIFont(name: "KH-Dot-Kodenmachou-16-Ki", size: 16)
-		titleLabel.textColor = UIColor.whiteColor()
+		titleLabel.textColor = .white
 		titleLabel.numberOfLines = 3
 
-		descLabel.textAlignment = .Center
-		descLabel.font = UIFont.systemFontOfSize(12)
-		descLabel.textColor = UIColor.lightGrayColor()
+		descLabel.textAlignment = .center
+		descLabel.font = .systemFont(ofSize: 12)
+		descLabel.textColor = .lightGray
 
-		progressLabel.textColor = UIColor.lightGrayColor()
-		progressLabel.font = UIFont.systemFontOfSize(12)
-		progressLabel.textAlignment = .Left
+		progressLabel.textColor = .lightGray
+		progressLabel.font = .systemFont(ofSize: 12)
+		progressLabel.textAlignment = .left
 
-		durationLabel.textColor = UIColor.lightGrayColor()
-		durationLabel.font = UIFont.systemFontOfSize(12)
-		durationLabel.textAlignment = .Right
+		durationLabel.textColor = .lightGray
+		durationLabel.font = .systemFont(ofSize: 12)
+		durationLabel.textAlignment = .right
 
-		progressSlider.setThumbImage(UIImage(), forState: .Normal)
+		progressSlider.setThumbImage(UIImage(), for: .normal)
 		progressSlider.maximumTrackTintColor = UIColor(white: 0, alpha: 0.2)
 
-		volSlider.setThumbImage(UIImage(named: "volume_thumb"), forState: .Normal)
+		volSlider.setThumbImage(UIImage(named: "volume_thumb"), for: .normal)
 
-		openBtn.addTarget(self, action: #selector(tapArrow(_:)), forControlEvents: .TouchUpInside)
+		openBtn.addTarget(self, action: #selector(tapArrow(_:)), for: .touchUpInside)
 
-		playBtn.setImage(UIImage(named: "play"), forState: .Selected)
-		playBtn.addTarget(self, action: #selector(tapPlay), forControlEvents: .TouchUpInside)
+		playBtn.setImage(UIImage(named: "play"), for: .selected)
+		playBtn.addTarget(self, action: #selector(tapPlay), for: .touchUpInside)
 
-		prevBtn.addTarget(self, action: #selector(tapPrev), forControlEvents: .TouchUpInside)
-		nextBtn.addTarget(self, action: #selector(tapNext), forControlEvents: .TouchUpInside)
+		prevBtn.addTarget(self, action: #selector(tapPrev), for: .touchUpInside)
+		nextBtn.addTarget(self, action: #selector(tapNext), for: .touchUpInside)
 
-		smpBtn.addTarget(self, action: #selector(tapSmp), forControlEvents: .TouchUpInside)
-		loopBtn.addTarget(self, action: #selector(tapLoop), forControlEvents: .TouchUpInside)
+		smpBtn.addTarget(self, action: #selector(tapSmp), for: .touchUpInside)
+		loopBtn.addTarget(self, action: #selector(tapLoop), for: .touchUpInside)
 
 		keyLayer.magnificationFilter = kCAFilterNearest
 		speLayer.magnificationFilter = kCAFilterNearest
@@ -135,21 +135,21 @@ class PlayView: UIView, PlayerDelegate {
 
 		Player.sharedInstance().volume = 1
 		volSlider.value = Player.sharedInstance().volume
-		volSlider.addTarget(self, action: #selector(changeVolume), forControlEvents: .ValueChanged)
+		volSlider.addTarget(self, action: #selector(changeVolume), for: .valueChanged)
 
 		loopLabel.text = "\( Player.sharedInstance().loopCount )"
 		smpLabel.text = String(format: "%.1fk", Float(Player.sharedInstance().samplingRate) / 1000)
 
-		borderLayer.backgroundColor = UIColor(white: 200 / 255, alpha: 1).CGColor
+		borderLayer.backgroundColor = UIColor(white: 200 / 255, alpha: 1).cgColor
 		borderLayer.frame = CGRect(0, 0, width, 1)
 		layer.addSublayer(borderLayer)
 
 		let uges = UISwipeGestureRecognizer(target: self, action: #selector(doOpen))
-		uges.direction = .Up
+		uges.direction = .up
 		addGestureRecognizer(uges)
 
 		let dges = UISwipeGestureRecognizer(target: self, action: #selector(doClose))
-		dges.direction = .Down
+		dges.direction = .down
 		addGestureRecognizer(dges)
 
 		let lges = UILongPressGestureRecognizer(target: self, action: #selector(tapLong(_:)))
@@ -158,9 +158,9 @@ class PlayView: UIView, PlayerDelegate {
 		layout()
 	}
 
-	func tapLong(ges: UILongPressGestureRecognizer) {
-		if ges.state == .Began { Player.sharedInstance().speedup = true }
-		else if ges.state != .Cancelled { Player.sharedInstance().speedup = false }
+	func tapLong(_ ges: UILongPressGestureRecognizer) {
+		if ges.state == .began { Player.sharedInstance().speedup = true }
+		else if ges.state != .cancelled { Player.sharedInstance().speedup = false }
 	}
 
 	override func layoutSubviews() {
@@ -170,42 +170,42 @@ class PlayView: UIView, PlayerDelegate {
 
 	func layout() {
 
-		openBtn.frame = bounds.resize(44, 66, .TopRight)
+		openBtn.frame = bounds.resize(44, 66, .topRight)
 
 		if !opened {
-			prevBtn.hidden = true
-			volSlider.hidden = true
-			svoliv.hidden = true
-			mvoliv.hidden = true
-			progressLabel.hidden = true
-			durationLabel.hidden = true
-			keyLayer.hidden = true
-			speLayer.hidden = true
-			borderLayer.hidden = false
-			smpBtn.hidden = true
-			loopBtn.hidden = true
-			titleLabel.frame = bounds.resize(-44 * 3, 66, .Top).offset(-22, 0)
-			progressSlider.frame = bounds.resize(0, 3, .Top).offset(0, 66 - 3)
-			playBtn.frame = bounds.resize(44, 66, .TopLeft)
-			nextBtn.frame = bounds.resize(44, 66, .TopRight).offset(-44, 0)
+			prevBtn.isHidden = true
+			volSlider.isHidden = true
+			svoliv.isHidden = true
+			mvoliv.isHidden = true
+			progressLabel.isHidden = true
+			durationLabel.isHidden = true
+			keyLayer.isHidden = true
+			speLayer.isHidden = true
+			borderLayer.isHidden = false
+			smpBtn.isHidden = true
+			loopBtn.isHidden = true
+			titleLabel.frame = bounds.resize(-44 * 3, 66, .top).offset(-22, 0)
+			progressSlider.frame = bounds.resize(0, 3, .top).offset(0, 66 - 3)
+			playBtn.frame = bounds.resize(44, 66, .topLeft)
+			nextBtn.frame = bounds.resize(44, 66, .topRight).offset(-44, 0)
 			borderLayer.frame = CGRect(0, 0, width, 0.5)
 
 		} else {
-			prevBtn.hidden = false
-			volSlider.hidden = false
-			svoliv.hidden = false
-			mvoliv.hidden = false
-			progressLabel.hidden = false
-			durationLabel.hidden = false
-			smpBtn.hidden = false
-			loopBtn.hidden = false
-			borderLayer.hidden = true
+			prevBtn.isHidden = false
+			volSlider.isHidden = false
+			svoliv.isHidden = false
+			mvoliv.isHidden = false
+			progressLabel.isHidden = false
+			durationLabel.isHidden = false
+			smpBtn.isHidden = false
+			loopBtn.isHidden = false
+			borderLayer.isHidden = true
 
 			var y: CGFloat = 0
 
 			if width < height {
-				keyLayer.hidden = false
-				speLayer.hidden = false
+				keyLayer.isHidden = false
+				speLayer.isHidden = false
 				keyLayer.frame = CGRect(0, 66, width, width * (136 / 224))
 				speLayer.frame = CGRect(0, 66 + keyLayer.frame.height, width, width * (64 / 256))
 				spmaskLayer.frame = speLayer.bounds
@@ -213,19 +213,19 @@ class PlayView: UIView, PlayerDelegate {
 				y = speLayer.frame.origin.y + speLayer.frame.size.height
 
 			} else {
-				keyLayer.hidden = true
-				speLayer.hidden = true
+				keyLayer.isHidden = true
+				speLayer.isHidden = true
 				y = 66
 			}
 
-			progressSlider.frame = bounds.resize(0, 3, .Top).offset(0, y)
-			progressLabel.frame = bounds.resize(100, 20, .TopLeft).offset(5, y + 5)
-			durationLabel.frame = bounds.resize(100, 20, .TopRight).offset(-5, y + 5)
+			progressSlider.frame = bounds.resize(0, 3, .top).offset(0, y)
+			progressLabel.frame = bounds.resize(100, 20, .topLeft).offset(5, y + 5)
+			durationLabel.frame = bounds.resize(100, 20, .topRight).offset(-5, y + 5)
 
 			y = height - 44 * 5
 
-			titleLabel.frame = bounds.resize(-20, 44, .Top).offset(0, y + 12)
-			descLabel.frame = bounds.resize(-20, 22, .Top).offset(0, y + 64)
+			titleLabel.frame = bounds.resize(-20, 44, .top).offset(0, y + 12)
+			descLabel.frame = bounds.resize(-20, 22, .top).offset(0, y + 64)
 			y += 44 * 3
 
 			let div = (width - 44) / 4
@@ -236,17 +236,17 @@ class PlayView: UIView, PlayerDelegate {
 			loopBtn.center = CGPoint(x: div * 4 + 22, y: y)
 			y += 44
 
-			svoliv.frame = bounds.resize(18, 18, .TopLeft).offset(30, y + 13)
-			mvoliv.frame = bounds.resize(18, 18, .TopRight).offset(-30, y + 13)
-			volSlider.frame = bounds.resize(-110, 44, .Top).offset(0, y)
+			svoliv.frame = bounds.resize(18, 18, .topLeft).offset(30, y + 13)
+			mvoliv.frame = bounds.resize(18, 18, .topRight).offset(-30, y + 13)
+			volSlider.frame = bounds.resize(-110, 44, .top).offset(0, y)
 
 		}
 		setNeedsDisplay()
 	}
 
 	func tapPlay() {
-		playBtn.selected = !playBtn.selected
-		Player.sharedInstance().pause(playBtn.selected)
+		playBtn.isSelected = !playBtn.isSelected
+		Player.sharedInstance().pause(playBtn.isSelected)
 	}
 
 	func tapPrev() {
@@ -257,7 +257,7 @@ class PlayView: UIView, PlayerDelegate {
 		Player.sharedInstance().goNext()
 	}
 
-	func tapArrow(btn: UIButton) {
+	func tapArrow(_ btn: UIButton) {
 		if !opened {
 			doOpen()
 		} else {
@@ -268,29 +268,29 @@ class PlayView: UIView, PlayerDelegate {
 	func doOpen() {
 		if opened { return }
 		opened = true
-		openBtn.setImage(UIImage(named: "arrow_down"), forState: .Normal)
-		UIView.animateWithDuration(0.3) {
+		openBtn.setImage(UIImage(named: "arrow_down"), for: .normal)
+		UIView.animate(withDuration: 0.3, animations: {
 			self.frame = self.superview!.bounds
-			self.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+			self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			self.layout()
-		}
+		}) 
 	}
 
 	func doClose() {
 		if !opened { return }
 		opened = false
-		openBtn.setImage(UIImage(named: "arrow_up"), forState: .Normal)
-		UIView.animateWithDuration(0.3) {
-			self.autoresizingMask = [.FlexibleWidth, .FlexibleTopMargin]
-			self.frame = self.superview!.bounds.resize(0, 66, .Bottom)
+		openBtn.setImage(UIImage(named: "arrow_up"), for: .normal)
+		UIView.animate(withDuration: 0.3, animations: {
+			self.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+			self.frame = self.superview!.bounds.resize(0, 66, .bottom)
 			self.layout()
-		}
+		}) 
 	}
 
 	func tapSmp() {
 		var idx = 0
 		let params: [Int] = [44100, 48000, 62500, 22050]
-		if let ci = params.indexOf(Player.sharedInstance().samplingRate) { idx = (ci + 1) % params.count }
+		if let ci = params.index(of: Player.sharedInstance().samplingRate) { idx = (ci + 1) % params.count }
 
 		Player.sharedInstance().samplingRate = params[idx]
 		smpLabel.text = String(format: "%.1fk", Float(Player.sharedInstance().samplingRate) / 1000)
@@ -336,7 +336,7 @@ class PlayView: UIView, PlayerDelegate {
 	}
 
 	func didChangeStatus() {
-		if keyLayer.hidden { return }
+		if keyLayer.isHidden { return }
 		Player.redrawKey(keyLayer, speana: speLayer, paint: true)
 	}
 
