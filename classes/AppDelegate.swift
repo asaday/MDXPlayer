@@ -43,26 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 
-	func applicationDidEnterBackground(_ application: UIApplication) {
-		UIApplication.shared.beginReceivingRemoteControlEvents()
-		self.becomeFirstResponder()
-	}
-
-	func applicationWillEnterForeground(_ application: UIApplication) {
-		UIApplication.shared.endReceivingRemoteControlEvents()
-	}
-
-	override var canBecomeFirstResponder : Bool {
-		return true
-	}
-
-	override func remoteControlReceived(with event: UIEvent?) {
-		if event?.type != .remoteControl { return }
-
-		postNotification("REMOTE", object: event)
-	}
-
-	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
 
 		if let authResult = DropboxClientsManager.handleRedirectURL(url) {
 			switch authResult {

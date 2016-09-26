@@ -205,6 +205,12 @@ static pthread_mutex_t mxdrv_mutex;
     
     
     [self initAudio];
+
+    [[MPRemoteCommandCenter sharedCommandCenter].playCommand addTarget:self action:@selector(doPlay)];
+    [[MPRemoteCommandCenter sharedCommandCenter].pauseCommand addTarget:self action:@selector(doPause)];
+    [[MPRemoteCommandCenter sharedCommandCenter].togglePlayPauseCommand addTarget:self action:@selector(togglePause)];
+    [[MPRemoteCommandCenter sharedCommandCenter].nextTrackCommand addTarget:self action:@selector(goNext)];
+    [[MPRemoteCommandCenter sharedCommandCenter].previousTrackCommand addTarget:self action:@selector(goPrev)];
     return self;
 }
 
@@ -291,31 +297,6 @@ static pthread_mutex_t mxdrv_mutex;
             pausedByInterruption = NO;
         }
     }
-}
-
--(void)remote:(NSNotification*)notify
-{
-    UIEvent *event = notify.object;
-    
-    if (event.type != UIEventTypeRemoteControl) return;
-    
-    switch (event.subtype)
-    {
-        case UIEventSubtypeRemoteControlPlay:
-        case UIEventSubtypeRemoteControlPause:
-        case UIEventSubtypeRemoteControlStop:
-        case UIEventSubtypeRemoteControlTogglePlayPause:
-            [self togglePause]; break;
-            
-        case UIEventSubtypeRemoteControlNextTrack:
-            [self goNext]; break;
-            
-        case UIEventSubtypeRemoteControlPreviousTrack:
-            [self goPrev]; break;
-            
-        default: break;
-    }
-    
 }
 
 -(void)callback:(AudioQueueRef)inAQ buffer:(AudioQueueBufferRef)inBuffer
@@ -669,12 +650,22 @@ static pthread_mutex_t mxdrv_mutex;
 -(void) pause:(BOOL) p
 {
     if(p){
-        AudioQueuePause(audioQueue);
-        _paused = YES;
+        [self doPause];
     }else{
-        AudioQueueStart(audioQueue, NULL);
-        _paused = NO;
+        [self doPlay];
     }
+}
+-(void) doPause
+{
+    AudioQueuePause(audioQueue);
+    _paused = YES;
+    [_delegate didChangePauseTo:_paused];
+}
+
+-(void) doPlay
+{
+    AudioQueueStart(audioQueue, NULL);
+    _paused = NO;
     [_delegate didChangePauseTo:_paused];
 }
 
