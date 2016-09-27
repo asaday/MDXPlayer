@@ -245,9 +245,12 @@ class PlayView: UIView, PlayerDelegate {
 	}
 
 	func tapPlay() {
-		playBtn.isSelected = !playBtn.isSelected
-		Player.sharedInstance().pause(playBtn.isSelected)
+		Player.sharedInstance().togglePause()
 	}
+    
+    func didChangePause(to pause: Bool) {
+        playBtn.isSelected = pause
+    }
 
 	func tapPrev() {
 		Player.sharedInstance().goPrev()
