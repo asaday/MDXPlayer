@@ -141,9 +141,9 @@ class ListVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-		if (indexPath as NSIndexPath).row >= list.count { return cell }
+		if indexPath.row >= list.count { return cell }
 
-		let item = list[(indexPath as NSIndexPath).row]
+		let item = list[indexPath.row]
 
 		if item.isDir {
 			cell.textLabel?.text = item.title
@@ -178,7 +178,7 @@ class ListVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 
-		let item = list[(indexPath as NSIndexPath).row]
+		let item = list[indexPath.row]
 
 		if item.isDir {
 			let vc = ListVC()
@@ -188,7 +188,7 @@ class ListVC: UITableViewController {
 			return
 		}
 
-		doPlay((indexPath as NSIndexPath).row)
+		doPlay(indexPath.row)
 	}
 
 	func doPlay(_ row: Int) {

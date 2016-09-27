@@ -41,9 +41,9 @@ class HistoryListVC: ListVC {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-		if (indexPath as NSIndexPath).row >= list.count { return cell }
+		if indexPath.row >= list.count { return cell }
 
-		let item = list[(indexPath as NSIndexPath).row]
+		let item = list[indexPath.row]
 
 		cell.textLabel?.text = item.title
 		cell.detailTextLabel?.text = item.file

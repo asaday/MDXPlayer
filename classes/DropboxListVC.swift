@@ -197,7 +197,7 @@ class DropboxListVC: ListVC {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 
-		let item = list[(indexPath as NSIndexPath).row]
+		let item = list[indexPath.row]
 
 		if item.isDir {
 			let vc = DropboxListVC()
@@ -207,7 +207,7 @@ class DropboxListVC: ListVC {
 			return
 		}
 
-		doPlay((indexPath as NSIndexPath).row)
+		doPlay(indexPath.row)
 	}
 }
 
