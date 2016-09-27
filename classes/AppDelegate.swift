@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyDropbox
 
 extension UIColor {
 	static var mdxColor: UIColor { return UIColor(red: 140 / 255, green: 146 / 255, blue: 248 / 255, alpha: 1) }
@@ -24,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		DropboxClientsManager.setupWithAppKey("meoje4tyq6ou09p")
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.backgroundColor = UIColor.white
+
+		window?.backgroundColor = .white
 
 		let nav = UINavigationController(rootViewController: RootListVC())
 

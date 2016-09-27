@@ -76,10 +76,10 @@ class DropboxListVC: ListVC {
 	}
 
 	func tapLogin() {
-    DropboxClientsManager.authorizeFromController(UIApplication.shared,
-                                                   controller: self,
-                                                   openURL: { (url: URL) -> Void in
-                                                    UIApplication.shared.openURL(url) })
+
+        DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL:  { (url:URL) -> Void in
+            UIApplication.shared.openURL(url)
+        })
 	}
 
 	func tapLogout() {
@@ -136,7 +136,7 @@ class DropboxListVC: ListVC {
 		downloadingCount = 0
 		showLoading("LISTING")
 
-		client.files.listFolder(path: remotePath).response { (result, error) in
+		let _ = client.files.listFolder(path: remotePath).response { (result, error) in
 			guard let result = result else { return }
 
 			for entry in result.entries {
@@ -168,7 +168,7 @@ class DropboxListVC: ListVC {
 			return URL(fileURLWithPath: dp.appendPath(UUID().uuidString))
 		}
 
-		client.files.download(path: meta.pathLower!, destination: destination).response { response, error in
+		let _ = client.files.download(path: meta.pathLower!, destination: destination).response { response, error in
 			self.downloadedCount += 1
 			if let (metadata, url) = response {
 				Path.copy(url.path, dst: self.localPath.appendPath(metadata.name))

@@ -27,7 +27,7 @@ public extension String {
 		if !self.hasString("://") { return result }
 		guard var c = URLComponents(string: self) else { return result }
 
-		if c.path == nil { c.path = "/" }
+		//if c.path == nil { c.path = "/" }
 		c.path = c.path.to_ns().appendingPathComponent(path)
 		return c.string ?? result
 	}

@@ -26,6 +26,7 @@ public struct Dispatch {
 
 }
 
+
 public struct Path {
 	public static var documents: String { return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] }
 	public static var caches: String { return NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] }
@@ -40,28 +41,28 @@ public struct Path {
 	public static func support(_ path: String) -> String { return Path.support.appendPath(path) }
 	public static func resource(_ path: String) -> String { return Path.resource.appendPath(path) }
 
-	public static func remove(_ path: String) -> Bool {
+	@discardableResult public static func remove(_ path: String) -> Bool {
 		do {
 			try FileManager.default.removeItem(atPath: path)
 		} catch { return false }
 		return true
 	}
 
-	public static func move(_ src: String, dst: String) -> Bool {
+	@discardableResult public static func move(_ src: String, dst: String) -> Bool {
 		do {
 			try FileManager.default.moveItem(atPath: src, toPath: dst)
 		} catch { return false }
 		return true
 	}
 
-	public static func copy(_ src: String, dst: String) -> Bool {
+	@discardableResult public static func copy(_ src: String, dst: String) -> Bool {
 		do {
 			try FileManager.default.copyItem(atPath: src, toPath: dst)
 		} catch { return false }
 		return true
 	}
 
-	public static func mkdir(_ path: String) -> Bool {
+	@discardableResult public static func mkdir(_ path: String) -> Bool {
 		do {
 			try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
 		} catch { return false }
@@ -89,7 +90,7 @@ public struct Path {
 	}
 
 	public static func attributes(_ path: String) -> [FileAttributeKey: Any] {
-		return (try? FileManager.default.attributesOfItem(atPath: path) ) ?? [:]
+		return (try? FileManager.default.attributesOfItem(atPath: path)) ?? [:]
 	}
 }
 

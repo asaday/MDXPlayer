@@ -78,38 +78,38 @@ class PlayView: UIView, PlayerDelegate {
 		smpBtn.addSubview(smpLabel)
 		smpLabel.frame = smpBtn.bounds
 		smpLabel.textAlignment = .center
-		smpLabel.font = UIFont.systemFont(ofSize: 9)
+		smpLabel.font = .systemFont(ofSize: 9)
 		smpLabel.text = "44.1k"
 		smpLabel.textColor = UIColor.black
 
 		loopBtn.addSubview(loopLabel)
 		loopLabel.frame = loopBtn.bounds
 		loopLabel.textAlignment = .center
-		loopLabel.font = UIFont.systemFont(ofSize: 10)
+		loopLabel.font = .systemFont(ofSize: 10)
 		loopLabel.text = "1"
 		loopLabel.textColor = UIColor.mdxColor
 
 		titleLabel.textAlignment = .center
 		titleLabel.font = UIFont(name: "KH-Dot-Kodenmachou-16-Ki", size: 16)
-		titleLabel.textColor = UIColor.white
+		titleLabel.textColor = .white
 		titleLabel.numberOfLines = 3
 
 		descLabel.textAlignment = .center
-		descLabel.font = UIFont.systemFont(ofSize: 12)
-		descLabel.textColor = UIColor.lightGray
+		descLabel.font = .systemFont(ofSize: 12)
+		descLabel.textColor = .lightGray
 
-		progressLabel.textColor = UIColor.lightGray
-		progressLabel.font = UIFont.systemFont(ofSize: 12)
+		progressLabel.textColor = .lightGray
+		progressLabel.font = .systemFont(ofSize: 12)
 		progressLabel.textAlignment = .left
 
-		durationLabel.textColor = UIColor.lightGray
-		durationLabel.font = UIFont.systemFont(ofSize: 12)
+		durationLabel.textColor = .lightGray
+		durationLabel.font = .systemFont(ofSize: 12)
 		durationLabel.textAlignment = .right
 
-		progressSlider.setThumbImage(UIImage(), for: UIControlState())
+		progressSlider.setThumbImage(UIImage(), for: .normal)
 		progressSlider.maximumTrackTintColor = UIColor(white: 0, alpha: 0.2)
 
-		volSlider.setThumbImage(UIImage(named: "volume_thumb"), for: UIControlState())
+		volSlider.setThumbImage(UIImage(named: "volume_thumb"), for: .normal)
 
 		openBtn.addTarget(self, action: #selector(tapArrow(_:)), for: .touchUpInside)
 
@@ -271,7 +271,7 @@ class PlayView: UIView, PlayerDelegate {
 	func doOpen() {
 		if opened { return }
 		opened = true
-		openBtn.setImage(UIImage(named: "arrow_down"), for: UIControlState())
+		openBtn.setImage(UIImage(named: "arrow_down"), for: .normal)
 		UIView.animate(withDuration: 0.3, animations: {
 			self.frame = self.superview!.bounds
 			self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -282,7 +282,7 @@ class PlayView: UIView, PlayerDelegate {
 	func doClose() {
 		if !opened { return }
 		opened = false
-		openBtn.setImage(UIImage(named: "arrow_up"), for: UIControlState())
+		openBtn.setImage(UIImage(named: "arrow_up"), for: .normal)
 		UIView.animate(withDuration: 0.3, animations: {
 			self.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
 			self.frame = self.superview!.bounds.resize(0, 66, .bottom)

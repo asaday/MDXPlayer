@@ -18,11 +18,11 @@ class ListCell: UITableViewCell {
 		backgroundColor = UIColor(white: 23 / 255, alpha: 1)
 
 		textLabel?.font = UIFont(name: "KH-Dot-Kodenmachou-16-Ki", size: 16) // UIFont.systemFontOfSize(16)
-		textLabel?.font = UIFont.systemFont(ofSize: 16)
-		textLabel?.textColor = UIColor.white
+		textLabel?.font = .systemFont(ofSize: 16)
+		textLabel?.textColor = .white
 		textLabel?.numberOfLines = 2
 		detailTextLabel?.textColor = UIColor(red: 174 / 255.0, green: 189 / 255.0, blue: 203 / 255.0, alpha: 1)
-		detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
+		detailTextLabel?.font = .systemFont(ofSize: 12)
 
 		let sv = UIView()
 		sv.backgroundColor = UIColor(white: 1, alpha: 0.2)
@@ -37,9 +37,9 @@ struct Item {
 
 	var json: NSObject {
 		var r: [String: AnyObject] = [:]
-		r["file"] = file as AnyObject?
-		r["isDir"] = isDir as AnyObject?
-		r["title"] = title as AnyObject?
+		r["file"] = file as AnyObject
+		r["isDir"] = isDir as AnyObject
+		r["title"] = title as AnyObject
 		return r as NSObject
 	}
 
@@ -134,7 +134,7 @@ class ListVC: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		let item = list[(indexPath as NSIndexPath).row]
+		let item = list[indexPath.row]
 		return item.isDir ? 44 : 66
 	}
 
@@ -164,7 +164,7 @@ class ListVC: UITableViewController {
 
 		Dispatch.background {
 			let n = Player.title(forMDXFile: self.localPath.appendPath(item.file))
-			self.list[(indexPath as NSIndexPath).row].title = n
+			self.list[indexPath.row].title = n
 			Dispatch.main {
 				guard let mc = tableView.cellForRow(at: indexPath) else { return }
 				mc.textLabel?.text = n

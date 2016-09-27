@@ -36,7 +36,7 @@ class RootListVC: ListVC {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		let item = list[(indexPath as NSIndexPath).row]
+		let item = list[indexPath.row]
 
 		if item.file == "_random_" {
 			doRandomPlay([ListVC.path2local("_documents_"), ListVC.path2local("_dropbox_")])

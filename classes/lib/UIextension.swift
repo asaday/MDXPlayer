@@ -113,8 +113,9 @@ public extension UIButton {
 	static func imageButton(_ image: UIImage?, frame: CGRect, target: AnyObject? = nil, action: Selector? = nil) -> UIButton {
 		let btn = UIButton(type: .custom)
 		btn.frame = frame
-		btn.setImage(image, for: UIControlState())
-		if let t = target { btn.addTarget(t, action: action!, for: UIControlEvents.touchUpInside) }
+
+        btn.setImage(image, for: .normal)
+		if let t = target { btn.addTarget(t, action: action!, for: .touchUpInside) }
 		return btn
 	}
 }

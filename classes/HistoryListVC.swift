@@ -66,7 +66,7 @@ class HistoryListVC: ListVC {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		let item = list[(indexPath as NSIndexPath).row]
+		let item = list[indexPath.row]
 		let vc: ListVC = item.file.hasPrefix("_dropbox_") ? DropboxListVC() : ListVC()
 		vc.path = item.file
 		vc.title = item.title

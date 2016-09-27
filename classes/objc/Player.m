@@ -454,7 +454,8 @@ static pthread_mutex_t mxdrv_mutex;
             if(![f.lowercaseString hasSuffix:@".pdx"]) f = [f stringByAppendingString:@".pdx"];
             pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f]];
             if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.lowercaseString]];
-            if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.uppercaseString]];
+			if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.uppercaseString]];
+			if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:[f stringByReplacingOccurrencesOfString:@".pdx" withString:@".PDX"]]];
         }
     }
     
