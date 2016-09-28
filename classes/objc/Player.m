@@ -16,6 +16,7 @@
 #import "KeyboardBitmap.h"
 #import "SpeanaBitmap.h"
 #import "trackinfo.h"
+#import "lzx042.h"
 
 @interface Player ()
 -(void)callback:(AudioQueueRef)inAQ buffer:(AudioQueueBufferRef)inBuffer;
@@ -46,6 +47,10 @@ static void MAudioQueueOutputCallback(void *inUserData, AudioQueueRef inAQ, Audi
     
     NSMutableData* mdx;
     NSMutableData* pdx;
+    
+    void* mdx_lzxbuf;
+    void* pdx_lzxbuf;
+    
     float volume;
 }
 
@@ -186,6 +191,9 @@ static pthread_mutex_t mxdrv_mutex;
 -(id)init
 {
     self = [super init];
+    mdx_lzxbuf = 0;
+    pdx_lzxbuf = 0;
+    
     _samplingRate = [[NSUserDefaults standardUserDefaults] integerForKey:@"samplingRate"];
     if(_samplingRate == 0) _samplingRate = 44100;
     
@@ -205,7 +213,7 @@ static pthread_mutex_t mxdrv_mutex;
     
     
     [self initAudio];
-
+    
     [[MPRemoteCommandCenter sharedCommandCenter].playCommand addTarget:self action:@selector(doPlay)];
     [[MPRemoteCommandCenter sharedCommandCenter].pauseCommand addTarget:self action:@selector(doPause)];
     [[MPRemoteCommandCenter sharedCommandCenter].togglePlayPauseCommand addTarget:self action:@selector(togglePause)];
@@ -432,6 +440,18 @@ static pthread_mutex_t mxdrv_mutex;
     pos++;
     NSInteger mdxBodyStartPos = pos;
     NSInteger mdxBodySize = mdxt.length - mdxBodyStartPos;
+    int lzxlen = lzx042check(&mdxptr[mdxBodyStartPos]);
+    NSData *mdxr = [mdxt subdataWithRange:NSMakeRange(mdxBodyStartPos,mdxBodySize)];
+    if(lzxlen > 0){
+        if(mdx_lzxbuf) free(mdx_lzxbuf);
+        mdx_lzxbuf = malloc(lzxlen);
+        unsigned int retval = lzx042decode(mdx_lzxbuf, lzxlen, &mdxptr[mdxBodyStartPos], (unsigned int)mdxBodySize);
+//        NSLog(@"MDX-LZX file decoder returned %ud, when lzxlen = %d",retval,lzxlen);
+        if(retval==0) return nil;
+        mdxr = [NSData dataWithBytes:mdx_lzxbuf length:lzxlen];
+    }else{
+        mdxr = [mdxt subdataWithRange:NSMakeRange(mdxBodyStartPos,mdxBodySize)];
+    }
     
     NSData *tdat = [mdxt subdataWithRange:NSMakeRange(0,titleEndPos)];
     
@@ -454,14 +474,22 @@ static pthread_mutex_t mxdrv_mutex;
             if(![f.lowercaseString hasSuffix:@".pdx"]) f = [f stringByAppendingString:@".pdx"];
             pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f]];
             if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.lowercaseString]];
-			if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.uppercaseString]];
-			if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:[f stringByReplacingOccurrencesOfString:@".pdx" withString:@".PDX"]]];
+            if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:f.uppercaseString]];
+            if(!pdxt) pdxt = [NSData dataWithContentsOfFile:[mdxPath stringByAppendingPathComponent:[f stringByReplacingOccurrencesOfString:@".pdx" withString:@".PDX"]]];
+        }
+        if(pdxt){
+            int pdxlzxlen = lzx042check(pdxt.bytes);
+            if(pdxlzxlen > 0){
+                if(pdx_lzxbuf) free(pdx_lzxbuf);
+                pdx_lzxbuf = malloc(pdxlzxlen);
+                int retvalpdx = lzx042decode(pdx_lzxbuf, pdxlzxlen, pdxt.bytes, (unsigned int)pdxt.length);
+//                NSLog(@"PDX-LZX file decoder returned %ud, when pdxlzxlen = %d",retvalpdx,pdxlzxlen);
+                if(retvalpdx==0) return nil;
+                pdxt = [NSData dataWithBytes:pdx_lzxbuf length:pdxlzxlen];
+            }
+            return @{@"mdx":mdxr, @"pdx":pdxt};
         }
     }
-    
-    NSData *mdxr = [mdxt subdataWithRange:NSMakeRange(mdxBodyStartPos,mdxBodySize)];
-    
-    if(pdxt) return @{@"mdx":mdxr, @"pdx":pdxt};
     return @{@"mdx":mdxr};
 }
 
@@ -476,7 +504,7 @@ static pthread_mutex_t mxdrv_mutex;
     // 闇血対策 mxdrv200bではエラーとしていたのでskip
     // だがしかしOPはPCM入ってたからこれじゃダメだよな・・・・
     // LZX圧縮って、、展開PullRequest求ム！
-    if(pdxt && pdxt.length >= 8 && !memcmp((unsigned char*)pdxt.bytes + 4,"LZX ",4)) pdxt = nil;
+    //    if(pdxt && pdxt.length >= 8 && !memcmp((unsigned char*)pdxt.bytes + 4,"LZX ",4)) pdxt = nil;
     
     unsigned char mdxData[10];
     mdxData[0] = 0x00;
@@ -530,7 +558,7 @@ static pthread_mutex_t mxdrv_mutex;
     if(first) AudioQueueStop(audioQueue, YES);
     
     while(pthread_mutex_trylock(&mxdrv_mutex)!=0){
-//        NSLog(@"mutex lock failed in playOneFile");
+        //        NSLog(@"mutex lock failed in playOneFile");
         [NSThread sleepForTimeInterval:0.001];
     }
     _paused = NO;
