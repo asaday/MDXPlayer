@@ -441,7 +441,7 @@ static pthread_mutex_t mxdrv_mutex;
     NSInteger mdxBodyStartPos = pos;
     NSInteger mdxBodySize = mdxt.length - mdxBodyStartPos;
     int lzxlen = lzx042check(&mdxptr[mdxBodyStartPos]);
-    NSData *mdxr = [mdxt subdataWithRange:NSMakeRange(mdxBodyStartPos,mdxBodySize)];
+    NSData *mdxr = nil;
     if(lzxlen > 0){
         if(mdx_lzxbuf) free(mdx_lzxbuf);
         mdx_lzxbuf = malloc(lzxlen);
@@ -484,13 +484,13 @@ static pthread_mutex_t mxdrv_mutex;
                 pdx_lzxbuf = malloc(pdxlzxlen);
                 int retvalpdx = lzx042decode(pdx_lzxbuf, pdxlzxlen, pdxt.bytes, (unsigned int)pdxt.length);
 //                NSLog(@"PDX-LZX file decoder returned %ud, when pdxlzxlen = %d",retvalpdx,pdxlzxlen);
-                if(retvalpdx==0) return nil;
-                pdxt = [NSData dataWithBytes:pdx_lzxbuf length:pdxlzxlen];
+                if(retvalpdx==0) pdxt = nil;
+                else pdxt = [NSData dataWithBytes:pdx_lzxbuf length:pdxlzxlen];
             }
-            return @{@"mdx":mdxr, @"pdx":pdxt};
         }
     }
-    return @{@"mdx":mdxr};
+    if(pdxt) return @{@"mdx":mdxr, @"pdx":pdxt};
+    else return @{@"mdx":mdxr};
 }
 
 -(void)prepareMXDRV:(NSData*)mdxt pdx:(NSData*)pdxt
