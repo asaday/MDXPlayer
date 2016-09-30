@@ -260,6 +260,11 @@ static pthread_mutex_t mxdrv_mutex;
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setActive:YES error:nil];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    if(_samplingRate > 44100){
+        [session setPreferredSampleRate:48000.0 error:nil];
+    }else{
+        [session setPreferredSampleRate:(double)_samplingRate error:nil];
+    }
     
     
     AudioStreamBasicDescription audioFormat;
@@ -559,7 +564,7 @@ static pthread_mutex_t mxdrv_mutex;
     
     while(pthread_mutex_trylock(&mxdrv_mutex)!=0){
         //        NSLog(@"mutex lock failed in playOneFile");
-        [NSThread sleepForTimeInterval:0.001];
+        [NSThread sleepForTimeInterval:0.01];
     }
     _paused = NO;
     playend = YES;
