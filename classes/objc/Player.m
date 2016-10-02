@@ -611,9 +611,9 @@ static pthread_mutex_t mxdrv_mutex;
     // for spring board display
     NSDictionary *info = @{MPMediaItemPropertyTitle:_title,
                            MPMediaItemPropertyAlbumArtist: [file lastPathComponent],
-                           MPMediaItemPropertyAlbumTitle: [[file lastPathComponent] lastPathComponent]
+                           MPMediaItemPropertyAlbumTitle: [[file lastPathComponent] lastPathComponent],
+						   MPMediaItemPropertyArtwork: [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"artwork"]]
                            };
-    
     
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:info];
     
