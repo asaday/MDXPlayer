@@ -48,9 +48,6 @@ static void MAudioQueueOutputCallback(void *inUserData, AudioQueueRef inAQ, Audi
     NSMutableData* mdx;
     NSMutableData* pdx;
     
-    void* mdx_lzxbuf;
-    void* pdx_lzxbuf;
-    
     float volume;
 }
 
@@ -191,9 +188,7 @@ static pthread_mutex_t mxdrv_mutex;
 -(id)init
 {
     self = [super init];
-    mdx_lzxbuf = 0;
-    pdx_lzxbuf = 0;
-    
+	
     _samplingRate = [[NSUserDefaults standardUserDefaults] integerForKey:@"samplingRate"];
     if(_samplingRate == 0) _samplingRate = 44100;
     
@@ -209,7 +204,7 @@ static pthread_mutex_t mxdrv_mutex;
                                                  name:AVAudioSessionInterruptionNotification
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(remote:) name:@"REMOTE" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(remote:) name:@"REMOTE" object:nil];
     
     
     [self initAudio];
@@ -448,12 +443,16 @@ static pthread_mutex_t mxdrv_mutex;
     int lzxlen = lzx042check(&mdxptr[mdxBodyStartPos]);
     NSData *mdxr = nil;
     if(lzxlen > 0){
-        if(mdx_lzxbuf) free(mdx_lzxbuf);
-        mdx_lzxbuf = malloc(lzxlen);
-        unsigned int retval = lzx042decode(mdx_lzxbuf, lzxlen, &mdxptr[mdxBodyStartPos], (unsigned int)mdxBodySize);
+        void *lzxbuf = malloc(lzxlen);
+        unsigned int retval = lzx042decode(lzxbuf, lzxlen, &mdxptr[mdxBodyStartPos], (unsigned int)mdxBodySize);
 //        NSLog(@"MDX-LZX file decoder returned %ud, when lzxlen = %d",retval,lzxlen);
-        if(retval==0) return nil;
-        mdxr = [NSData dataWithBytes:mdx_lzxbuf length:lzxlen];
+		if(retval==0){
+			free(lzxbuf);
+			return nil;
+		}
+        mdxr = [NSData dataWithBytes:lzxbuf length:lzxlen];
+		free(lzxbuf);
+		
     }else{
         mdxr = [mdxt subdataWithRange:NSMakeRange(mdxBodyStartPos,mdxBodySize)];
     }
@@ -485,12 +484,12 @@ static pthread_mutex_t mxdrv_mutex;
         if(pdxt){
             int pdxlzxlen = lzx042check(pdxt.bytes);
             if(pdxlzxlen > 0){
-                if(pdx_lzxbuf) free(pdx_lzxbuf);
-                pdx_lzxbuf = malloc(pdxlzxlen);
-                int retvalpdx = lzx042decode(pdx_lzxbuf, pdxlzxlen, pdxt.bytes, (unsigned int)pdxt.length);
+                void *lzxbuf = malloc(pdxlzxlen);
+                int retvalpdx = lzx042decode(lzxbuf, pdxlzxlen, pdxt.bytes, (unsigned int)pdxt.length);
 //                NSLog(@"PDX-LZX file decoder returned %ud, when pdxlzxlen = %d",retvalpdx,pdxlzxlen);
                 if(retvalpdx==0) pdxt = nil;
-                else pdxt = [NSData dataWithBytes:pdx_lzxbuf length:pdxlzxlen];
+                else pdxt = [NSData dataWithBytes:lzxbuf length:pdxlzxlen];
+				free(lzxbuf);
             }
         }
     }
