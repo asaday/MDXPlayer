@@ -121,7 +121,7 @@ class ListVC: UITableViewController {
 	func sortedReload() {
 		list.sort { (a, b) -> Bool in
 			if a.isDir != b.isDir { return a.isDir }
-			return a.file < b.file
+			return a.file.lowercased() < b.file.lowercased()
 		}
 		tableView.reloadData()
 	}
@@ -135,6 +135,7 @@ class ListVC: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		if indexPath.row >= list.count { return 44 }
 		let item = list[indexPath.row]
 		return item.isDir ? 44 : 66
 	}
@@ -165,6 +166,7 @@ class ListVC: UITableViewController {
 
 		Dispatch.background {
 			let n = Player.title(forMDXFile: self.localPath.appendPath(item.file))
+			if indexPath.row >= self.list.count { return }
 			self.list[indexPath.row].title = n
 			Dispatch.main {
 				guard let mc = tableView.cellForRow(at: indexPath) else { return }
@@ -179,6 +181,7 @@ class ListVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 
+		if indexPath.row >= list.count { return }
 		let item = list[indexPath.row]
 
 		if item.isDir {
@@ -193,6 +196,7 @@ class ListVC: UITableViewController {
 	}
 
 	func doPlay(_ row: Int) {
+		if row >= list.count { return }
 		let item = list[row]
 		var playlist: [String] = []
 		var selected: Int = 0
