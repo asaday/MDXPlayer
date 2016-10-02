@@ -36,10 +36,10 @@ struct Item {
 	var isDir = false
 
 	var json: NSObject {
-		var r: [String: AnyObject] = [:]
-		r["file"] = file as AnyObject
-		r["isDir"] = isDir as AnyObject
-		r["title"] = title as AnyObject
+		var r: [String: NSObject] = [:]
+		r["file"] = file as NSObject
+		r["isDir"] = isDir as NSObject
+		r["title"] = (title ?? "") as NSObject
 		return r as NSObject
 	}
 
@@ -63,6 +63,7 @@ struct Item {
 		file = f
 		isDir = r["isDir"] as? Bool ?? false
 		title = r["title"] as? String
+		if title == "" { title = nil }
 	}
 }
 
