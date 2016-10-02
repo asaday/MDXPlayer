@@ -138,6 +138,8 @@ class PlayView: UIView, PlayerDelegate {
 		volSlider.addTarget(self, action: #selector(changeVolume), for: .valueChanged)
 
 		loopLabel.text = "\( Player.sharedInstance().loopCount )"
+		if Player.sharedInstance().loopCount == 0 { loopLabel.text = "∞" }
+
 		smpLabel.text = String(format: "%.1fk", Float(Player.sharedInstance().samplingRate) / 1000)
 
 		borderLayer.backgroundColor = UIColor(white: 200 / 255, alpha: 1).cgColor
@@ -305,10 +307,14 @@ class PlayView: UIView, PlayerDelegate {
 	func tapLoop() {
 		var cnt = Player.sharedInstance().loopCount
 		cnt = cnt + 1
-		if cnt > 3 { cnt = 1 }
+		if cnt > 5 { cnt = 0 }
 
 		Player.sharedInstance().loopCount = cnt
-		loopLabel.text = "\( Player.sharedInstance().loopCount )"
+		if cnt == 0 {
+			loopLabel.text = "∞"
+		}else {
+			loopLabel.text = "\( Player.sharedInstance().loopCount )"
+		}
 	}
 
 	func changeVolume() {
@@ -334,8 +340,13 @@ class PlayView: UIView, PlayerDelegate {
 		let remain = duration - current
 
 		progressLabel.text = String(format: "%0d:%02d", current / 60, current % 60)
-		durationLabel.text = String(format: "-%0d:%02d", remain / 60, remain % 60)
-		progressSlider.value = Float(current) / Float(duration)
+		if duration == 0 {
+			durationLabel.text = "infinity"
+			progressSlider.value = 1
+		} else {
+			durationLabel.text = String(format: "-%0d:%02d", remain / 60, remain % 60)
+			progressSlider.value = Float(current) / Float(duration)
+		}
 	}
 
 	func didChangeStatus() {

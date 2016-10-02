@@ -191,10 +191,13 @@ static pthread_mutex_t mxdrv_mutex;
 	
     _samplingRate = [[NSUserDefaults standardUserDefaults] integerForKey:@"samplingRate"];
     if(_samplingRate == 0) _samplingRate = 44100;
-    
-    _loopCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"loopCount"];
-    if(_loopCount == 0) _loopCount = 2;
-    
+
+	NSNumber *nloopCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"loopCount"];
+	if(nloopCount != nil) {
+		_loopCount = nloopCount.integerValue;
+	}
+	if(_loopCount < 0 || _loopCount > 100) _loopCount = 2;
+	
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(RouteChanged:)
                                                  name:AVAudioSessionRouteChangeNotification
@@ -343,7 +346,7 @@ static pthread_mutex_t mxdrv_mutex;
         
         
         // 手動fadeout
-        if(playat > playduration - FOCOUNT)
+        if(playat > playduration - FOCOUNT && playduration > 0)
         {
             float v = (float)(playduration - playat) / FOCOUNT;
             if(v > 1.0) v = 1.0;
@@ -384,7 +387,7 @@ static pthread_mutex_t mxdrv_mutex;
     });
     
     
-    if(!playend && (MXDRVG_GetTerminated() || playat > playduration))
+    if(!playend && (MXDRVG_GetTerminated() || (playat > playduration && playduration > 0)))
     {
         playend = YES;
         
@@ -579,10 +582,11 @@ static pthread_mutex_t mxdrv_mutex;
     _file = file;
     
     NSInteger lc = _loopCount;
-    if(lc < 1 || lc > 100) lc = 1;
+    if(lc < 0 || lc > 100) lc = 1;
     
     
     playduration = MXDRVG_MeasurePlayTime((int)lc, 0) + FOCOUNT;    // nofadeout + 8sec
+	if(lc == 0) playduration = 0;
     _duration = playduration / 1000;
     MXDRVG_PlayAt(0, (int)lc, 1);
     
