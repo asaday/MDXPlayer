@@ -53,6 +53,7 @@
 		C3F0AC0B1D3232E400C252EC /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0AC061D3232E400C252EC /* InfoVC.swift */; };
 		C3FC5E5E1D8931CE006B696A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3FC5E5D1D8931CE006B696A /* Launch Screen.storyboard */; };
 		CFA5C550F36D014A91533C96 /* Pods_mdxplayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C5756025C4A1B8895623A3 /* Pods_mdxplayer.framework */; };
+		F8350FF11D9C8D9A00A9B239 /* lzx042.c in Sources */ = {isa = PBXBuildFile; fileRef = F8350FEF1D9C8D9A00A9B239 /* lzx042.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +141,8 @@
 		C3F0AC061D3232E400C252EC /* InfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		C3FC5E5D1D8931CE006B696A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F0633E8A337BE7F7E048A522 /* Pods-mdxplayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mdxplayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-mdxplayer/Pods-mdxplayer.release.xcconfig"; sourceTree = "<group>"; };
+		F8350FEF1D9C8D9A00A9B239 /* lzx042.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzx042.c; sourceTree = "<group>"; };
+		F8350FF01D9C8D9A00A9B239 /* lzx042.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzx042.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +315,8 @@
 				C345FDB41D71781B009B15E8 /* KeyboardBitmap.m */,
 				C345FDB51D71781B009B15E8 /* Player.h */,
 				C345FDB61D71781B009B15E8 /* Player.m */,
+				F8350FEF1D9C8D9A00A9B239 /* lzx042.c */,
+				F8350FF01D9C8D9A00A9B239 /* lzx042.h */,
 				C345FDB71D71781B009B15E8 /* SpeanaBitmap.h */,
 				C345FDB81D71781B009B15E8 /* SpeanaBitmap.m */,
 				C345FDB91D71781B009B15E8 /* trackinfo.h */,
@@ -547,6 +552,7 @@
 				C32DD98E170C614D00D11883 /* x68pcm8.cpp in Sources */,
 				C3D59ABA1D791E6C00CF2F6E /* RootListVC.swift in Sources */,
 				C345FDBD1D71781B009B15E8 /* SpeanaBitmap.m in Sources */,
+				F8350FF11D9C8D9A00A9B239 /* lzx042.c in Sources */,
 				C3F0AC0B1D3232E400C252EC /* InfoVC.swift in Sources */,
 				C345FDBE1D71781B009B15E8 /* trackinfo.m in Sources */,
 			);
