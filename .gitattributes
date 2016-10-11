@@ -1,0 +1,4 @@
+*.h linguist-language=Swift
+*.m linguist-language=Swift
+*.cpp linguist-language=Swift
+
