@@ -4,8 +4,8 @@ class InfoVC: UIViewController, UIWebViewDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.title = "information"
-		let wview = UIWebView(frame: view.bounds)
+		self.title = "information ver" + (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")
+ 		let wview = UIWebView(frame: view.bounds)
 		self.view.addSubview(wview)
 		wview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
