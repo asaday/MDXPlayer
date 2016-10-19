@@ -29,11 +29,16 @@ AppStore
 
 ### how to make
 
+Xcode 8 later
+
 1. install [cocoapods](http://cocoapods.org/)
 
 install cocoapods, and
 
 	$ pod install
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> develop
