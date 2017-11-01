@@ -30,7 +30,7 @@ class RootListVC: ListVC {
 		]
 	}
 
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+	override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
 		return 66
 	}
 
@@ -76,6 +76,4 @@ class RootListVC: ListVC {
 
 		Player.sharedInstance().playFiles(lists, index: 0)
 	}
-
 }
-

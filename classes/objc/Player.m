@@ -612,8 +612,9 @@ static pthread_mutex_t mxdrv_mutex;
     NSDictionary *info = @{MPMediaItemPropertyTitle:_title,
                            MPMediaItemPropertyAlbumArtist: [file lastPathComponent],
                            MPMediaItemPropertyAlbumTitle: [[file lastPathComponent] lastPathComponent],
-						   MPMediaItemPropertyArtwork: [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"artwork"]]
-                           };
+						   MPMediaItemPropertyArtwork: [[MPMediaItemArtwork alloc] initWithBoundsSize:CGSizeMake(128, 128) requestHandler:^UIImage * _Nonnull(CGSize size) {
+							   return [UIImage imageNamed:@"artwork"];
+						   }]};
     
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:info];
     

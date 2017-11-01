@@ -4,8 +4,8 @@ import Foundation
 
 #if !arch(x86_64) && !arch(i386)
 
-	func debugPrint(items: Any ..., separator: String = " ", terminator: String = "\n") { }
-	func print(items: Any ..., separator: String = " ", terminator: String = "\n") { }
+	func debugPrint(items _: Any ..., separator _: String = " ", terminator _: String = "\n") {}
+	func print(items _: Any ..., separator _: String = " ", terminator _: String = "\n") {}
 
 #endif
 
@@ -13,19 +13,16 @@ func LOG(_ object: Any = "", method: String = #function) {
 	print("\(method) | \(object)")
 }
 
-
 public struct Dispatch {
 
-	public static func main(_ block: @escaping ()->()) {
+	public static func main(_ block: @escaping () -> Void) {
 		return DispatchQueue.main.async(execute: block)
 	}
 
-	public static func background(_ block: @escaping ()->()) {
+	public static func background(_ block: @escaping () -> Void) {
 		return DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: block)
 	}
-
 }
-
 
 public struct Path {
 	public static var documents: String { return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] }
@@ -93,4 +90,3 @@ public struct Path {
 		return (try? FileManager.default.attributesOfItem(atPath: path)) ?? [:]
 	}
 }
-

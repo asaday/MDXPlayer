@@ -65,7 +65,7 @@ class DropboxListVC: ListVC {
 			loadingView = v
 			loadingLabel = lbl
 		}
-		loadingLabel?.text = "NOW LOADING...\n\n" + msg// \n\n10 / 20"
+		loadingLabel?.text = "NOW LOADING...\n\n" + msg // \n\n10 / 20"
 		view.bringSubview(toFront: loadingView!)
 	}
 
@@ -77,9 +77,9 @@ class DropboxListVC: ListVC {
 
 	func tapLogin() {
 
-        DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL:  { (url:URL) -> Void in
-            UIApplication.shared.openURL(url)
-        })
+		DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL: { (url: URL) -> Void in
+			UIApplication.shared.openURL(url)
+		})
 	}
 
 	func tapLogout() {
@@ -136,7 +136,7 @@ class DropboxListVC: ListVC {
 		downloadingCount = 0
 		showLoading("LISTING")
 
-		let _ = client.files.listFolder(path: remotePath).response { (result, error) in
+		_ = client.files.listFolder(path: remotePath).response { result, _ in
 			guard let result = result else { return }
 
 			for entry in result.entries {
@@ -162,13 +162,13 @@ class DropboxListVC: ListVC {
 
 		print(meta.pathLower)
 		downloadingCount += 1
-		let destination: (URL, HTTPURLResponse) -> URL = { temporaryURL, response in
+		let destination: (URL, HTTPURLResponse) -> URL = { _, _ in
 			let dp = Path.caches("__downloadtmp")
 			Path.mkdir(dp)
 			return URL(fileURLWithPath: dp.appendPath(UUID().uuidString))
 		}
 
-		let _ = client.files.download(path: meta.pathLower!, destination: destination).response { response, error in
+		_ = client.files.download(path: meta.pathLower!, destination: destination).response { response, _ in
 			self.downloadedCount += 1
 			if let (metadata, url) = response {
 				Path.copy(url.path, dst: self.localPath.appendPath(metadata.name))
@@ -210,4 +210,3 @@ class DropboxListVC: ListVC {
 		doPlay(indexPath.row)
 	}
 }
-

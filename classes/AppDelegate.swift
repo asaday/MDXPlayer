@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
 		DropboxClientsManager.setupWithAppKey("meoje4tyq6ou09p")
 
@@ -34,32 +34,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		nav.navigationBar.tintColor = UIColor.mdxColor
 		nav.navigationBar.backgroundColor = UIColor(white: 43 / 255, alpha: 1)
 
-		let v = PlayView(frame: nav.view.bounds.resize(0, 66, .top))
-		v.frame = nav.view.bounds.resize(0, 66, .bottom)
-		v.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+		let v = PlayView(frame: nav.view.bounds)
 		nav.view.addSubview(v)
+		v.isHidden = true
 
 		window?.rootViewController = nav
 		window?.makeKeyAndVisible()
 
+		Dispatch.main {
+			v.setClose() // apply safearea
+			v.isHidden = false
+		}
+
 		return true
 	}
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
+	func application(_: UIApplication, open url: URL, options _: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
 
 		if let authResult = DropboxClientsManager.handleRedirectURL(url) {
 			switch authResult {
-			case .success(let token):
+			case let .success(token):
 				print("Success! User is logged into Dropbox with token: \(token)")
 			case .cancel:
-				print("User canceld OAuth flow.")
-			case .error(let error, let description):
+				print("User canceled OAuth flow.")
+			case let .error(error, description):
 				print("Error \(error): \(description)")
 			}
 		}
 
 		return false
 	}
-
 }
-

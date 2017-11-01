@@ -19,7 +19,7 @@ class HistoryListVC: ListVC {
 		if let dat = try? Data(contentsOf: URL(fileURLWithPath: HistoryListVC.listpath)),
 			let json = try? JSONSerialization.jsonObject(with: dat, options: []),
 			let ar = json as? [[String: String]] {
-				histories = ar
+			histories = ar
 		}
 
 		histories = histories.filter {
@@ -34,7 +34,7 @@ class HistoryListVC: ListVC {
 		}
 	}
 
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+	override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
 		return 66
 	}
 
@@ -73,6 +73,4 @@ class HistoryListVC: ListVC {
 		navigationController?.pushViewController(vc, animated: true)
 		return
 	}
-
 }
-

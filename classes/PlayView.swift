@@ -137,7 +137,7 @@ class PlayView: UIView, PlayerDelegate {
 		volSlider.value = Player.sharedInstance().volume
 		volSlider.addTarget(self, action: #selector(changeVolume), for: .valueChanged)
 
-		loopLabel.text = "\( Player.sharedInstance().loopCount )"
+		loopLabel.text = "\(Player.sharedInstance().loopCount)"
 		if Player.sharedInstance().loopCount == 0 { loopLabel.text = "∞" }
 
 		smpLabel.text = String(format: "%.1fk", Float(Player.sharedInstance().samplingRate) / 1000)
@@ -172,7 +172,10 @@ class PlayView: UIView, PlayerDelegate {
 
 	func layout() {
 
-		openBtn.frame = bounds.resize(44, 66, .topRight)
+		print(safeAreaInsets)
+
+		let sb = UIEdgeInsetsInsetRect(bounds, safeAreaInsets)
+		openBtn.frame = sb.resize(44, 66, .topRight)
 
 		if !opened {
 			prevBtn.isHidden = true
@@ -186,10 +189,10 @@ class PlayView: UIView, PlayerDelegate {
 			borderLayer.isHidden = false
 			smpBtn.isHidden = true
 			loopBtn.isHidden = true
-			titleLabel.frame = bounds.resize(-44 * 3, 66, .top).offset(-22, 0)
-			progressSlider.frame = bounds.resize(0, 3, .top).offset(0, 66 - 3)
-			playBtn.frame = bounds.resize(44, 66, .topLeft)
-			nextBtn.frame = bounds.resize(44, 66, .topRight).offset(-44, 0)
+			titleLabel.frame = sb.resize(-44 * 3, 66, .top).offset(-22, 0)
+			progressSlider.frame = sb.resize(0, 3, .top).offset(0, 66 - 3)
+			playBtn.frame = sb.resize(44, 66, .topLeft)
+			nextBtn.frame = sb.resize(44, 66, .topRight).offset(-44, 0)
 			borderLayer.frame = CGRect(0, 0, width, 0.5)
 
 		} else {
@@ -208,7 +211,7 @@ class PlayView: UIView, PlayerDelegate {
 			if width < height {
 				keyLayer.isHidden = false
 				speLayer.isHidden = false
-				keyLayer.frame = CGRect(0, 66, width, width * (136 / 224))
+				keyLayer.frame = sb.resize(width, width * (136 / 224), .top).offset(0, 66)
 				speLayer.frame = CGRect(0, 66 + keyLayer.frame.height, width, width * (64 / 256))
 				spmaskLayer.frame = speLayer.bounds
 
@@ -220,28 +223,27 @@ class PlayView: UIView, PlayerDelegate {
 				y = 66
 			}
 
-			progressSlider.frame = bounds.resize(0, 3, .top).offset(0, y)
-			progressLabel.frame = bounds.resize(100, 20, .topLeft).offset(5, y + 5)
-			durationLabel.frame = bounds.resize(100, 20, .topRight).offset(-5, y + 5)
+			progressSlider.frame = sb.resize(0, 3, .top).offset(0, y)
+			progressLabel.frame = sb.resize(100, 20, .topLeft).offset(5, y + 5)
+			durationLabel.frame = sb.resize(100, 20, .topRight).offset(-5, y + 5)
 
-			y = height - 44 * 5
+			y += 30
 
-			titleLabel.frame = bounds.resize(-20, 44, .top).offset(0, y + 12)
-			descLabel.frame = bounds.resize(-20, 22, .top).offset(0, y + 64)
-			y += 44 * 3
+			titleLabel.frame = sb.resize(-20, 44, .top).offset(0, y + 12)
+			descLabel.frame = sb.resize(-20, 22, .top).offset(0, y + 64)
+			y += 44 * 4
 
-			let div = (width - 44) / 4
-			smpBtn.center = CGPoint(x: div * 0 + 22, y: y)
-			prevBtn.center = CGPoint(x: div * 1 + 22, y: y)
-			playBtn.center = CGPoint(x: div * 2 + 22, y: y)
-			nextBtn.center = CGPoint(x: div * 3 + 22, y: y)
-			loopBtn.center = CGPoint(x: div * 4 + 22, y: y)
+			let div = (sb.width - 44) / 4
+			smpBtn.center = CGPoint(x: div * 0 + 22 + sb.origin.x, y: y + sb.origin.y)
+			prevBtn.center = CGPoint(x: div * 1 + 22 + sb.origin.x, y: y + sb.origin.y)
+			playBtn.center = CGPoint(x: div * 2 + 22 + sb.origin.x, y: y + sb.origin.y)
+			nextBtn.center = CGPoint(x: div * 3 + 22 + sb.origin.x, y: y + sb.origin.y)
+			loopBtn.center = CGPoint(x: div * 4 + 22 + sb.origin.x, y: y + sb.origin.y)
 			y += 44
 
-			svoliv.frame = bounds.resize(18, 18, .topLeft).offset(30, y + 13)
-			mvoliv.frame = bounds.resize(18, 18, .topRight).offset(-30, y + 13)
-			volSlider.frame = bounds.resize(-110, 44, .top).offset(0, y)
-
+			svoliv.frame = sb.resize(18, 18, .topLeft).offset(30, y + 13)
+			mvoliv.frame = sb.resize(18, 18, .topRight).offset(-30, y + 13)
+			volSlider.frame = sb.resize(-110, 44, .top).offset(0, y)
 		}
 		setNeedsDisplay()
 	}
@@ -249,10 +251,10 @@ class PlayView: UIView, PlayerDelegate {
 	func tapPlay() {
 		Player.sharedInstance().togglePause()
 	}
-    
-    func didChangePause(to pause: Bool) {
-        playBtn.isSelected = pause
-    }
+
+	func didChangePause(to pause: Bool) {
+		playBtn.isSelected = pause
+	}
 
 	func tapPrev() {
 		Player.sharedInstance().goPrev()
@@ -262,7 +264,7 @@ class PlayView: UIView, PlayerDelegate {
 		Player.sharedInstance().goNext()
 	}
 
-	func tapArrow(_ btn: UIButton) {
+	func tapArrow(_: UIButton) {
 		if !opened {
 			doOpen()
 		} else {
@@ -278,7 +280,7 @@ class PlayView: UIView, PlayerDelegate {
 			self.frame = self.superview!.bounds
 			self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			self.layout()
-		}) 
+		})
 	}
 
 	func doClose() {
@@ -286,10 +288,16 @@ class PlayView: UIView, PlayerDelegate {
 		opened = false
 		openBtn.setImage(UIImage(named: "arrow_up"), for: .normal)
 		UIView.animate(withDuration: 0.3, animations: {
-			self.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-			self.frame = self.superview!.bounds.resize(0, 66, .bottom)
-			self.layout()
-		}) 
+			self.setClose()
+		})
+	}
+
+	func setClose() {
+		opened = false
+		autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+		guard let sv = self.superview else { return }
+		frame = sv.bounds.resize(0, 66 + sv.safeAreaInsets.bottom, .bottom)
+		layout()
 	}
 
 	func tapSmp() {
@@ -312,8 +320,8 @@ class PlayView: UIView, PlayerDelegate {
 		Player.sharedInstance().loopCount = cnt
 		if cnt == 0 {
 			loopLabel.text = "∞"
-		}else {
-			loopLabel.text = "\( Player.sharedInstance().loopCount )"
+		} else {
+			loopLabel.text = "\(Player.sharedInstance().loopCount)"
 		}
 	}
 
@@ -325,11 +333,11 @@ class PlayView: UIView, PlayerDelegate {
 		self.init(frame: .zero)
 	}
 
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder _: NSCoder) {
 		fatalError()
 	}
 
-	func didEnd() { }
+	func didEnd() {}
 	func didStart() {
 		titleLabel.text = Player.sharedInstance().title
 		descLabel.text = Player.sharedInstance().file?.lastPathComponent
@@ -353,6 +361,4 @@ class PlayView: UIView, PlayerDelegate {
 		if keyLayer.isHidden { return }
 		Player.redrawKey(keyLayer, speana: speLayer, paint: true)
 	}
-
 }
-

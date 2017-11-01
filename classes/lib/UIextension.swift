@@ -1,7 +1,6 @@
 
 import UIKit
 
-
 public extension CGSize {
 	init(_ w: CGFloat, _ h: CGFloat) { self.init(width: w, height: h) }
 	func calc(_ block: (inout CGSize) -> Void) -> CGSize { var v = self; block(&v); return v }
@@ -28,11 +27,11 @@ public extension CGRect {
 	func calc(_ block: (inout CGRect) -> Void) -> CGRect { var v = self; block(&v); return v }
 
 	func inset(_ dx: CGFloat, _ dy: CGFloat) -> CGRect {
-		return self.insetBy(dx: dx, dy: dy)
+		return insetBy(dx: dx, dy: dy)
 	}
 
 	func offset(_ dx: CGFloat, _ dy: CGFloat) -> CGRect {
-		return self.offsetBy(dx: dx, dy: dy)
+		return offsetBy(dx: dx, dy: dy)
 	}
 
 	func scale(_ scale: CGFloat, alignment: Alignment) -> CGRect {
@@ -56,20 +55,19 @@ public extension CGRect {
 		let by = y + height - h
 
 		switch alignment {
-		case .center: x = cx;y = cy
+		case .center: x = cx; y = cy
 		case .top: x = cx
 		case .left: y = cy
-		case .right: y = cy;x = rx
+		case .right: y = cy; x = rx
 		case .topLeft: break
 		case .topRight: x = rx
 		case .bottom: x = cx; y = by
 		case .bottomLeft: y = by
-		case .bottomRight: x = rx;y = by
+		case .bottomRight: x = rx; y = by
 		}
 		return CGRect(x, y, w, h)
 	}
 }
-
 
 public extension UIViewController {
 	var width: CGFloat { return view.bounds.size.width }
@@ -83,10 +81,10 @@ public extension UIViewController {
 		present(av, animated: true, completion: nil)
 	}
 
-	func showOKCancel(_ msg: String, okTitle: String = "OK", cancelTitle: String = "Cancel", title: String = "", cancel: (() -> Void)? = nil, completion: @escaping (() -> Void)) {
+	func showOKCancel(_ msg: String, okTitle: String = "OK", cancelTitle: String = "Cancel", title _: String = "", cancel: (() -> Void)? = nil, completion: @escaping (() -> Void)) {
 		let av = UIAlertController(title: "", message: msg, preferredStyle: .alert)
-		av.addAction(UIAlertAction(title: NSLocalizedString(okTitle, comment: ""), style: .default, handler: { action in completion() }))
-		av.addAction(UIAlertAction(title: NSLocalizedString(cancelTitle, comment: ""), style: .cancel, handler: { action in cancel?() }))
+		av.addAction(UIAlertAction(title: NSLocalizedString(okTitle, comment: ""), style: .default, handler: { _ in completion() }))
+		av.addAction(UIAlertAction(title: NSLocalizedString(cancelTitle, comment: ""), style: .cancel, handler: { _ in cancel?() }))
 		present(av, animated: true, completion: nil)
 	}
 
@@ -95,12 +93,11 @@ public extension UIViewController {
 
 		for i in 0 ..< list.count {
 			let v: Int = i // copy val
-			av.addAction(UIAlertAction(title: list[i], style: .default, handler: { action in completion(v) }))
+			av.addAction(UIAlertAction(title: list[i], style: .default, handler: { _ in completion(v) }))
 		}
 		av.addAction(UIAlertAction(title: NSLocalizedString(cancelTitle, comment: ""), style: .cancel, handler: nil))
 		present(av, animated: true, completion: nil)
 	}
-
 }
 
 public extension UIView {
@@ -114,7 +111,7 @@ public extension UIButton {
 		let btn = UIButton(type: .custom)
 		btn.frame = frame
 
-        btn.setImage(image, for: .normal)
+		btn.setImage(image, for: .normal)
 		if let t = target { btn.addTarget(t, action: action!, for: .touchUpInside) }
 		return btn
 	}

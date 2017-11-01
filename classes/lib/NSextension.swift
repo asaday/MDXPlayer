@@ -14,7 +14,6 @@ public extension NSObject {
 	func postNotification(_ name: String, object anObject: AnyObject?) {
 		NotificationCenter.default.post(name: Notification.Name(rawValue: name), object: anObject)
 	}
-
 }
 
 public extension String {
@@ -24,10 +23,10 @@ public extension String {
 	func appendPath(_ path: String) -> String {
 		let result = to_ns().appendingPathComponent(path)
 
-		if !self.hasString("://") { return result }
+		if !hasString("://") { return result }
 		guard var c = URLComponents(string: self) else { return result }
 
-		//if c.path == nil { c.path = "/" }
+		// if c.path == nil { c.path = "/" }
 		c.path = c.path.to_ns().appendingPathComponent(path)
 		return c.string ?? result
 	}
@@ -46,6 +45,4 @@ public extension String {
 	func replace(_ search: String, _ replace: String) -> String {
 		return to_ns().replacingOccurrences(of: search, with: replace)
 	}
-
 }
-

@@ -10,10 +10,10 @@ import UIKit
 
 class ListCell: UITableViewCell {
 
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder _: NSCoder) {
 		fatalError() }
 
-	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+	override init(style _: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 		backgroundColor = UIColor(white: 23 / 255, alpha: 1)
 
@@ -43,12 +43,12 @@ struct Item {
 		return r as NSObject
 	}
 
-	init() { }
+	init() {}
 
 	init(file: String, isDir: Bool) {
 		self.file = file
 		self.isDir = isDir
-		if isDir { self.title = file }
+		if isDir { title = file }
 	}
 
 	init(title: String, file: String, isDir: Bool) {
@@ -79,7 +79,7 @@ class ListVC: UITableViewController {
 		let reps: [String: String] = [
 			"_documents_": Path.documents,
 			"_resources_": Path.resource("buildin"),
-			"_dropbox_": Path.caches("_dropbox_")
+			"_dropbox_": Path.caches("_dropbox_"),
 		]
 
 		for (k, v) in reps {
@@ -115,7 +115,6 @@ class ListVC: UITableViewController {
 		if list.count == 0 && path == "_documents_" {
 			showInfo("Copy files with iTunes app from PC/mac/X68k")
 		}
-
 	}
 
 	func sortedReload() {
@@ -126,15 +125,15 @@ class ListVC: UITableViewController {
 		tableView.reloadData()
 	}
 
-	override func numberOfSections(in tableView: UITableView) -> Int {
+	override func numberOfSections(in _: UITableView) -> Int {
 		return 1
 	}
 
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		return list.count
 	}
 
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+	override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		if indexPath.row >= list.count { return 44 }
 		let item = list[indexPath.row]
 		return item.isDir ? 44 : 66
@@ -172,7 +171,6 @@ class ListVC: UITableViewController {
 				guard let mc = tableView.cellForRow(at: indexPath) else { return }
 				mc.textLabel?.text = n
 			}
-
 		}
 
 		return cell
