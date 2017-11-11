@@ -171,13 +171,10 @@ class PlayView: UIView, PlayerDelegate {
 	}
 
 	func layout() {
-
-		print(safeAreaInsets)
-
-		let sb = UIEdgeInsetsInsetRect(bounds, safeAreaInsets)
-		openBtn.frame = sb.resize(44, 66, .topRight)
-
 		if !opened {
+			let sb = bounds
+			openBtn.frame = sb.resize(44, 66, .topRight)
+
 			prevBtn.isHidden = true
 			volSlider.isHidden = true
 			svoliv.isHidden = true
@@ -195,56 +192,59 @@ class PlayView: UIView, PlayerDelegate {
 			nextBtn.frame = sb.resize(44, 66, .topRight).offset(-44, 0)
 			borderLayer.frame = CGRect(0, 0, width, 0.5)
 
-		} else {
-			prevBtn.isHidden = false
-			volSlider.isHidden = false
-			svoliv.isHidden = false
-			mvoliv.isHidden = false
-			progressLabel.isHidden = false
-			durationLabel.isHidden = false
-			smpBtn.isHidden = false
-			loopBtn.isHidden = false
-			borderLayer.isHidden = true
-
-			var y: CGFloat = 0
-
-			if width < height {
-				keyLayer.isHidden = false
-				speLayer.isHidden = false
-				keyLayer.frame = sb.resize(width, width * (136 / 224), .top).offset(0, 66)
-				speLayer.frame = CGRect(0, 66 + keyLayer.frame.height, width, width * (64 / 256))
-				spmaskLayer.frame = speLayer.bounds
-
-				y = speLayer.frame.origin.y + speLayer.frame.size.height
-
-			} else {
-				keyLayer.isHidden = true
-				speLayer.isHidden = true
-				y = 66
-			}
-
-			progressSlider.frame = sb.resize(0, 3, .top).offset(0, y)
-			progressLabel.frame = sb.resize(100, 20, .topLeft).offset(5, y + 5)
-			durationLabel.frame = sb.resize(100, 20, .topRight).offset(-5, y + 5)
-
-			y += 30
-
-			titleLabel.frame = sb.resize(-20, 44, .top).offset(0, y + 12)
-			descLabel.frame = sb.resize(-20, 22, .top).offset(0, y + 64)
-			y += 44 * 4
-
-			let div = (sb.width - 44) / 4
-			smpBtn.center = CGPoint(x: div * 0 + 22 + sb.origin.x, y: y + sb.origin.y)
-			prevBtn.center = CGPoint(x: div * 1 + 22 + sb.origin.x, y: y + sb.origin.y)
-			playBtn.center = CGPoint(x: div * 2 + 22 + sb.origin.x, y: y + sb.origin.y)
-			nextBtn.center = CGPoint(x: div * 3 + 22 + sb.origin.x, y: y + sb.origin.y)
-			loopBtn.center = CGPoint(x: div * 4 + 22 + sb.origin.x, y: y + sb.origin.y)
-			y += 44
-
-			svoliv.frame = sb.resize(18, 18, .topLeft).offset(30, y + 13)
-			mvoliv.frame = sb.resize(18, 18, .topRight).offset(-30, y + 13)
-			volSlider.frame = sb.resize(-110, 44, .top).offset(0, y)
+			setNeedsDisplay()
+			return
 		}
+
+		let sb = UIEdgeInsetsInsetRect(bounds, safeAreaInsets)
+		openBtn.frame = sb.resize(44, 66, .topRight)
+
+		prevBtn.isHidden = false
+		volSlider.isHidden = false
+		svoliv.isHidden = false
+		mvoliv.isHidden = false
+		progressLabel.isHidden = false
+		durationLabel.isHidden = false
+		smpBtn.isHidden = false
+		loopBtn.isHidden = false
+		borderLayer.isHidden = true
+
+		var y: CGFloat = 66
+
+		if width < height {
+			keyLayer.isHidden = false
+			speLayer.isHidden = false
+			let kh = ceil(width * (136 / 224))
+			keyLayer.frame = sb.resize(width, kh, .top).offset(0, y)
+			let sh = width * (64 / 256)
+			speLayer.frame = sb.resize(width, sh, .top).offset(0, y + kh)
+			spmaskLayer.frame = speLayer.bounds
+			y += kh + sh
+		} else {
+			keyLayer.isHidden = true
+			speLayer.isHidden = true
+		}
+		progressSlider.frame = sb.resize(0, 3, .top).offset(0, y)
+		progressLabel.frame = sb.resize(100, 20, .topLeft).offset(5, y + 5)
+		durationLabel.frame = sb.resize(100, 20, .topRight).offset(-5, y + 5)
+		y += 20
+
+		let crc = sb.resize(0, sb.height - y, .bottom).resize(0, 44 * 4, .center) // control rect height=fix ypos=center in rest
+		titleLabel.frame = crc.resize(-20, 44, .top).offset(0, 12)
+		descLabel.frame = crc.resize(-20, 22, .top).offset(0, 64)
+
+		let div = (crc.width - 44 * 2) / 4
+		let brc = crc.resize(44, 44, .topLeft).offset(22, 44 * 2)
+		smpBtn.frame = brc.offset(div * 0, 0)
+		prevBtn.frame = brc.offset(div * 1, 0)
+		playBtn.frame = brc.offset(div * 2, 0)
+		nextBtn.frame = brc.offset(div * 3, 0)
+		loopBtn.frame = brc.offset(div * 4, 0)
+
+		volSlider.frame = crc.resize(-110, 44, .bottom)
+		svoliv.frame = crc.resize(18, 18, .bottomLeft).offset(30, -13)
+		mvoliv.frame = crc.resize(18, 18, .bottomRight).offset(-30, -13)
+
 		setNeedsDisplay()
 	}
 
