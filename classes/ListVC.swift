@@ -13,7 +13,7 @@ class ListCell: UITableViewCell {
 	required init?(coder _: NSCoder) {
 		fatalError() }
 
-	override init(style _: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 		backgroundColor = UIColor(white: 23 / 255, alpha: 1)
 

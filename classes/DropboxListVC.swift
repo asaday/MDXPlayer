@@ -66,7 +66,7 @@ class DropboxListVC: ListVC {
 			loadingLabel = lbl
 		}
 		loadingLabel?.text = "NOW LOADING...\n\n" + msg // \n\n10 / 20"
-		view.bringSubview(toFront: loadingView!)
+        view.bringSubviewToFront(loadingView!)
 	}
 
 	func hideLoading() {
@@ -75,14 +75,14 @@ class DropboxListVC: ListVC {
 		loadingLabel = nil
 	}
 
-	func tapLogin() {
+    @objc func tapLogin() {
 
 		DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL: { (url: URL) -> Void in
-			UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		})
 	}
 
-	func tapLogout() {
+    @objc func tapLogout() {
 		DropboxClientsManager.unlinkClients()
 		showRightButton()
 	}
@@ -111,7 +111,7 @@ class DropboxListVC: ListVC {
 		}
 	}
 
-	func doRefresh() {
+    @objc func doRefresh() {
 		Path.remove(localPath.appendPath("__list.json"))
 		client = nil
 		reload()
@@ -160,7 +160,7 @@ class DropboxListVC: ListVC {
 
 	func doDownload(_ meta: Files.Metadata) {
 
-		print(meta.pathLower)
+		//print(meta.pathLower)
 		downloadingCount += 1
 		let destination: (URL, HTTPURLResponse) -> URL = { _, _ in
 			let dp = Path.caches("__downloadtmp")

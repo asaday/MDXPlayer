@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
 		DropboxClientsManager.setupWithAppKey("meoje4tyq6ou09p")
 
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 
-	func application(_: UIApplication, open url: URL, options _: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
+    func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
 
 		if let authResult = DropboxClientsManager.handleRedirectURL(url) {
 			switch authResult {

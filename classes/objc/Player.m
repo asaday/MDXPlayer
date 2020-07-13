@@ -658,20 +658,22 @@ static pthread_mutex_t mxdrv_mutex;
     return r;
 }
 
--(void)goNext
+-(MPRemoteCommandHandlerStatus)goNext
 {
-    if (files.count == 0) return;
+    if (files.count == 0) return MPRemoteCommandHandlerStatusSuccess;
     fileIndex = (fileIndex + 1) % files.count;
     [self cleanUpAudioQueue];
     [self playOneFile:files[fileIndex]];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
--(void)goPrev
+-(MPRemoteCommandHandlerStatus)goPrev
 {
-    if (files.count == 0) return;
+    if (files.count == 0) return MPRemoteCommandHandlerStatusSuccess;
     fileIndex = (fileIndex + files.count - 1) % files.count;
     [self cleanUpAudioQueue];
     [self playOneFile:files[fileIndex]];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
 
@@ -693,21 +695,23 @@ static pthread_mutex_t mxdrv_mutex;
         [self doPlay];
     }
 }
--(void) doPause
+-(MPRemoteCommandHandlerStatus) doPause
 {
     AudioQueuePause(audioQueue);
     _paused = YES;
     [_delegate didChangePauseTo:_paused];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
--(void) doPlay
+-(MPRemoteCommandHandlerStatus) doPlay
 {
     AudioQueueStart(audioQueue, NULL);
     _paused = NO;
     [_delegate didChangePauseTo:_paused];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
--(void)togglePause
+-(MPRemoteCommandHandlerStatus)togglePause
 {
     if(!_paused){
         AudioQueuePause(audioQueue);
@@ -717,6 +721,7 @@ static pthread_mutex_t mxdrv_mutex;
         _paused = NO;
     }
     [_delegate didChangePauseTo:_paused];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
 

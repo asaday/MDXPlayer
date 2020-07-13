@@ -39,7 +39,7 @@ public extension CGRect {
 		return resize(sz.width, sz.height, alignment)
 	}
 
-	public enum Alignment: Int {
+    enum Alignment: Int {
 		case center, top, bottom, left, right, topLeft, topRight, bottomLeft, bottomRight
 	}
 

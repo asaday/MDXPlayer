@@ -16,7 +16,7 @@ class RootListVC: ListVC {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "info"), style: .plain, target: self, action: #selector(tapInfo))
 	}
 
-	func tapInfo() {
+    @objc func tapInfo() {
 		navigationController?.pushViewController(InfoVC(), animated: true)
 	}
 

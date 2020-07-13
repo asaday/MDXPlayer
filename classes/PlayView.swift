@@ -122,9 +122,9 @@ class PlayView: UIView, PlayerDelegate {
 		smpBtn.addTarget(self, action: #selector(tapSmp), for: .touchUpInside)
 		loopBtn.addTarget(self, action: #selector(tapLoop), for: .touchUpInside)
 
-		keyLayer.magnificationFilter = kCAFilterNearest
-		speLayer.magnificationFilter = kCAFilterNearest
-		spmaskLayer.magnificationFilter = kCAFilterNearest
+        keyLayer.magnificationFilter = CALayerContentsFilter.nearest
+        speLayer.magnificationFilter = CALayerContentsFilter.nearest
+        spmaskLayer.magnificationFilter = CALayerContentsFilter.nearest
 
 		Player.prepareMask(spmaskLayer)
 
@@ -160,7 +160,7 @@ class PlayView: UIView, PlayerDelegate {
 		layout()
 	}
 
-	func tapLong(_ ges: UILongPressGestureRecognizer) {
+    @objc func tapLong(_ ges: UILongPressGestureRecognizer) {
 		if ges.state == .began { Player.sharedInstance().speedup = true }
 		else if ges.state != .cancelled { Player.sharedInstance().speedup = false }
 	}
@@ -196,7 +196,7 @@ class PlayView: UIView, PlayerDelegate {
 			return
 		}
 
-		let sb = UIEdgeInsetsInsetRect(bounds, safeAreaInsets)
+        let sb = bounds.inset(by: safeAreaInsets)
 		openBtn.frame = sb.resize(44, 66, .topRight)
 
 		prevBtn.isHidden = false
@@ -248,7 +248,7 @@ class PlayView: UIView, PlayerDelegate {
 		setNeedsDisplay()
 	}
 
-	func tapPlay() {
+    @objc func tapPlay() {
 		Player.sharedInstance().togglePause()
 	}
 
@@ -256,15 +256,15 @@ class PlayView: UIView, PlayerDelegate {
 		playBtn.isSelected = pause
 	}
 
-	func tapPrev() {
+    @objc func tapPrev() {
 		Player.sharedInstance().goPrev()
 	}
 
-	func tapNext() {
+    @objc func tapNext() {
 		Player.sharedInstance().goNext()
 	}
 
-	func tapArrow(_: UIButton) {
+    @objc func tapArrow(_: UIButton) {
 		if !opened {
 			doOpen()
 		} else {
@@ -272,7 +272,7 @@ class PlayView: UIView, PlayerDelegate {
 		}
 	}
 
-	func doOpen() {
+    @objc func doOpen() {
 		if opened { return }
 		opened = true
 		openBtn.setImage(UIImage(named: "arrow_down"), for: .normal)
@@ -283,7 +283,7 @@ class PlayView: UIView, PlayerDelegate {
 		})
 	}
 
-	func doClose() {
+    @objc func doClose() {
 		if !opened { return }
 		opened = false
 		openBtn.setImage(UIImage(named: "arrow_up"), for: .normal)
@@ -300,10 +300,10 @@ class PlayView: UIView, PlayerDelegate {
 		layout()
 	}
 
-	func tapSmp() {
+    @objc func tapSmp() {
 		var idx = 0
 		let params: [Int] = [44100, 48000, 62500, 22050]
-		if let ci = params.index(of: Player.sharedInstance().samplingRate) { idx = (ci + 1) % params.count }
+        if let ci = params.firstIndex(of: Player.sharedInstance().samplingRate) { idx = (ci + 1) % params.count }
 
 		Player.sharedInstance().samplingRate = params[idx]
 		smpLabel.text = String(format: "%.1fk", Float(Player.sharedInstance().samplingRate) / 1000)
@@ -312,7 +312,7 @@ class PlayView: UIView, PlayerDelegate {
 		Player.redrawKey(keyLayer, speana: speLayer, paint: false)
 	}
 
-	func tapLoop() {
+    @objc func tapLoop() {
 		var cnt = Player.sharedInstance().loopCount
 		cnt = cnt + 1
 		if cnt > 5 { cnt = 0 }
@@ -325,7 +325,7 @@ class PlayView: UIView, PlayerDelegate {
 		}
 	}
 
-	func changeVolume() {
+    @objc func changeVolume() {
 		Player.sharedInstance().volume = volSlider.value
 	}
 

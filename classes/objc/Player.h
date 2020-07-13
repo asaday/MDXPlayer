@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @protocol PlayerDelegate <NSObject>
 -(void)didStart;
@@ -34,10 +35,10 @@
 -(BOOL)playFile:(nonnull NSString*)file;
 -(BOOL)playFiles:(nonnull NSArray*)files index:(NSInteger)index;
 
--(void)goNext;
--(void)goPrev;
+-(MPRemoteCommandHandlerStatus)goNext;
+-(MPRemoteCommandHandlerStatus)goPrev;
 
--(void)togglePause;
+-(MPRemoteCommandHandlerStatus)togglePause;
 
 +(nullable NSString*)titleForMDXFile:(nonnull NSString*)file;
 +(void)prepareMask:(nonnull CALayer*)maskLayer;
