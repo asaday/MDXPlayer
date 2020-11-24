@@ -48,17 +48,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
-        if let authResult = DropboxClientsManager.handleRedirectURL(url) {
+        return DropboxClientsManager.handleRedirectURL(url) {
+            guard let authResult = $0 else { return }
+            
             switch authResult {
             case let .success(token):
                 print("Success! User is logged into Dropbox with token: \(token)")
             case .cancel:
                 print("User canceled OAuth flow.")
             case let .error(error, description):
-                print("Error \(error): \(description)")
+                print("Error \(error): \(description ?? "")")
             }
         }
 
-        return false
     }
 }

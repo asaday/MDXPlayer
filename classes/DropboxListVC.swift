@@ -35,6 +35,11 @@ class DropboxListVC: ListVC {
         ref.addTarget(self, action: #selector(doRefresh), for: .valueChanged)
         refresh = ref
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        loadingView?.frame = view.bounds.resize(-80, 160, .center)
+    }
 
     func showRightButton() {
         if DropboxClientsManager.authorizedClient == nil, DropboxClientsManager.authorizedTeamClient == nil {
@@ -46,7 +51,7 @@ class DropboxListVC: ListVC {
 
     func showLoading(_ msg: String) {
         if loadingView == nil {
-            let v = UIView(frame: view.bounds.resize(-80, 160, .top).offset(0, 100))
+            let v = UIView(frame: view.bounds.resize(-80, 160, .center))
             v.backgroundColor = UIColor(white: 0.2, alpha: 0.8)
             v.layer.cornerRadius = 8
             v.clipsToBounds = true
@@ -57,6 +62,7 @@ class DropboxListVC: ListVC {
             lbl.textAlignment = .center
             lbl.textColor = UIColor.mdxColor
             lbl.font = UIFont(name: "KH-Dot-Kodenmachou-16-Ki", size: 16)
+            lbl.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             v.addSubview(lbl)
 
             tableView.separatorStyle = .none
