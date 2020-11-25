@@ -332,6 +332,7 @@ class PlayView: UIView, PlayerDelegate {
         self.init(frame: .zero)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError()
     }

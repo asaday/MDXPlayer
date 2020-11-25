@@ -100,7 +100,7 @@ open class Snapshot: NSObject {
         #if os(tvOS)
             XCUIApplication().childrenMatchingType(.Browser).count
         #else
-        XCUIDevice.shared.orientation = .unknown
+            XCUIDevice.shared.orientation = .unknown
         #endif
     }
 

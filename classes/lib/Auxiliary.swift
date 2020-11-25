@@ -13,7 +13,7 @@ func LOG(_ object: Any = "", method: String = #function) {
     print("\(method) | \(object)")
 }
 
-public struct Dispatch {
+public enum Dispatch {
     public static func main(_ block: @escaping () -> Void) {
         return DispatchQueue.main.async(execute: block)
     }
@@ -23,7 +23,7 @@ public struct Dispatch {
     }
 }
 
-public struct Path {
+public enum Path {
     public static var documents: String { return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] }
     public static var caches: String { return NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] }
     public static var library: String { return NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] }

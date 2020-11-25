@@ -35,7 +35,7 @@ class DropboxListVC: ListVC {
         ref.addTarget(self, action: #selector(doRefresh), for: .valueChanged)
         refresh = ref
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         loadingView?.frame = view.bounds.resize(-80, 160, .center)

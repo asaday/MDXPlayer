@@ -9,6 +9,7 @@
 import UIKit
 
 class ListCell: UITableViewCell {
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError()
     }
