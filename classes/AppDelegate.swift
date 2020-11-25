@@ -6,60 +6,59 @@
 //  Copyright  asada. All rights reserved.
 //
 
-import UIKit
 import SwiftyDropbox
+import UIKit
 
 extension UIColor {
-	static var mdxColor: UIColor { return UIColor(red: 140 / 255, green: 146 / 255, blue: 248 / 255, alpha: 1) }
+    static var mdxColor: UIColor { return UIColor(red: 140 / 255, green: 146 / 255, blue: 248 / 255, alpha: 1) }
 }
 
 import SwiftyDropbox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
 
-	var window: UIWindow?
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        DropboxClientsManager.setupWithAppKey("meoje4tyq6ou09p")
 
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
 
-		DropboxClientsManager.setupWithAppKey("meoje4tyq6ou09p")
+        window?.backgroundColor = .white
 
-		window = UIWindow(frame: UIScreen.main.bounds)
+        let nav = UINavigationController(rootViewController: RootListVC())
 
-		window?.backgroundColor = .white
+        nav.navigationBar.barStyle = .blackTranslucent
+        nav.navigationBar.tintColor = UIColor.mdxColor
+        nav.navigationBar.backgroundColor = UIColor(white: 43 / 255, alpha: 1)
 
-		let nav = UINavigationController(rootViewController: RootListVC())
+        let v = PlayView(frame: nav.view.bounds)
+        nav.view.addSubview(v)
+        v.isHidden = true
 
-		nav.navigationBar.barStyle = .blackTranslucent
-		nav.navigationBar.tintColor = UIColor.mdxColor
-		nav.navigationBar.backgroundColor = UIColor(white: 43 / 255, alpha: 1)
+        window?.rootViewController = nav
+        window?.makeKeyAndVisible()
 
-		let v = PlayView(frame: nav.view.bounds.resize(0, 66, .top))
-		v.frame = nav.view.bounds.resize(0, 66, .bottom)
-		v.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-		nav.view.addSubview(v)
+        Dispatch.main {
+            v.setClose() // apply safearea
+            v.isHidden = false
+        }
 
-		window?.rootViewController = nav
-		window?.makeKeyAndVisible()
+        return true
+    }
 
-		return true
-	}
+    func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+        return DropboxClientsManager.handleRedirectURL(url) {
+            guard let authResult = $0 else { return }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
-
-		if let authResult = DropboxClientsManager.handleRedirectURL(url) {
-			switch authResult {
-			case .success(let token):
-				print("Success! User is logged into Dropbox with token: \(token)")
-			case .cancel:
-				print("User canceld OAuth flow.")
-			case .error(let error, let description):
-				print("Error \(error): \(description)")
-			}
-		}
-
-		return false
-	}
-
+            switch authResult {
+            case let .success(token):
+                print("Success! User is logged into Dropbox with token: \(token)")
+            case .cancel:
+                print("User canceled OAuth flow.")
+            case let .error(error, description):
+                print("Error \(error): \(description ?? "")")
+            }
+        }
+    }
 }
-

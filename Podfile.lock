@@ -1,15 +1,20 @@
 PODS:
-  - Alamofire (4.0.1)
-  - SwiftyDropbox (4.1.0):
-    - Alamofire (~> 4.0.0)
+  - Alamofire (4.8.2)
+  - SwiftyDropbox (6.0.3):
+    - Alamofire (~> 4.8.2)
 
 DEPENDENCIES:
   - SwiftyDropbox
 
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - SwiftyDropbox
+
 SPEC CHECKSUMS:
-  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
-  SwiftyDropbox: '0893e21982678ed69237c7c964a00c7a6f7079bb'
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  SwiftyDropbox: 7e864f1e826bfc1b9b53a5edccef6c8d5fbe9e3b
 
 PODFILE CHECKSUM: acb66d4bdd50506ce8c8933f4a6e3c5820b08ce9
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.10.0

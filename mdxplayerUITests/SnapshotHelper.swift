@@ -26,7 +26,6 @@ func snapshot(_ name: String, waitForLoadingIndicator: Bool = true) {
 }
 
 open class Snapshot: NSObject {
-
     open class func setupSnapshot(_ app: XCUIApplication) {
         setLanguage(app)
         setLocale(app)
@@ -79,7 +78,7 @@ open class Snapshot: NSObject {
         do {
             let launchArguments = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
             let regex = try NSRegularExpression(pattern: "(\\\".+?\\\"|\\S+)", options: [])
-            let matches = regex.matches(in: launchArguments, options: [], range: NSRange(location:0, length:launchArguments.characters.count))
+            let matches = regex.matches(in: launchArguments, options: [], range: NSRange(location: 0, length: launchArguments.count))
             let results = matches.map { result -> String in
                 (launchArguments as NSString).substring(with: result.range)
             }
@@ -101,7 +100,7 @@ open class Snapshot: NSObject {
         #if os(tvOS)
             XCUIApplication().childrenMatchingType(.Browser).count
         #else
-            XCUIDevice.shared().orientation = .unknown
+            XCUIDevice.shared.orientation = .unknown
         #endif
     }
 
@@ -112,7 +111,7 @@ open class Snapshot: NSObject {
 
         let query = XCUIApplication().statusBars.children(matching: .other).element(boundBy: 1).children(matching: .other)
 
-        while (0..<query.count).map({ query.element(boundBy: $0) }).contains(where: { $0.isLoadingIndicator }) {
+        while (0 ..< query.count).map({ query.element(boundBy: $0) }).contains(where: { $0.isLoadingIndicator }) {
             sleep(1)
             print("Waiting for loading indicator to disappear...")
         }
@@ -129,7 +128,7 @@ open class Snapshot: NSObject {
 
 extension XCUIElement {
     var isLoadingIndicator: Bool {
-        return self.frame.size == CGSize(width: 10, height: 20)
+        return frame.size == CGSize(width: 10, height: 20)
     }
 }
 
