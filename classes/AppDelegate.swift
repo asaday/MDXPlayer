@@ -10,16 +10,19 @@ import SwiftyDropbox
 import UIKit
 
 extension UIColor {
-    static var mdxColor: UIColor { return UIColor(red: 140 / 255, green: 146 / 255, blue: 248 / 255, alpha: 1) }
+    static var mdxColor: UIColor {
+        return UIColor(red: 140 / 255, green: 146 / 255, blue: 248 / 255, alpha: 1)
+    }
 }
 
-import SwiftyDropbox
-
-@UIApplicationMain
+@main
+@MainActor
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         DropboxClientsManager.setupWithAppKey("meoje4tyq6ou09p")
 
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -39,24 +42,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
 
-        Dispatch.main {
-            v.setClose() // apply safearea
+        Task { @MainActor in
+            v.setClose()  // apply safearea
             v.isHidden = false
         }
 
         return true
     }
 
-    func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+    func application(
+        _: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any]
+    ) -> Bool {
         return DropboxClientsManager.handleRedirectURL(url) {
             guard let authResult = $0 else { return }
 
             switch authResult {
-            case let .success(token):
+            case .success(let token):
                 print("Success! User is logged into Dropbox with token: \(token)")
             case .cancel:
                 print("User canceled OAuth flow.")
-            case let .error(error, description):
+            case .error(let error, let description):
                 print("Error \(error): \(description ?? "")")
             }
         }

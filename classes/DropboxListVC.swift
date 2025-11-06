@@ -9,6 +9,7 @@
 import SwiftyDropbox
 import UIKit
 
+@MainActor
 class DropboxListVC: ListVC {
     var client: DropboxClient!
     var downloadedCount: Int = 0
@@ -42,10 +43,14 @@ class DropboxListVC: ListVC {
     }
 
     func showRightButton() {
-        if DropboxClientsManager.authorizedClient == nil, DropboxClientsManager.authorizedTeamClient == nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "login", style: .plain, target: self, action: #selector(tapLogin))
+        if DropboxClientsManager.authorizedClient == nil,
+            DropboxClientsManager.authorizedTeamClient == nil
+        {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "login", style: .plain, target: self, action: #selector(tapLogin))
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "logout", style: .plain, target: self, action: #selector(tapLogout))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "logout", style: .plain, target: self, action: #selector(tapLogout))
         }
     }
 
@@ -69,7 +74,7 @@ class DropboxListVC: ListVC {
             loadingView = v
             loadingLabel = lbl
         }
-        loadingLabel?.text = "NOW LOADING...\n\n" + msg // \n\n10 / 20"
+        loadingLabel?.text = "NOW LOADING...\n\n" + msg  // \n\n10 / 20"
         view.bringSubviewToFront(loadingView!)
     }
 
@@ -80,9 +85,11 @@ class DropboxListVC: ListVC {
     }
 
     @objc func tapLogin() {
-        DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL: { (url: URL) -> Void in
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        })
+        DropboxClientsManager.authorizeFromController(
+            UIApplication.shared, controller: self,
+            openURL: { (url: URL) -> Void in
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            })
     }
 
     @objc func tapLogout() {
@@ -92,8 +99,13 @@ class DropboxListVC: ListVC {
 
     func loadList() -> Bool {
         list = []
-        guard let dat = try? Data(contentsOf: URL(fileURLWithPath: localPath.appendPath("__list.json"))) else { return false }
-        guard let json = try? JSONSerialization.jsonObject(with: dat, options: []) else { return false }
+        guard
+            let dat = try? Data(
+                contentsOf: URL(fileURLWithPath: localPath.appendPath("__list.json")))
+        else { return false }
+        guard let json = try? JSONSerialization.jsonObject(with: dat, options: []) else {
+            return false
+        }
         print(json)
 
         guard let ar = json as? [NSObject] else { return false }
@@ -110,7 +122,8 @@ class DropboxListVC: ListVC {
             ar.append(item.json)
         }
         if let dat = try? JSONSerialization.data(withJSONObject: ar, options: []) {
-            try? dat.write(to: URL(fileURLWithPath: localPath.appendPath("__list.json")), options: [.atomic])
+            try? dat.write(
+                to: URL(fileURLWithPath: localPath.appendPath("__list.json")), options: [.atomic])
         }
     }
 
@@ -169,7 +182,8 @@ class DropboxListVC: ListVC {
             return URL(fileURLWithPath: dp.appendPath(UUID().uuidString))
         }
 
-        _ = client.files.download(path: meta.pathLower!, destination: destination).response { response, _ in
+        _ = client.files.download(path: meta.pathLower!, destination: destination).response {
+            response, _ in
             self.downloadedCount += 1
             if let (metadata, url) = response {
                 Path.copy(url.path, dst: self.localPath.appendPath(metadata.name))

@@ -1,11 +1,9 @@
-
-
 import Foundation
 
 #if !arch(x86_64) && !arch(i386)
 
-    func debugPrint(items _: Any ..., separator _: String = " ", terminator _: String = "\n") {}
-    func print(items _: Any ..., separator _: String = " ", terminator _: String = "\n") {}
+    func debugPrint(items _: Any..., separator _: String = " ", terminator _: String = "\n") {}
+    func print(items _: Any..., separator _: String = " ", terminator _: String = "\n") {}
 
 #endif
 
@@ -14,28 +12,47 @@ func LOG(_ object: Any = "", method: String = #function) {
 }
 
 public enum Dispatch {
-    public static func main(_ block: @escaping () -> Void) {
+    public static func main(_ block: @escaping @Sendable () -> Void) {
         return DispatchQueue.main.async(execute: block)
     }
 
-    public static func background(_ block: @escaping () -> Void) {
+    public static func background(_ block: @escaping @Sendable () -> Void) {
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: block)
     }
 }
 
 public enum Path {
-    public static var documents: String { return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] }
-    public static var caches: String { return NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] }
-    public static var library: String { return NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] }
-    public static var support: String { return NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)[0] }
+    public static var documents: String {
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+    }
+    public static var caches: String {
+        return NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+    }
+    public static var library: String {
+        return NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
+    }
+    public static var support: String {
+        return NSSearchPathForDirectoriesInDomains(
+            .applicationSupportDirectory, .userDomainMask, true)[0]
+    }
     public static var temp: String { return NSTemporaryDirectory() }
     public static var resource: String { return Bundle.main.resourcePath ?? "" }
 
-    public static func documtnts(_ path: String) -> String { return Path.documents.appendPath(path) }
-    public static func caches(_ path: String) -> String { return Path.caches.appendPath(path) }
-    public static func library(_ path: String) -> String { return Path.library.appendPath(path) }
-    public static func support(_ path: String) -> String { return Path.support.appendPath(path) }
-    public static func resource(_ path: String) -> String { return Path.resource.appendPath(path) }
+    public static func documtnts(_ path: String) -> String {
+        return (Path.documents as NSString).appendingPathComponent(path)
+    }
+    public static func caches(_ path: String) -> String {
+        return (Path.caches as NSString).appendingPathComponent(path)
+    }
+    public static func library(_ path: String) -> String {
+        return (Path.library as NSString).appendingPathComponent(path)
+    }
+    public static func support(_ path: String) -> String {
+        return (Path.support as NSString).appendingPathComponent(path)
+    }
+    public static func resource(_ path: String) -> String {
+        return (Path.resource as NSString).appendingPathComponent(path)
+    }
 
     @discardableResult public static func remove(_ path: String) -> Bool {
         do {
@@ -60,7 +77,8 @@ public enum Path {
 
     @discardableResult public static func mkdir(_ path: String) -> Bool {
         do {
-            try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(
+                atPath: path, withIntermediateDirectories: true, attributes: nil)
         } catch { return false }
         return true
     }

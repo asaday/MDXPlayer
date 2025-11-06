@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 class HistoryListVC: ListVC {
     static let listpath = Path.support("history.json")
 
@@ -16,8 +17,8 @@ class HistoryListVC: ListVC {
         if path == "_resources_" { return }
 
         if let dat = try? Data(contentsOf: URL(fileURLWithPath: HistoryListVC.listpath)),
-           let json = try? JSONSerialization.jsonObject(with: dat, options: []),
-           let ar = json as? [[String: String]]
+            let json = try? JSONSerialization.jsonObject(with: dat, options: []),
+            let ar = json as? [[String: String]]
         {
             histories = ar
         }
@@ -39,7 +40,9 @@ class HistoryListVC: ListVC {
         return 66
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         if indexPath.row >= list.count { return cell }
@@ -57,8 +60,9 @@ class HistoryListVC: ListVC {
         list = []
 
         guard let dat = try? Data(contentsOf: URL(fileURLWithPath: HistoryListVC.listpath)),
-              let json = try? JSONSerialization.jsonObject(with: dat, options: []),
-              let ar = json as? [[String: String]] else { return }
+            let json = try? JSONSerialization.jsonObject(with: dat, options: []),
+            let ar = json as? [[String: String]]
+        else { return }
 
         for a in ar {
             list.append(Item(title: a["title"] ?? "", file: a["path"] ?? "", isDir: true))
