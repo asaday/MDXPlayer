@@ -92,8 +92,8 @@ class ListVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         localPath = ListVC.path2local(path)
-        print(localPath)
-        print(path)
+        //print(localPath)
+        //print(path)
         tableView.rowHeight = 66
         tableView.separatorColor = UIColor(white: 61 / 255, alpha: 1)
         tableView.backgroundColor = UIColor(white: 13 / 255, alpha: 1)

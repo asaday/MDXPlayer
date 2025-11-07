@@ -31,10 +31,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let nav = UINavigationController(rootViewController: RootListVC())
 
-        nav.navigationBar.barStyle = .black
-        nav.navigationBar.isTranslucent = true
+        // iOS 13以降のナビゲーションバー外観設定
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        
+        appearance.backgroundColor = UIColor(white: 43 / 255, alpha: 1)
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+
+        nav.navigationBar.standardAppearance = appearance
+        nav.navigationBar.scrollEdgeAppearance = appearance
+        nav.navigationBar.compactAppearance = appearance
+        if #available(iOS 15.0, *) {
+            nav.navigationBar.compactScrollEdgeAppearance = appearance
+        }
+
         nav.navigationBar.tintColor = UIColor.mdxColor
-        nav.navigationBar.backgroundColor = UIColor(white: 43 / 255, alpha: 1)
 
         let v = PlayView(frame: nav.view.bounds)
         nav.view.addSubview(v)

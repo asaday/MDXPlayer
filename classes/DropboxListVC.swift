@@ -108,7 +108,7 @@ class DropboxListVC: ListVC {
         guard let json = try? JSONSerialization.jsonObject(with: dat, options: []) else {
             return false
         }
-        print(json)
+        //print(json)
 
         guard let ar = json as? [NSObject] else { return false }
         for a in ar {
@@ -157,7 +157,7 @@ class DropboxListVC: ListVC {
             guard let result = result else { return }
 
             for entry in result.entries {
-                print(entry)
+                //print(entry)
                 if let f = entry as? Files.FolderMetadata {
                     self.list.append(Item(title: f.name, file: f.name, isDir: true))
                     continue
