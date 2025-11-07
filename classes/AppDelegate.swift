@@ -31,7 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let nav = UINavigationController(rootViewController: RootListVC())
 
-        nav.navigationBar.barStyle = .blackTranslucent
+        nav.navigationBar.barStyle = .black
+        nav.navigationBar.isTranslucent = true
         nav.navigationBar.tintColor = UIColor.mdxColor
         nav.navigationBar.backgroundColor = UIColor(white: 43 / 255, alpha: 1)
 

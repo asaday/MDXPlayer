@@ -1,3 +1,6 @@
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+
 #include "x68pcm8.h"
 
 namespace X68K
@@ -263,3 +266,5 @@ void X68PCM8::Mix(Sample* buffer, int nsamples)
 }  // namespace X68K
 
 // [EOF]
+
+#pragma clang diagnostic pop

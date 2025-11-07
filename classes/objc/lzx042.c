@@ -67,15 +67,15 @@ unsigned lzx042decode(unsigned char *pBuffer, unsigned uBufferLength, const unsi
 			}
 			else
 			{
-				GETBYTE(offset);
-				GETBYTE(count);
-				offset = (offset << 5) + (count >> 3);
-				offset -= 1 << (8 + 5);
-				count = (count & 7) + 2;
+		GETBYTE(offset);
+		GETBYTE(count);
+		offset = (offset << 5) + (count >> 3);
+		offset -= (int)(1U << 13);
+		count = (count & 7) + 2;
 				if (count == 2)
 				{
 					GETBYTE(count);
-					if (++count == 1) return dp - dt;
+					if (++count == 1) return (unsigned)(dp - dt);
 				}
 			}
 			if (dp + offset < dt) return 0;

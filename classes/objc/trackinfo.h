@@ -63,7 +63,7 @@ typedef struct tagTRACKINFO{
 
 //// Interface
 
-void renewTRACKINFO();
+void renewTRACKINFO(void);
 extern TRACKINFO* shared_TRACKINFO;
 
 #endif /* trackinfo_h */

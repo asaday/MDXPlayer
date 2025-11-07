@@ -1,3 +1,7 @@
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wint-to-pointer-cast"
+#pragma clang diagnostic ignored "-Wunused-variable"
+
 #include "pcm8.h"
 #include "global.h"
 
@@ -429,3 +433,5 @@ int Pcm8::GetMode() {
 }
 
 // [EOF]
+
+#pragma clang diagnostic pop

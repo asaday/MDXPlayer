@@ -38,6 +38,9 @@
 namespace FM
 {
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcomma"
+
 // ---------------------------------------------------------------------------
 //	Operator
 //
@@ -264,5 +267,7 @@ inline void Chip::SetPML(uint l)
 
 
 }
+
+#pragma clang diagnostic pop
 
 #endif // FM_GEN_INL_H

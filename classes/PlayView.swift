@@ -255,8 +255,10 @@ class PlayView: UIView, PlayerDelegate {
         Player.sharedInstance().togglePause()
     }
 
-    func didChangePause(to pause: Bool) {
-        playBtn.isSelected = pause
+    nonisolated func didChangePause(to pause: Bool) {
+        Task { @MainActor in
+            playBtn.isSelected = pause
+        }
     }
 
     @objc func tapPrev() {
@@ -347,29 +349,35 @@ class PlayView: UIView, PlayerDelegate {
         fatalError()
     }
 
-    func didEnd() {}
-    func didStart() {
-        titleLabel.text = Player.sharedInstance().title
-        descLabel.text = Player.sharedInstance().file?.lastPathComponent
-    }
-
-    func didChangeSecond() {
-        let current = Player.sharedInstance().current
-        let duration = Player.sharedInstance().duration
-        let remain = duration - current
-
-        progressLabel.text = String(format: "%0d:%02d", current / 60, current % 60)
-        if duration == 0 {
-            durationLabel.text = "infinity"
-            progressSlider.value = 1
-        } else {
-            durationLabel.text = String(format: "-%0d:%02d", remain / 60, remain % 60)
-            progressSlider.value = Float(current) / Float(duration)
+    nonisolated func didEnd() {}
+    nonisolated func didStart() {
+        Task { @MainActor in
+            titleLabel.text = Player.sharedInstance().title
+            descLabel.text = Player.sharedInstance().file?.lastPathComponent
         }
     }
 
-    func didChangeStatus() {
-        if keyLayer.isHidden { return }
-        Player.redrawKey(keyLayer, speana: speLayer, paint: true)
+    nonisolated func didChangeSecond() {
+        Task { @MainActor in
+            let current = Player.sharedInstance().current
+            let duration = Player.sharedInstance().duration
+            let remain = duration - current
+
+            progressLabel.text = String(format: "%0d:%02d", current / 60, current % 60)
+            if duration == 0 {
+                durationLabel.text = "infinity"
+                progressSlider.value = 1
+            } else {
+                durationLabel.text = String(format: "-%0d:%02d", remain / 60, remain % 60)
+                progressSlider.value = Float(current) / Float(duration)
+            }
+        }
+    }
+
+    nonisolated func didChangeStatus() {
+        Task { @MainActor in
+            if keyLayer.isHidden { return }
+            Player.redrawKey(keyLayer, speana: speLayer, paint: true)
+        }
     }
 }

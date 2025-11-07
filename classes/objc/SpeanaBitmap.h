@@ -9,7 +9,7 @@
 #ifndef SpeanaBitmap_h
 #define SpeanaBitmap_h
 
-CGImageRef makeSpeanaMaskBitmap();
+CGImageRef makeSpeanaMaskBitmap(void);
 CGImageRef makeSpeanaBitmap(BOOL doPaint);
 
 #endif /* SpeanaBitmap_h */

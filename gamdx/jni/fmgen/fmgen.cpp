@@ -21,6 +21,13 @@
 //		ほか掲示板等で様々なご助言，ご支援をお寄せいただいた皆様に
 // ---------------------------------------------------------------------------
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+#pragma clang diagnostic ignored "-Wcomma"
+#pragma clang diagnostic ignored "-Wbitwise-conditional-parentheses"
+#pragma clang diagnostic ignored "-Wunsequenced"
+#pragma clang diagnostic ignored "-Wswitch"
+
 #include "headers.h"
 #include "misc.h"
 #include "fmgen.h"
@@ -957,3 +964,5 @@ ISample Channel4::CalcLN(uint noise)
 }
 
 }	// namespace FM
+
+#pragma clang diagnostic pop

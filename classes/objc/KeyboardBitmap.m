@@ -14,11 +14,11 @@ static UInt32* _BG = 0;
 static int KeyON[8];
 CGColorSpaceRef colorSpace = 0;
 
-static void makeInitialBitmap();
-static void makeLamp();
+static void makeInitialBitmap(void);
+static void makeLamp(void);
 
 
-void initKeyboardBitmap()
+void initKeyboardBitmap(void)
 {
   for(int i=0;i<8;i++)  KeyON[i] = 0;
 }
@@ -76,7 +76,6 @@ void putAt(int x,int y,UInt8* PCG,size_t size)
 
 void putAtC(int x,int y,UInt8* PCG,size_t size,UInt8* col)
 {
-  UInt8 d;
   for(UInt32* p = addr(x,y); size>0; size-=4,p+=BS_X){
     for(int i=0; i<4; i++){
       if((*PCG++)){ // skip if 0
@@ -161,7 +160,7 @@ static UInt8 KeyHalf[] =
   4,1,0,0,
 };
 
-static void makeInitialBitmap()
+static void makeInitialBitmap(void)
 {
   int x,y;
   for(int ch = 0; ch<8; ch++){
@@ -184,9 +183,8 @@ static void makeInitialBitmap()
   }
 }
 
-static void makeLamp(){
+static void makeLamp(void){
   TRACKINFO* tif = shared_TRACKINFO;
-  UInt8 d0_b;
   UInt16 d0_w;
   int x,y;
   UInt8 col[] = {0,255,0};
