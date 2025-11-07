@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         _: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any]
     ) -> Bool {
-        return DropboxClientsManager.handleRedirectURL(url) {
+        return DropboxClientsManager.handleRedirectURL(url, includeBackgroundClient: false) {
             guard let authResult = $0 else { return }
 
             switch authResult {

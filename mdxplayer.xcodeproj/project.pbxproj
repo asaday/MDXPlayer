@@ -44,7 +44,6 @@
 		C34988F81D8EC80700167ADA /* mdxplayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34988F71D8EC80700167ADA /* mdxplayerUITests.swift */; };
 		C37AB39317113AEC004780D3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C37AB37A17113AEC004780D3 /* InfoPlist.strings */; };
 		C37AB39417113AEC004780D3 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C37AB37C17113AEC004780D3 /* MainStoryboard.storyboard */; };
-		C37AB39617113AEC004780D3 /* mdxplayer.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C37AB38017113AEC004780D3 /* mdxplayer.entitlements */; };
 		C37AB39717113AEC004780D3 /* s2utbl.dat in Resources */ = {isa = PBXBuildFile; fileRef = C37AB38117113AEC004780D3 /* s2utbl.dat */; };
 		C37CDDCC196E3056001E3700 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C37CDDCB196E3056001E3700 /* Images.xcassets */; };
 		C3A21BF91D8ECD08002F01A1 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A21BF81D8ECD08002F01A1 /* SnapshotHelper.swift */; };
@@ -466,7 +465,6 @@
 				C3FC5E5E1D8931CE006B696A /* Launch Screen.storyboard in Resources */,
 				C37AB39317113AEC004780D3 /* InfoPlist.strings in Resources */,
 				C37AB39417113AEC004780D3 /* MainStoryboard.storyboard in Resources */,
-				C37AB39617113AEC004780D3 /* mdxplayer.entitlements in Resources */,
 				C37AB39717113AEC004780D3 /* s2utbl.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,12 +504,10 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-mdxplayer/Pods-mdxplayer-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox/SwiftyDropbox.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyDropbox.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -691,7 +687,6 @@
 			baseConfigurationReference = 7C7453DBC0459ED17CA4BB53 /* Pods-mdxplayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = resources/mdxplayer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -720,7 +715,6 @@
 			baseConfigurationReference = F0633E8A337BE7F7E048A522 /* Pods-mdxplayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = resources/mdxplayer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

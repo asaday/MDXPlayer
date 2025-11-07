@@ -85,11 +85,13 @@ class DropboxListVC: ListVC {
     }
 
     @objc func tapLogin() {
-        DropboxClientsManager.authorizeFromController(
+        DropboxClientsManager.authorizeFromControllerV2(
             UIApplication.shared, controller: self,
+            loadingStatusDelegate: nil,
             openURL: { (url: URL) -> Void in
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            })
+            },
+            scopeRequest: nil)
     }
 
     @objc func tapLogout() {
@@ -176,28 +178,27 @@ class DropboxListVC: ListVC {
     func doDownload(_ meta: Files.Metadata) {
         // print(meta.pathLower)
         downloadingCount += 1
-        let destination: (URL, HTTPURLResponse) -> URL = { _, _ in
-            let dp = Path.caches("__downloadtmp")
-            Path.mkdir(dp)
-            return URL(fileURLWithPath: dp.appendPath(UUID().uuidString))
-        }
+        let dp = Path.caches("__downloadtmp")
+        Path.mkdir(dp)
+        let destination = URL(fileURLWithPath: dp.appendPath(UUID().uuidString))
 
-        _ = client.files.download(path: meta.pathLower!, destination: destination).response {
-            response, _ in
-            self.downloadedCount += 1
-            if let (metadata, url) = response {
-                Path.copy(url.path, dst: self.localPath.appendPath(metadata.name))
-                if meta.pathLower!.hasSuffix(".mdx") {
-                    self.list.append(Item(file: meta.name, isDir: false))
+        _ = client.files.download(path: meta.pathLower!, overwrite: true, destination: destination)
+            .response {
+                response, _ in
+                self.downloadedCount += 1
+                if let (metadata, url) = response {
+                    Path.copy(url.path, dst: self.localPath.appendPath(metadata.name))
+                    if meta.pathLower!.hasSuffix(".mdx") {
+                        self.list.append(Item(file: meta.name, isDir: false))
+                    }
+                }
+
+                self.showLoading("\(self.downloadedCount) / \(self.downloadingCount)")
+
+                if self.downloadedCount >= self.downloadingCount {
+                    self.didAllDownload()
                 }
             }
-
-            self.showLoading("\(self.downloadedCount) / \(self.downloadingCount)")
-
-            if self.downloadedCount >= self.downloadingCount {
-                self.didAllDownload()
-            }
-        }
     }
 
     func didAllDownload() {
