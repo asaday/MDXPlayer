@@ -41,13 +41,13 @@ namespace X68K
 		sint32 OutInpAdpcm_prev2[2];
 		sint32 OutOutAdpcm[2];
 		sint32 OutOutAdpcm_prev[2];
-		sint32 OutOutAdpcm_prev2[2];  // ‚‰¹ƒtƒBƒ‹ƒ^[‚Q—pƒoƒbƒtƒ@
+		sint32 OutOutAdpcm_prev2[2];  // é«˜éŸ³ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ï¼’ç”¨ãƒãƒƒãƒ•ã‚¡
 
 		sint32 OutInpOutAdpcm[2];
 		sint32 OutInpOutAdpcm_prev[2];
 		sint32 OutInpOutAdpcm_prev2[2];
 		sint32 OutOutInpAdpcm[2];
-		sint32 OutOutInpAdpcm_prev[2];  // ‚‰¹ƒtƒBƒ‹ƒ^[‚R—pƒoƒbƒtƒ@
+		sint32 OutOutInpAdpcm_prev[2];  // é«˜éŸ³ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ï¼“ç”¨ãƒãƒƒãƒ•ã‚¡
 
 		inline void pcmset62500(Sample* buffer, int ndata);
 		inline void pcmset22050(Sample* buffer, int ndata);
