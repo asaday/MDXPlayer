@@ -38,7 +38,7 @@ public enum Path {
     public static var temp: String { return NSTemporaryDirectory() }
     public static var resource: String { return Bundle.main.resourcePath ?? "" }
 
-    public static func documtnts(_ path: String) -> String {
+    public static func documents(_ path: String) -> String {
         return (Path.documents as NSString).appendingPathComponent(path)
     }
     public static func caches(_ path: String) -> String {
