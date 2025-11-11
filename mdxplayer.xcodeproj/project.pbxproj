@@ -67,7 +67,6 @@
 
 /* Begin PBXFileReference section */
 		18C5756025C4A1B8895623A3 /* Pods_mdxplayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mdxplayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C7453DBC0459ED17CA4BB53 /* Pods-mdxplayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mdxplayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mdxplayer/Pods-mdxplayer.debug.xcconfig"; sourceTree = "<group>"; };
 		C30C893E1D7B299200908D62 /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		C30C893F1D7B299200908D62 /* NSextension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSextension.swift; sourceTree = "<group>"; };
 		C30C89401D7B299200908D62 /* UIextension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIextension.swift; sourceTree = "<group>"; };
@@ -139,7 +138,6 @@
 		C3F0AC041D3232E400C252EC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3F0AC061D3232E400C252EC /* InfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		C3FC5E5D1D8931CE006B696A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		F0633E8A337BE7F7E048A522 /* Pods-mdxplayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mdxplayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-mdxplayer/Pods-mdxplayer.release.xcconfig"; sourceTree = "<group>"; };
 		F8350FEF1D9C8D9A00A9B239 /* lzx042.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzx042.c; sourceTree = "<group>"; };
 		F8350FF01D9C8D9A00A9B239 /* lzx042.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzx042.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,15 +172,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BD935862157769666E1A9107 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7C7453DBC0459ED17CA4BB53 /* Pods-mdxplayer.debug.xcconfig */,
-				F0633E8A337BE7F7E048A522 /* Pods-mdxplayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		C30C893D1D7B299200908D62 /* lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,7 +192,6 @@
 				C32DD952170C614D00D11883 /* gamdx */,
 				C32DD92D170C610900D11883 /* Products */,
 				C37AB37517113AEC004780D3 /* resources */,
-				BD935862157769666E1A9107 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -653,7 +641,7 @@
 				CODE_SIGN_ENTITLEMENTS = resources/mdxplayer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2.0.6.0;
+				CURRENT_PROJECT_VERSION = 2.1.0.0;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "resources/mdxplayer-Prefix.pch";
@@ -663,7 +651,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nagisa.mdxplayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -683,7 +671,7 @@
 				CODE_SIGN_ENTITLEMENTS = resources/mdxplayer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2.0.6.0;
+				CURRENT_PROJECT_VERSION = 2.1.0.0;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "resources/mdxplayer-Prefix.pch";
@@ -693,7 +681,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nagisa.mdxplayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
