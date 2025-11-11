@@ -32,31 +32,15 @@ MDX is a sound file format designed to be played on the Sharp X68000.
 
 ## How to Build
 
-### 1. CocoaPodsのインストール
+### Swift Package Managerによる依存関係の解決
 
-まず[CocoaPods](http://cocoapods.org/)をインストールします：
-
-```bash
-$ sudo gem install cocoapods
-```
-
-### 2. 依存関係のインストール
-
-プロジェクトディレクトリで以下を実行：
+Xcodeプロジェクトを開くと、自動的にSwift Package依存関係が解決されます：
 
 ```bash
-$ pod install
+$ open mdxplayer.xcodeproj
 ```
 
-### 3. Xcodeで開く
-
-生成された`.xcworkspace`ファイルを開きます：
-
-```bash
-$ open mdxplayer.xcworkspace
-```
-
-**注意**: `.xcodeproj`ではなく`.xcworkspace`を開いてください。
+初回ビルド時に、XcodeがSwiftyDropboxパッケージを自動的にダウンロードします。
 
 ## Dependencies
 
