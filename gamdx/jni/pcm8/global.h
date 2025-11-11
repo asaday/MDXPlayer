@@ -9,7 +9,7 @@
 
 
 
-#define PCM8_NCH 8  // ƒ`ƒƒƒ“ƒlƒ‹”
+#define PCM8_NCH 8  // ãƒãƒ£ãƒ³ãƒãƒ«æ•°
 
 
 static int dltLTBL[48+1]= {

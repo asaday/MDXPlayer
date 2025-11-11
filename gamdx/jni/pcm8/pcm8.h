@@ -10,17 +10,17 @@ class Pcm8 {
 
 	int Scale;  // 
 	int Pcm;  // 16bit PCM Data
-	int Pcm16Prev;  // 16bit,8bitPCM‚Ì1‚Â‘O‚Ìƒf[ƒ^
-	int InpPcm,InpPcm_prev,OutPcm;  // HPF—p 16bit PCM Data
-	int OutInpPcm,OutInpPcm_prev;  // HPF—p
+	int Pcm16Prev;  // 16bit,8bitPCMã®1ã¤å‰ã®ãƒ‡ãƒ¼ã‚¿
+	int InpPcm,InpPcm_prev,OutPcm;  // HPFç”¨ 16bit PCM Data
+	int OutInpPcm,OutInpPcm_prev;  // HPFç”¨
 	int AdpcmRate;  // 187500(15625*12), 125000(10416.66*12), 93750(7812.5*12), 62500(5208.33*12), 46875(3906.25*12), ...
 	int RateCounter;
-	int N1Data;  // ADPCM 1ƒTƒ“ƒvƒ‹‚Ìƒf[ƒ^‚Ì•Û‘¶
+	int N1Data;  // ADPCM 1ã‚µãƒ³ãƒ—ãƒ«ã®ãƒ‡ãƒ¼ã‚¿ã®ä¿å­˜
 	int N1DataFlag;  // 0 or 1
 
 	volatile int Mode;
 	volatile int Volume;  // x/16
-	volatile int PcmKind;  // 0`4:ADPCM  5:16bitPCM  6:8bitPCM  7:“ä
+	volatile int PcmKind;  // 0ï½4:ADPCM  5:16bitPCM  6:8bitPCM  7:è¬
 
 	unsigned char DmaLastValue;
 	unsigned char AdpcmReg;
@@ -29,7 +29,7 @@ class Pcm8 {
 	volatile unsigned int DmaMtc;
 	volatile unsigned char *DmaBar;
 	volatile unsigned int DmaBtc;
-	volatile int DmaOcr;  // 0:ƒ`ƒFƒCƒ““®ì‚È‚µ 0x08:ƒAƒŒƒCƒ`ƒFƒCƒ“ 0x0C:ƒŠƒ“ƒNƒAƒŒƒCƒ`ƒFƒCƒ“
+	volatile int DmaOcr;  // 0:ãƒã‚§ã‚¤ãƒ³å‹•ä½œãªã— 0x08:ã‚¢ãƒ¬ã‚¤ãƒã‚§ã‚¤ãƒ³ 0x0C:ãƒªãƒ³ã‚¯ã‚¢ãƒ¬ã‚¤ãƒã‚§ã‚¤ãƒ³
 
 	int DmaArrayChainSetNextMtcMar();
 	int DmaLinkArrayChainSetNextMtcMar();

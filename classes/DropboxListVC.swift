@@ -9,6 +9,7 @@
 import SwiftyDropbox
 import UIKit
 
+@MainActor
 class DropboxListVC: ListVC {
     var client: DropboxClient!
     var downloadedCount: Int = 0
@@ -42,10 +43,14 @@ class DropboxListVC: ListVC {
     }
 
     func showRightButton() {
-        if DropboxClientsManager.authorizedClient == nil, DropboxClientsManager.authorizedTeamClient == nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "login", style: .plain, target: self, action: #selector(tapLogin))
+        if DropboxClientsManager.authorizedClient == nil,
+            DropboxClientsManager.authorizedTeamClient == nil
+        {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "login", style: .plain, target: self, action: #selector(tapLogin))
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "logout", style: .plain, target: self, action: #selector(tapLogout))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "logout", style: .plain, target: self, action: #selector(tapLogout))
         }
     }
 
@@ -69,7 +74,7 @@ class DropboxListVC: ListVC {
             loadingView = v
             loadingLabel = lbl
         }
-        loadingLabel?.text = "NOW LOADING...\n\n" + msg // \n\n10 / 20"
+        loadingLabel?.text = "NOW LOADING...\n\n" + msg  // \n\n10 / 20"
         view.bringSubviewToFront(loadingView!)
     }
 
@@ -80,9 +85,13 @@ class DropboxListVC: ListVC {
     }
 
     @objc func tapLogin() {
-        DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL: { (url: URL) -> Void in
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        })
+        DropboxClientsManager.authorizeFromControllerV2(
+            UIApplication.shared, controller: self,
+            loadingStatusDelegate: nil,
+            openURL: { (url: URL) -> Void in
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            },
+            scopeRequest: nil)
     }
 
     @objc func tapLogout() {
@@ -92,9 +101,14 @@ class DropboxListVC: ListVC {
 
     func loadList() -> Bool {
         list = []
-        guard let dat = try? Data(contentsOf: URL(fileURLWithPath: localPath.appendPath("__list.json"))) else { return false }
-        guard let json = try? JSONSerialization.jsonObject(with: dat, options: []) else { return false }
-        print(json)
+        guard
+            let dat = try? Data(
+                contentsOf: URL(fileURLWithPath: localPath.appendPath("__list.json")))
+        else { return false }
+        guard let json = try? JSONSerialization.jsonObject(with: dat, options: []) else {
+            return false
+        }
+        //print(json)
 
         guard let ar = json as? [NSObject] else { return false }
         for a in ar {
@@ -110,7 +124,8 @@ class DropboxListVC: ListVC {
             ar.append(item.json)
         }
         if let dat = try? JSONSerialization.data(withJSONObject: ar, options: []) {
-            try? dat.write(to: URL(fileURLWithPath: localPath.appendPath("__list.json")), options: [.atomic])
+            try? dat.write(
+                to: URL(fileURLWithPath: localPath.appendPath("__list.json")), options: [.atomic])
         }
     }
 
@@ -142,7 +157,7 @@ class DropboxListVC: ListVC {
             guard let result = result else { return }
 
             for entry in result.entries {
-                print(entry)
+                //print(entry)
                 if let f = entry as? Files.FolderMetadata {
                     self.list.append(Item(title: f.name, file: f.name, isDir: true))
                     continue
@@ -163,27 +178,27 @@ class DropboxListVC: ListVC {
     func doDownload(_ meta: Files.Metadata) {
         // print(meta.pathLower)
         downloadingCount += 1
-        let destination: (URL, HTTPURLResponse) -> URL = { _, _ in
-            let dp = Path.caches("__downloadtmp")
-            Path.mkdir(dp)
-            return URL(fileURLWithPath: dp.appendPath(UUID().uuidString))
-        }
+        let dp = Path.caches("__downloadtmp")
+        Path.mkdir(dp)
+        let destination = URL(fileURLWithPath: dp.appendPath(UUID().uuidString))
 
-        _ = client.files.download(path: meta.pathLower!, destination: destination).response { response, _ in
-            self.downloadedCount += 1
-            if let (metadata, url) = response {
-                Path.copy(url.path, dst: self.localPath.appendPath(metadata.name))
-                if meta.pathLower!.hasSuffix(".mdx") {
-                    self.list.append(Item(file: meta.name, isDir: false))
+        _ = client.files.download(path: meta.pathLower!, overwrite: true, destination: destination)
+            .response {
+                response, _ in
+                self.downloadedCount += 1
+                if let (metadata, url) = response {
+                    Path.copy(url.path, dst: self.localPath.appendPath(metadata.name))
+                    if meta.pathLower!.hasSuffix(".mdx") {
+                        self.list.append(Item(file: meta.name, isDir: false))
+                    }
+                }
+
+                self.showLoading("\(self.downloadedCount) / \(self.downloadingCount)")
+
+                if self.downloadedCount >= self.downloadingCount {
+                    self.didAllDownload()
                 }
             }
-
-            self.showLoading("\(self.downloadedCount) / \(self.downloadingCount)")
-
-            if self.downloadedCount >= self.downloadingCount {
-                self.didAllDownload()
-            }
-        }
     }
 
     func didAllDownload() {

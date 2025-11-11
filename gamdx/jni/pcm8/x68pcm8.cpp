@@ -1,3 +1,6 @@
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+
 #include "x68pcm8.h"
 
 namespace X68K
@@ -5,14 +8,14 @@ namespace X68K
 
 
 // ---------------------------------------------------------------------------
-//	\’z
+//	æ§‹ç¯‰
 //
 X68PCM8::X68PCM8()
 {
 }
 
 // ---------------------------------------------------------------------------
-//	‰Šú‰»
+//	åˆæœŸåŒ–
 //
 bool X68PCM8::Init(uint rate)
 {
@@ -42,7 +45,7 @@ bool X68PCM8::Init(uint rate)
 }
 
 // ---------------------------------------------------------------------------
-//	ƒTƒ“ƒvƒ‹ƒŒ[ƒgİ’è
+//	ã‚µãƒ³ãƒ—ãƒ«ãƒ¬ãƒ¼ãƒˆè¨­å®š
 //
 bool X68PCM8::SetRate(uint rate)
 {
@@ -52,7 +55,7 @@ bool X68PCM8::SetRate(uint rate)
 }
 
 // ---------------------------------------------------------------------------
-//	ƒŠƒZƒbƒg
+//	ãƒªã‚»ãƒƒãƒˆ
 //
 void X68PCM8::Reset()
 {
@@ -60,7 +63,7 @@ void X68PCM8::Reset()
 }
 
 // ---------------------------------------------------------------------------
-//	ƒpƒ‰ƒ[ƒ^ƒZƒbƒg
+//	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚»ãƒƒãƒˆ
 //
 int X68PCM8::Out(int ch, void *adrs, int mode, int len)
 {
@@ -68,7 +71,7 @@ int X68PCM8::Out(int ch, void *adrs, int mode, int len)
 }
 
 // ---------------------------------------------------------------------------
-//	ƒAƒ{[ƒg
+//	ã‚¢ãƒœãƒ¼ãƒˆ
 //
 void X68PCM8::Abort()
 {
@@ -76,7 +79,7 @@ void X68PCM8::Abort()
 }
 
 // ---------------------------------------------------------------------------
-//	ƒ`ƒƒƒ“ƒlƒ‹ƒ}ƒXƒN‚Ìİ’è
+//	ãƒãƒ£ãƒ³ãƒãƒ«ãƒã‚¹ã‚¯ã®è¨­å®š
 //
 void X68PCM8::SetChannelMask(uint mask)
 {
@@ -84,7 +87,7 @@ void X68PCM8::SetChannelMask(uint mask)
 }
 
 // ---------------------------------------------------------------------------
-//	‰¹—Êİ’è
+//	éŸ³é‡è¨­å®š
 //
 void X68PCM8::SetVolume(int db)
 {
@@ -97,7 +100,7 @@ void X68PCM8::SetVolume(int db)
 
 
 // ---------------------------------------------------------------------------
-//	62500Hz—pADPCM‡¬ˆ—
+//	62500Hzç”¨ADPCMåˆæˆå‡¦ç†
 //
 inline void X68PCM8::pcmset62500(Sample* buffer, int ndata) {
 	Sample* limit = buffer + ndata * 2;
@@ -170,7 +173,7 @@ inline void X68PCM8::pcmset62500(Sample* buffer, int ndata) {
 		OutOutAdpcm_prev[0] = OutOutAdpcm[0];
 		OutOutAdpcm_prev[1] = OutOutAdpcm[1];
 
-		// -2048*16`+2048*16 OPM‚ÆADPCM‚Ì‰¹—Êƒoƒ‰ƒ“ƒX’²®
+		// -2048*16ï½+2048*16 OPMã¨ADPCMã®éŸ³é‡ãƒãƒ©ãƒ³ã‚¹èª¿æ•´
 		StoreSample(dest[0], (OutOutAdpcm[0]*506) >> (4+9));
 		StoreSample(dest[1], (OutOutAdpcm[1]*506) >> (4+9));
 	}
@@ -178,7 +181,7 @@ inline void X68PCM8::pcmset62500(Sample* buffer, int ndata) {
 
 
 // ---------------------------------------------------------------------------
-//	22050Hz—pADPCM‡¬ˆ—
+//	22050Hzç”¨ADPCMåˆæˆå‡¦ç†
 //
 inline void X68PCM8::pcmset22050(Sample* buffer, int ndata) {
 	Sample* limit = buffer + ndata * 2;
@@ -248,7 +251,7 @@ inline void X68PCM8::pcmset22050(Sample* buffer, int ndata) {
 
 
 // ---------------------------------------------------------------------------
-//	‡¬ (stereo)
+//	åˆæˆ (stereo)
 //
 void X68PCM8::Mix(Sample* buffer, int nsamples)
 {
@@ -263,3 +266,5 @@ void X68PCM8::Mix(Sample* buffer, int nsamples)
 }  // namespace X68K
 
 // [EOF]
+
+#pragma clang diagnostic pop

@@ -97,14 +97,14 @@ typedef struct tagMXDRVG_WORK_GLOBAL {
 	UWORD L002246; // loop count
 	ULONG FATALERROR;
 	UPTRLONG FATALERRORADR;
-	ULONG PLAYTIME; // ‰‰‘tŽžŠÔ((PLAYTIME*1024/4000)msec == (PLAYTIME*256)ƒÊsec)
-	UBYTE MUSICTIMER;  // ‰‰‘tŽžŠÔƒ^ƒCƒ}[’è”
-	UBYTE STOPMUSICTIMER;  // ‰‰‘tŽžŠÔƒ^ƒCƒ}[’âŽ~
-	ULONG MEASURETIMELIMIT; // ‰‰‘tŽžŠÔŒv‘ª’†Ž~ŽžŠÔ
-	ULONG SAMPRATE; // ƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg
-	ULONG INNERSAMPRATE; // ƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg
-	UBYTE OPMFILTER; // OPM‚Ì‚ˆæƒtƒBƒ‹ƒ^
-	ULONG PLAYSAMPLES; // ¶¬‚µ‚½ƒTƒ“ƒvƒ‹”
+	ULONG PLAYTIME; // æ¼”å¥æ™‚é–“((PLAYTIME*1024/4000)msec == (PLAYTIME*256)Î¼sec)
+	UBYTE MUSICTIMER;  // æ¼”å¥æ™‚é–“ã‚¿ã‚¤ãƒžãƒ¼å®šæ•°
+	UBYTE STOPMUSICTIMER;  // æ¼”å¥æ™‚é–“ã‚¿ã‚¤ãƒžãƒ¼åœæ­¢
+	ULONG MEASURETIMELIMIT; // æ¼”å¥æ™‚é–“è¨ˆæ¸¬ä¸­æ­¢æ™‚é–“
+	ULONG SAMPRATE; // ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆ
+	ULONG INNERSAMPRATE; // ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆ
+	UBYTE OPMFILTER; // OPMã®é«˜åŸŸãƒ•ã‚£ãƒ«ã‚¿
+	ULONG PLAYSAMPLES; // ç”Ÿæˆã—ãŸã‚µãƒ³ãƒ—ãƒ«æ•°
 } MXDRVG_WORK_GLOBAL;
 
 typedef struct tagMXDRVG_WORK_KEY {

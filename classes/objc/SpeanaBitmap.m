@@ -27,10 +27,10 @@ static UInt16 ROUTE[] = {	0,1,4,9,16,24,35,47,61,77,94,
   381,415,450,486,523,561,600,65535};
 
 static UInt8 RISE_TABLE_N[] =  {1,1,2,2,4,4,4,4,8,8,8,8,8,8,8,
-  8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8};
+  8,8,8,8,8,8,8,8,8,8,8,8,8};
 
 static CGColorSpaceRef colorSpace = 0;
-static void doDraw();
+static void doDraw(void);
 
 #define BX 32
 #define BY 32
@@ -38,7 +38,7 @@ static void doDraw();
 #define LIGHTCOLOR 0xffff7070
 #define MAXCOLOR 0xff775050
 
-CGImageRef makeSpeanaMaskBitmap()
+CGImageRef makeSpeanaMaskBitmap(void)
 {
   if(!_BG){
     _BG = malloc(BX*8 * BY*2 * 4);
@@ -94,7 +94,7 @@ static void PSET(int x,int y, UInt32 col){
   _buf[x+y*BX] = col;
 }
 
-void doDraw()
+void doDraw(void)
 {
   //SPEANA_DISP
   TRACKINFO* T = shared_TRACKINFO;

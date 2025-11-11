@@ -18,11 +18,12 @@ class ListCell: UITableViewCell {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         backgroundColor = UIColor(white: 23 / 255, alpha: 1)
 
-        textLabel?.font = UIFont(name: "KH-Dot-Kodenmachou-16-Ki", size: 16) // UIFont.systemFontOfSize(16)
+        textLabel?.font = UIFont(name: "KH-Dot-Kodenmachou-16-Ki", size: 16)  // UIFont.systemFontOfSize(16)
         textLabel?.font = .systemFont(ofSize: 16)
         textLabel?.textColor = .white
         textLabel?.numberOfLines = 2
-        detailTextLabel?.textColor = UIColor(red: 174 / 255.0, green: 189 / 255.0, blue: 203 / 255.0, alpha: 1)
+        detailTextLabel?.textColor = UIColor(
+            red: 174 / 255.0, green: 189 / 255.0, blue: 203 / 255.0, alpha: 1)
         detailTextLabel?.font = .systemFont(ofSize: 12)
 
         let sv = UIView()
@@ -68,6 +69,7 @@ struct Item {
     }
 }
 
+@MainActor
 class ListVC: UITableViewController {
     var path = ""
     var list: [Item] = []
@@ -90,8 +92,8 @@ class ListVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         localPath = ListVC.path2local(path)
-        print(localPath)
-        print(path)
+        //print(localPath)
+        //print(path)
         tableView.rowHeight = 66
         tableView.separatorColor = UIColor(white: 61 / 255, alpha: 1)
         tableView.backgroundColor = UIColor(white: 13 / 255, alpha: 1)
@@ -138,7 +140,9 @@ class ListVC: UITableViewController {
         return item.isDir ? 44 : 66
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         if indexPath.row >= list.count { return cell }
@@ -162,12 +166,18 @@ class ListVC: UITableViewController {
             return cell
         }
 
+        let localPathCopy = localPath
+        let itemFile = item.file
+        let currentIndexPath = indexPath
+
         Dispatch.background {
-            let n = Player.title(forMDXFile: self.localPath.appendPath(item.file))
-            if indexPath.row >= self.list.count { return }
-            self.list[indexPath.row].title = n
-            Dispatch.main {
-                guard let mc = tableView.cellForRow(at: indexPath) else { return }
+            let n = Player.title(
+                forMDXFile: (localPathCopy as NSString).appendingPathComponent(itemFile))
+
+            Task { @MainActor in
+                if currentIndexPath.row >= self.list.count { return }
+                self.list[currentIndexPath.row].title = n
+                guard let mc = self.tableView.cellForRow(at: currentIndexPath) else { return }
                 mc.textLabel?.text = n
             }
         }

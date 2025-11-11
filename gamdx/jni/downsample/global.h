@@ -2,13 +2,13 @@
 #define __FMXDRVG_DOWNSAMPLE_GLOBAL_H__
 
 #define LPF_ROW_44 441
-static double lowpass_dummy_44; // 64bit‹«ŠE‡‚í‚¹
+static double lowpass_dummy_44; // 64bitå¢ƒç•Œåˆã‚ã›
 static int16 LOWPASS_44[LPF_ROW_44][LPF_COL] = {
 	#include "lowpass_44.dat"
 };
 
 #define LPF_ROW_48 96
-static double lowpass_dummy_48; // 64bit‹«ŠE‡‚í‚¹
+static double lowpass_dummy_48; // 64bitå¢ƒç•Œåˆã‚ã›
 static int16 LOWPASS_48[LPF_ROW_48][LPF_COL] = {
 	#include "lowpass_48.dat"
 };

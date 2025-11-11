@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -42,9 +42,9 @@
 		C345FDBD1D71781B009B15E8 /* SpeanaBitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = C345FDB81D71781B009B15E8 /* SpeanaBitmap.m */; };
 		C345FDBE1D71781B009B15E8 /* trackinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C345FDBA1D71781B009B15E8 /* trackinfo.m */; };
 		C34988F81D8EC80700167ADA /* mdxplayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34988F71D8EC80700167ADA /* mdxplayerUITests.swift */; };
+		C35B8CC92EC2F19E003A7EE4 /* SwiftyDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = C35B8CC82EC2F19E003A7EE4 /* SwiftyDropbox */; };
 		C37AB39317113AEC004780D3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C37AB37A17113AEC004780D3 /* InfoPlist.strings */; };
 		C37AB39417113AEC004780D3 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C37AB37C17113AEC004780D3 /* MainStoryboard.storyboard */; };
-		C37AB39617113AEC004780D3 /* mdxplayer.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C37AB38017113AEC004780D3 /* mdxplayer.entitlements */; };
 		C37AB39717113AEC004780D3 /* s2utbl.dat in Resources */ = {isa = PBXBuildFile; fileRef = C37AB38117113AEC004780D3 /* s2utbl.dat */; };
 		C37CDDCC196E3056001E3700 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C37CDDCB196E3056001E3700 /* Images.xcassets */; };
 		C3A21BF91D8ECD08002F01A1 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A21BF81D8ECD08002F01A1 /* SnapshotHelper.swift */; };
@@ -52,7 +52,6 @@
 		C3F0AC091D3232E400C252EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0AC041D3232E400C252EC /* AppDelegate.swift */; };
 		C3F0AC0B1D3232E400C252EC /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0AC061D3232E400C252EC /* InfoVC.swift */; };
 		C3FC5E5E1D8931CE006B696A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3FC5E5D1D8931CE006B696A /* Launch Screen.storyboard */; };
-		CFA5C550F36D014A91533C96 /* Pods_mdxplayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C5756025C4A1B8895623A3 /* Pods_mdxplayer.framework */; };
 		F8350FF11D9C8D9A00A9B239 /* lzx042.c in Sources */ = {isa = PBXBuildFile; fileRef = F8350FEF1D9C8D9A00A9B239 /* lzx042.c */; };
 /* End PBXBuildFile section */
 
@@ -155,13 +154,13 @@
 				C32DDA821710451E00D11883 /* CFNetwork.framework in Frameworks */,
 				C32DD9A0170CA54B00D11883 /* MediaPlayer.framework in Frameworks */,
 				C32DD99E170C9F1100D11883 /* QuartzCore.framework in Frameworks */,
+				C35B8CC92EC2F19E003A7EE4 /* SwiftyDropbox in Frameworks */,
 				C32DD994170C61D300D11883 /* CoreAudio.framework in Frameworks */,
 				C32DD991170C61C800D11883 /* AudioToolbox.framework in Frameworks */,
 				C32DD992170C61C800D11883 /* AVFoundation.framework in Frameworks */,
 				C32DD930170C610900D11883 /* UIKit.framework in Frameworks */,
 				C32DD932170C610900D11883 /* Foundation.framework in Frameworks */,
 				C32DD934170C610900D11883 /* CoreGraphics.framework in Frameworks */,
-				CFA5C550F36D014A91533C96 /* Pods_mdxplayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,11 +375,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C32DD94F170C610900D11883 /* Build configuration list for PBXNativeTarget "mdxplayer" */;
 			buildPhases = (
-				5EE140CE401CCAD7C2A64FBB /* [CP] Check Pods Manifest.lock */,
 				C32DD928170C610900D11883 /* Sources */,
 				C32DD929170C610900D11883 /* Frameworks */,
 				C32DD92A170C610900D11883 /* Resources */,
-				DC39E6297E5849066A8FDAF2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -442,6 +439,9 @@
 				Base,
 			);
 			mainGroup = C32DD923170C610800D11883;
+			packageReferences = (
+				C35B8CC72EC2F19E003A7EE4 /* XCRemoteSwiftPackageReference "SwiftyDropbox" */,
+			);
 			productRefGroup = C32DD92D170C610900D11883 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -466,7 +466,6 @@
 				C3FC5E5E1D8931CE006B696A /* Launch Screen.storyboard in Resources */,
 				C37AB39317113AEC004780D3 /* InfoPlist.strings in Resources */,
 				C37AB39417113AEC004780D3 /* MainStoryboard.storyboard in Resources */,
-				C37AB39617113AEC004780D3 /* mdxplayer.entitlements in Resources */,
 				C37AB39717113AEC004780D3 /* s2utbl.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,47 +478,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5EE140CE401CCAD7C2A64FBB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-mdxplayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DC39E6297E5849066A8FDAF2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-mdxplayer/Pods-mdxplayer-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox/SwiftyDropbox.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyDropbox.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mdxplayer/Pods-mdxplayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C32DD928170C610900D11883 /* Sources */ = {
@@ -633,10 +591,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -676,22 +634,21 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0B8868FD-265B-4FC4-9729-15EB11E965AF";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		C32DD950170C610900D11883 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C7453DBC0459ED17CA4BB53 /* Pods-mdxplayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = resources/mdxplayer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -701,8 +658,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "resources/mdxplayer-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/resources/mdxplayer-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nagisa.mdxplayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -717,10 +677,8 @@
 		};
 		C32DD951170C610900D11883 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0633E8A337BE7F7E048A522 /* Pods-mdxplayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = resources/mdxplayer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -730,8 +688,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "resources/mdxplayer-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/resources/mdxplayer-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nagisa.mdxplayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -765,8 +726,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = mdxplayerUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nagisa.mdxplayerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -800,8 +765,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = mdxplayerUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nagisa.mdxplayerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -841,6 +810,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C35B8CC72EC2F19E003A7EE4 /* XCRemoteSwiftPackageReference "SwiftyDropbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dropbox/SwiftyDropbox.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.2.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C35B8CC82EC2F19E003A7EE4 /* SwiftyDropbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C35B8CC72EC2F19E003A7EE4 /* XCRemoteSwiftPackageReference "SwiftyDropbox" */;
+			productName = SwiftyDropbox;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C32DD924170C610800D11883 /* Project object */;
 }

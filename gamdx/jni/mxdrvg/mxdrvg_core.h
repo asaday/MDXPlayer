@@ -4,6 +4,11 @@
 // Converted for Win32 [MXDRVg] V1.50a
 // Copyright (C) 2000 GORRY.
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+#pragma clang diagnostic ignored "-Wcomma"
+#pragma clang diagnostic ignored "-Wint-to-pointer-cast"
+
 // ;=============================================
 // ;  Filename mxdrv17.x
 // ;  Time Stamp Sun Mar 15 11:52:06 1998
@@ -7332,5 +7337,8 @@ L001190:;
 		.dc.w   $1234
 
 		.end    L0017ea
+
+#pragma clang diagnostic pop
+
 #endif
 

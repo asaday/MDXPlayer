@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 class PlayView: UIView, PlayerDelegate {
     let keyLayer = CALayer()
     let speLayer = CALayer()
@@ -160,8 +161,11 @@ class PlayView: UIView, PlayerDelegate {
     }
 
     @objc func tapLong(_ ges: UILongPressGestureRecognizer) {
-        if ges.state == .began { Player.sharedInstance().speedup = true }
-        else if ges.state != .cancelled { Player.sharedInstance().speedup = false }
+        if ges.state == .began {
+            Player.sharedInstance().speedup = true
+        } else if ges.state != .cancelled {
+            Player.sharedInstance().speedup = false
+        }
     }
 
     override func layoutSubviews() {
@@ -228,7 +232,7 @@ class PlayView: UIView, PlayerDelegate {
         durationLabel.frame = sb.resize(100, 20, .topRight).offset(-5, y + 5)
         y += 20
 
-        let crc = sb.resize(0, sb.height - y, .bottom).resize(0, 44 * 4, .center) // control rect height=fix ypos=center in rest
+        let crc = sb.resize(0, sb.height - y, .bottom).resize(0, 44 * 4, .center)  // control rect height=fix ypos=center in rest
         titleLabel.frame = crc.resize(-20, 44, .top).offset(0, 12)
         descLabel.frame = crc.resize(-20, 22, .top).offset(0, 64)
 
@@ -251,8 +255,10 @@ class PlayView: UIView, PlayerDelegate {
         Player.sharedInstance().togglePause()
     }
 
-    func didChangePause(to pause: Bool) {
-        playBtn.isSelected = pause
+    nonisolated func didChangePause(to pause: Bool) {
+        Task { @MainActor in
+            playBtn.isSelected = pause
+        }
     }
 
     @objc func tapPrev() {
@@ -275,20 +281,24 @@ class PlayView: UIView, PlayerDelegate {
         if opened { return }
         opened = true
         openBtn.setImage(UIImage(named: "arrow_down"), for: .normal)
-        UIView.animate(withDuration: 0.3, animations: {
-            self.frame = self.superview!.bounds
-            self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            self.layout()
-        })
+        UIView.animate(
+            withDuration: 0.3,
+            animations: {
+                self.frame = self.superview!.bounds
+                self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                self.layout()
+            })
     }
 
     @objc func doClose() {
         if !opened { return }
         opened = false
         openBtn.setImage(UIImage(named: "arrow_up"), for: .normal)
-        UIView.animate(withDuration: 0.3, animations: {
-            self.setClose()
-        })
+        UIView.animate(
+            withDuration: 0.3,
+            animations: {
+                self.setClose()
+            })
     }
 
     func setClose() {
@@ -302,7 +312,9 @@ class PlayView: UIView, PlayerDelegate {
     @objc func tapSmp() {
         var idx = 0
         let params: [Int] = [44100, 48000, 62500, 22050]
-        if let ci = params.firstIndex(of: Player.sharedInstance().samplingRate) { idx = (ci + 1) % params.count }
+        if let ci = params.firstIndex(of: Player.sharedInstance().samplingRate) {
+            idx = (ci + 1) % params.count
+        }
 
         Player.sharedInstance().samplingRate = params[idx]
         smpLabel.text = String(format: "%.1fk", Float(Player.sharedInstance().samplingRate) / 1000)
@@ -337,29 +349,35 @@ class PlayView: UIView, PlayerDelegate {
         fatalError()
     }
 
-    func didEnd() {}
-    func didStart() {
-        titleLabel.text = Player.sharedInstance().title
-        descLabel.text = Player.sharedInstance().file?.lastPathComponent
-    }
-
-    func didChangeSecond() {
-        let current = Player.sharedInstance().current
-        let duration = Player.sharedInstance().duration
-        let remain = duration - current
-
-        progressLabel.text = String(format: "%0d:%02d", current / 60, current % 60)
-        if duration == 0 {
-            durationLabel.text = "infinity"
-            progressSlider.value = 1
-        } else {
-            durationLabel.text = String(format: "-%0d:%02d", remain / 60, remain % 60)
-            progressSlider.value = Float(current) / Float(duration)
+    nonisolated func didEnd() {}
+    nonisolated func didStart() {
+        Task { @MainActor in
+            titleLabel.text = Player.sharedInstance().title
+            descLabel.text = Player.sharedInstance().file?.lastPathComponent
         }
     }
 
-    func didChangeStatus() {
-        if keyLayer.isHidden { return }
-        Player.redrawKey(keyLayer, speana: speLayer, paint: true)
+    nonisolated func didChangeSecond() {
+        Task { @MainActor in
+            let current = Player.sharedInstance().current
+            let duration = Player.sharedInstance().duration
+            let remain = duration - current
+
+            progressLabel.text = String(format: "%0d:%02d", current / 60, current % 60)
+            if duration == 0 {
+                durationLabel.text = "infinity"
+                progressSlider.value = 1
+            } else {
+                durationLabel.text = String(format: "-%0d:%02d", remain / 60, remain % 60)
+                progressSlider.value = Float(current) / Float(duration)
+            }
+        }
+    }
+
+    nonisolated func didChangeStatus() {
+        Task { @MainActor in
+            if keyLayer.isHidden { return }
+            Player.redrawKey(keyLayer, speana: speLayer, paint: true)
+        }
     }
 }

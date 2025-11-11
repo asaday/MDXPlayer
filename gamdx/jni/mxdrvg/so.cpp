@@ -1,7 +1,7 @@
 #define MXDRVG_EXPORT
 #define MXDRVG_CALLBACK
 
-volatile unsigned char OpmReg1B;  // OPM レジスタ $1B の内容
+volatile unsigned char OpmReg1B;  // OPM 繝ｬ繧ｸ繧ｹ繧ｿ $1B 縺ｮ蜀�螳ｹ
 
 #include "mxdrvg_core.h"
 

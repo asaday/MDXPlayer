@@ -8,17 +8,17 @@
 #define FM_GEN_INL_H
 
 // ---------------------------------------------------------------------------
-//	�萔���̂Q
+//	定数その２
 //	
 #define FM_PI			3.14159265358979323846
 
-#define FM_SINEPRESIS	2			// EG�ƃT�C���g�̐��x�̍�  0(��)-2(��)
+#define FM_SINEPRESIS	2			// EGとサイン波の精度の差  0(低)-2(高)
 
 
 #define FM_OPSINBITS	10
 #define FM_OPSINENTS	(1 << FM_OPSINBITS)
 
-#define FM_EGCBITS		18			// eg �� count �̃V�t�g�l
+#define FM_EGCBITS		18			// eg の count のシフト値
 #define FM_LFOCBITS		14
 
 #ifdef FM_TUNEBUILD
@@ -26,7 +26,7 @@
  #define FM_RATIOBITS	0
 #else
  #define FM_PGBITS		9		
- #define FM_RATIOBITS	7			// 8-12 ���炢�܂ŁH
+ #define FM_RATIOBITS	7			// 8-12 くらいまで？
 #endif
 
 #define FM_EGBITS		16
@@ -38,16 +38,19 @@
 namespace FM
 {
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcomma"
+
 // ---------------------------------------------------------------------------
 //	Operator
 //
-//	�t�B�[�h�o�b�N�o�b�t�@���N���A
+//	フィードバックバッファをクリア
 inline void Operator::ResetFB()
 {
 	out_ = out2_ = 0;
 }
 
-//	�L�[�I��
+//	キーオン
 inline void Operator::KeyOn()
 {
 	if (!keyon_)
@@ -64,7 +67,7 @@ inline void Operator::KeyOn()
 	}
 }
 
-//	�L�[�I�t
+//	キーオフ
 inline void	Operator::KeyOff()
 {
 	if (keyon_)
@@ -74,7 +77,7 @@ inline void	Operator::KeyOff()
 	}
 }
 
-//	�I�y���[�^�͉ғ������H
+//	オペレータは稼働中か？
 inline int Operator::IsOn()
 {
 	return eg_phase_ - off;
@@ -193,20 +196,20 @@ inline void Operator::SetMS(uint ms)
 // ---------------------------------------------------------------------------
 //	4-op Channel
 
-//	�I�y���[�^�̎�� (LFO) ��ݒ�
+//	オペレータの種類 (LFO) を設定
 inline void Channel4::SetType(OpType type)
 {
 	for (int i=0; i<4; i++)
 		op[i].type_ = type;
 }
 
-//	�Z���t�E�t�B�[�h�o�b�N���[�g�̐ݒ� (0-7)
+//	セルフ・フィードバックレートの設定 (0-7)
 inline void Channel4::SetFB(uint feedback)
 {
 	fb = fbtable[feedback];
 }
 
-//	OPNA �n LFO �̐ݒ�
+//	OPNA 系 LFO の設定
 inline void Channel4::SetMS(uint ms)
 {
 	op[0].SetMS(ms);
@@ -215,14 +218,14 @@ inline void Channel4::SetMS(uint ms)
 	op[3].SetMS(ms);
 }
 
-//	�`�����l���E�}�X�N
+//	チャンネル・マスク
 inline void Channel4::Mute(bool m)
 {
 	for (int i=0; i<4; i++)
 		op[i].Mute(m);
 }
 
-//	�����p�����[�^���Čv�Z
+//	内部パラメータを再計算
 inline void Channel4::Refresh()
 {
 	for (int i=0; i<4; i++)
@@ -250,13 +253,13 @@ inline void StoreSample(Sample& dest, ISample data)
 
 
 // ---------------------------------------------------------------------------
-//	AM �̃��x����ݒ�
+//	AM のレベルを設定
 inline void Chip::SetAML(uint l)
 {
 	aml_ = l & (FM_LFOENTS - 1);
 }
 
-//	PM �̃��x����ݒ�
+//	PM のレベルを設定
 inline void Chip::SetPML(uint l)
 {
 	pml_ = l & (FM_LFOENTS - 1);
@@ -264,5 +267,7 @@ inline void Chip::SetPML(uint l)
 
 
 }
+
+#pragma clang diagnostic pop
 
 #endif // FM_GEN_INL_H

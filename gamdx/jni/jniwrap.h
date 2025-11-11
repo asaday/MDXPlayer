@@ -9,7 +9,7 @@
 #include <jni.h>
 #include <android/log.h>
 
-// ÉäÉäÅ[ÉXÉrÉãÉhÇ≈ÇÕLOGIà»â∫ÇÃÉÅÉbÉZÅ[ÉWÇÕÉçÉOÇ…ï\é¶ÇµÇ»Ç¢
+// „É™„É™„Éº„Çπ„Éì„É´„Éâ„Åß„ÅØLOGI‰ª•‰∏ã„ÅÆ„É°„ÉÉ„Çª„Éº„Ç∏„ÅØ„É≠„Ç∞„Å´Ë°®Á§∫„Åó„Å™„ÅÑ
 #ifdef NDEBUG
 #undef LOGV_ENABLE
 #undef LOGD_ENABLE
@@ -19,18 +19,18 @@
 #define LOGI_ENABLE 0
 #endif  // NDEBUG
 
-// ÉçÉOÇ…ï\é¶Ç∑ÇÈä÷êîñº
+// „É≠„Ç∞„Å´Ë°®Á§∫„Åô„ÇãÈñ¢Êï∞Âêç
 #define __MYFUNC__ __FUNCTION__
 // #define __MYFUNC__ __func__
 
-// ÉçÉOï\é¶
+// „É≠„Ç∞Ë°®Á§∫
 #define  LOGV(...)  if (LOGV_ENABLE) {char tmp[1024]; sprintf(tmp, __VA_ARGS__); __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, LOG_SUBTAG ": %s(): %s", __MYFUNC__, tmp);}
 #define  LOGD(...)  if (LOGD_ENABLE) {char tmp[1024]; sprintf(tmp, __VA_ARGS__); __android_log_print(ANDROID_LOG_DEBUG  , LOG_TAG, LOG_SUBTAG ": %s(): %s", __MYFUNC__, tmp);}
 #define  LOGI(...)  if (LOGI_ENABLE) {char tmp[1024]; sprintf(tmp, __VA_ARGS__); __android_log_print(ANDROID_LOG_INFO   , LOG_TAG, LOG_SUBTAG ": %s(): %s", __MYFUNC__, tmp);}
 #define  LOGW(...)  if (1          ) {char tmp[1024]; sprintf(tmp, __VA_ARGS__); __android_log_print(ANDROID_LOG_WARN   , LOG_TAG, LOG_SUBTAG ": %s(): %s", __MYFUNC__, tmp);}
 #define  LOGE(...)  if (1          ) {char tmp[1024]; sprintf(tmp, __VA_ARGS__); __android_log_print(ANDROID_LOG_ERROR  , LOG_TAG, LOG_SUBTAG ": %s(): %s", __MYFUNC__, tmp);}
 
-// JNIä÷êîñºÇÃçÏê¨
+// JNIÈñ¢Êï∞Âêç„ÅÆ‰ΩúÊàê
 #define JNI_MAKEFUNCNAME2(a,b) a##_##b
 #define JNI_MAKEFUNCNAME1(a,b) JNI_MAKEFUNCNAME2(a,b)
 #define JNI_EXPORT_FUNCNAME(c) JNI_MAKEFUNCNAME1(JNI_MAKEFUNCNAME1(JNI_MAKEFUNCNAME1(Java,MY_JNI_EXPORT_PATH),MY_JNI_EXPORT_NAME),c)

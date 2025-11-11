@@ -378,12 +378,12 @@ static pthread_mutex_t mxdrv_mutex;
     if(oldsec != sec){
         oldsec = sec;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_delegate didChangeSecond];
+            [self->_delegate didChangeSecond];
         });
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
-        [_delegate didChangeStatus];
+        [self->_delegate didChangeStatus];
     });
     
     
@@ -396,10 +396,10 @@ static pthread_mutex_t mxdrv_mutex;
         
         // どうもisMainで無いようなので一応main回し
         dispatch_async(dispatch_get_main_queue(), ^{ // todo: 1sec
-            [_delegate didEnd];
-            if(files != nil){
-                fileIndex = (fileIndex + 1) % files.count;
-                [self playOneFile:files[fileIndex]];
+            [self->_delegate didEnd];
+            if(self->files != nil){
+                self->fileIndex = (self->fileIndex + 1) % self->files.count;
+                [self playOneFile:self->files[self->fileIndex]];
             }
         });
     }

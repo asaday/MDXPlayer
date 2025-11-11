@@ -8,11 +8,12 @@
 
 import UIKit
 
+@MainActor
 class RootListVC: ListVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "MDX"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "info"), style: .plain, target: self, action: #selector(tapInfo))
+        //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "info"), style: .plain, target: self, action: #selector(tapInfo))
     }
 
     @objc func tapInfo() {
@@ -43,9 +44,13 @@ class RootListVC: ListVC {
         }
 
         var vc: ListVC!
-        if item.file == "_dropbox_" { vc = DropboxListVC() }
-        else if item.file == "_history_" { vc = HistoryListVC() }
-        else { vc = ListVC() }
+        if item.file == "_dropbox_" {
+            vc = DropboxListVC()
+        } else if item.file == "_history_" {
+            vc = HistoryListVC()
+        } else {
+            vc = ListVC()
+        }
 
         vc.path = item.file
         vc.title = item.title

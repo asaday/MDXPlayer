@@ -7,7 +7,7 @@ namespace X68K
 
 
 // ---------------------------------------------------------------------------
-//	\’z
+//	æ§‹ç¯‰
 //
 DOWNSAMPLE::DOWNSAMPLE()
 {
@@ -15,7 +15,7 @@ DOWNSAMPLE::DOWNSAMPLE()
 }
 
 // ---------------------------------------------------------------------------
-//	‰Šú‰»
+//	åˆæœŸåŒ–
 //
 bool DOWNSAMPLE::Init(int inrate, int outrate, bool fastmode)
 {
@@ -47,7 +47,7 @@ bool DOWNSAMPLE::Init(int inrate, int outrate, bool fastmode)
 }
 
 // ---------------------------------------------------------------------------
-//	ƒTƒ“ƒvƒ‹ƒŒ[ƒgİ’è
+//	ã‚µãƒ³ãƒ—ãƒ«ãƒ¬ãƒ¼ãƒˆè¨­å®š
 //
 bool DOWNSAMPLE::SetRate(int inrate, int outrate, bool fastmode)
 {
@@ -86,7 +86,7 @@ bool DOWNSAMPLE::SetRate(int inrate, int outrate, bool fastmode)
 }
 
 // ---------------------------------------------------------------------------
-//	ƒŠƒZƒbƒg
+//	ãƒªã‚»ãƒƒãƒˆ
 //
 void DOWNSAMPLE::Reset()
 {
@@ -94,7 +94,7 @@ void DOWNSAMPLE::Reset()
 }
 
 // ---------------------------------------------------------------------------
-//	ƒ_ƒEƒ“ƒTƒ“ƒvƒŠƒ“ƒO
+//	ãƒ€ã‚¦ãƒ³ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°
 //
 void DOWNSAMPLE::DownSample(Sample *inbuf, int noutsamples, Sample *outbuf)
 {
@@ -203,7 +203,7 @@ void DOWNSAMPLE::DownSample(Sample *inbuf, int noutsamples, Sample *outbuf)
 
 
 // ---------------------------------------------------------------------------
-//	ƒ_ƒEƒ“ƒTƒ“ƒvƒ‹o—Í”‚É•K—v‚È“ü—ÍƒTƒ“ƒvƒ‹”‚ğ‹‚ß‚é
+//	ãƒ€ã‚¦ãƒ³ã‚µãƒ³ãƒ—ãƒ«å‡ºåŠ›æ•°ã«å¿…è¦ãªå…¥åŠ›ã‚µãƒ³ãƒ—ãƒ«æ•°ã‚’æ±‚ã‚ã‚‹
 //
 int DOWNSAMPLE::GetInSamplesForDownSample(int noutsamples)
 {
